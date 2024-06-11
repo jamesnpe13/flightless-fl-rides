@@ -5,6 +5,7 @@
 #include <vector>
 #include "Header.h"
 #include "Structs.h"
+using namespace std;
 
 int main()
 {
