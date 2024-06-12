@@ -9,6 +9,9 @@ using namespace std;
 
 int main()
 {
+	struct Passenger NewPassenger;
+
+
 
 	return 0;
 }
