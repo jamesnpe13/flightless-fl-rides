@@ -5,10 +5,10 @@
 
 unsigned int getDay();
 unsigned int getYear();
-bool isValid(int targetMonth_, int targetYear_);
+bool dateIsValid(int targetMonth_, int targetYear_);
 void showPassengeMembers(const Passenger& target_);
 void registerNewPassenger();
-
-
+void inputValidation(int* target_);
+bool isNumber(const std::string& s);
 
 #endif

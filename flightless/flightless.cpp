@@ -12,9 +12,5 @@ using namespace std;
 
 int main()
 {
-	//struct Passenger NewPassenger;
-	//showPassengeMembers(NewPassenger);
-	registerNewPassenger();
-
 	return 0;
 }
