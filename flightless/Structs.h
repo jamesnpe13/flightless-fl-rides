@@ -2,6 +2,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <string>
+#include "Header.h"
 using namespace std;
 
 struct Passenger
@@ -30,5 +31,9 @@ struct Passenger
 		gender = paymentMethod = cardExpiryM = cardExpiryY = 0;
 	}
 };
+
+
+
+
 
 #endif
