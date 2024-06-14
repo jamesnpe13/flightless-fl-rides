@@ -32,8 +32,19 @@ struct Passenger
 	}
 };
 
+struct Admin
+{
+	// personal details
+	string firstName;
+	string lastName;
+	string username;
+	string password;
 
-
-
+	// default constructor
+	Admin()
+	{
+		firstName = lastName = username = password = "";
+	}
+};
 
 #endif

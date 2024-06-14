@@ -11,11 +11,8 @@ using namespace std;
 
 int main()
 {
+	registerNewAdmin();
 	return 0;
 }
 
-int dateFunc()
-{
-
-}
 

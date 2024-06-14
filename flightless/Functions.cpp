@@ -55,7 +55,6 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 	return timeDiffDays > 0 ? 1 : 0;
 }
 
-
 // cout struct members
 void showPassengeMembers(const Passenger& target_)
 {
@@ -187,6 +186,30 @@ void registerNewPassenger()
 		}
 	}
 
+	cout << "New passenger registration successful." << endl;
+}
 
-	cout << "Registration successful" << endl;
+// register new administrator
+void registerNewAdmin()
+{
+	// create struct
+	struct Admin tempAdmin;
+
+	// first name
+	cout << "First name: ";
+	cin >> tempAdmin.firstName;
+
+	// last name
+	cout << "Last name: ";
+	cin >> tempAdmin.lastName;
+
+	// username
+	cout << "Username: ";
+	cin >> tempAdmin.username;
+
+	// password
+	cout << "Password: ";
+	cin >> tempAdmin.password;
+
+	cout << "New admin registration successful." << endl;
 }
