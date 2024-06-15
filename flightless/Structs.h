@@ -32,8 +32,34 @@ struct Passenger
 	}
 };
 
+struct Admin
+{
+	// personal details
+	string firstName;
+	string lastName;
+	string username;
+	string password;
 
+	// default constructor
+	Admin()
+	{
+		firstName = lastName = username = password = "";
+	}
+};
 
+// test fstream file handling
+struct Person
+{
+	string name;
+	int age;
+	int gender;
+	string country;
+	string mobileNumber;
 
-
+	Person()
+	{
+		name = country = mobileNumber = "";
+		age = gender = 0;
+	}
+};
 #endif

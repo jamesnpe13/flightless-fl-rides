@@ -8,6 +8,7 @@
 #include "Structs.h"
 #include <stdio.h>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 unsigned int getDay()
@@ -54,7 +55,6 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 
 	return timeDiffDays > 0 ? 1 : 0;
 }
-
 
 // cout struct members
 void showPassengeMembers(const Passenger& target_)
@@ -187,6 +187,91 @@ void registerNewPassenger()
 		}
 	}
 
+	cout << "New passenger registration successful." << endl;
+}
 
-	cout << "Registration successful" << endl;
+// register new administrator
+void registerNewAdmin()
+{
+	// create struct
+	struct Admin tempAdmin;
+
+	// first name
+	cout << "First name: ";
+	cin >> tempAdmin.firstName;
+
+	// last name
+	cout << "Last name: ";
+	cin >> tempAdmin.lastName;
+
+	// username
+	cout << "Username: ";
+	cin >> tempAdmin.username;
+
+	// password
+	cout << "Password: ";
+	cin >> tempAdmin.password;
+
+	cout << "New admin registration successful." << endl;
+}
+
+// test fstream file handling
+void fstreamTest()
+{
+	vector<Person> users;
+	// create an fstream object
+	fstream myFile;
+
+	// attempt to open file and set mode to in
+	myFile.open("users.txt", ios::in);
+
+	// check if file opened successfully
+	if (myFile.is_open())
+	{
+		// loop every line in file
+		string line;
+
+		// create temp person 
+		Person tempPerson;
+		while (getline(myFile, line))
+		{
+			// for each line check key if matches conditions
+			string key = line.substr(0, line.find(":"));
+			string val = line.substr(line.find(":") + 2);
+
+
+			// assign struct member value accordingly
+
+			if (key == "name")
+			{
+				tempPerson.name = val;
+			}
+			if (key == "age")
+			{
+				tempPerson.age = stoi(val);
+			}
+			if (key == "gender")
+			{
+				tempPerson.gender = stoi(val);
+			}
+			if (key == "mobile_number")
+			{
+				tempPerson.mobileNumber = val;
+			}
+			if (key == "country")
+			{
+				tempPerson.country = val;
+			}
+		}
+
+		cout << tempPerson.name << endl;
+		cout << tempPerson.age << endl;
+		cout << tempPerson.gender << endl;
+		cout << tempPerson.mobileNumber << endl;
+		cout << tempPerson.country << endl;
+	}
+	else
+	{
+		cout << "File not found!" << endl;
+	}
 }
