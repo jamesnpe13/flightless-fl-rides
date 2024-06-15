@@ -274,3 +274,4 @@ void fstreamTest()
 	{
 		cout << "File not found!" << endl;
 	}
+}
