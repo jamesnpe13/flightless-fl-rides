@@ -47,4 +47,19 @@ struct Admin
 	}
 };
 
+// test fstream file handling
+struct Person
+{
+	string name;
+	int age;
+	int gender;
+	string country;
+	string mobileNumber;
+
+	Person()
+	{
+		name = country = mobileNumber = "";
+		age = gender = 0;
+	}
+};
 #endif

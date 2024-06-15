@@ -16,4 +16,7 @@ void registerNewAdmin();
 
 //void registerNewBooking();
 
+// test fstream file handling
+void fstreamTest();
+
 #endif

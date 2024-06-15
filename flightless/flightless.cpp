@@ -7,11 +7,15 @@
 #include "Structs.h"
 #include <stdio.h>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 int main()
 {
 	registerNewAdmin();
+	//registerNewAdmin();
+	fstreamTest();
+
 	return 0;
 }
 
