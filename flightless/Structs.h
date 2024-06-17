@@ -2,7 +2,6 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <string>
-#include "Header.h"
 using namespace std;
 
 struct Passenger
@@ -47,19 +46,4 @@ struct Admin
 	}
 };
 
-// test fstream file handling
-struct Person
-{
-	string name;
-	int age;
-	int gender;
-	string country;
-	string mobileNumber;
-
-	Person()
-	{
-		name = country = mobileNumber = "";
-		age = gender = 0;
-	}
-};
 #endif

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
+
 using namespace std;
 
 unsigned int getDay()
@@ -72,6 +73,15 @@ void showPassengeMembers(const Passenger& target_)
 	cout << "Card expiry Year: " << target_.cardExpiryY << endl;
 }
 
+// cout struct members
+void showAdminMembers(const Admin& target_)
+{
+	cout << "First name: " << target_.firstName << endl;
+	cout << "Last name: " << target_.lastName << endl;
+	cout << "Username: " << target_.username << endl;
+	cout << "Password: " << target_.password << endl;
+}
+
 // check if input data type matches variable dataw type
 void inputValidation(int* target_)
 {
@@ -90,6 +100,14 @@ bool isNumber(const std::string& s)
 	return !s.empty() && std::find_if(s.begin(),
 		s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
 }
+
+
+
+/*
+		USER REGISTRATION
+*/
+
+
 
 // register new passenger
 void registerNewPassenger()
@@ -215,63 +233,48 @@ void registerNewAdmin()
 	cout << "New admin registration successful." << endl;
 }
 
-// test fstream file handling
-void fstreamTest()
+void mainMenu()
 {
-	vector<Person> users;
-	// create an fstream object
-	fstream myFile;
+	int choice;
 
-	// attempt to open file and set mode to in
-	myFile.open("users.txt", ios::in);
+	cout << "\n\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|        ||||||||  ||                    COST EFFECTIVE                   |=|" << endl;
+	cout << "\t|=|        ||        ||                    &                                |=|" << endl;
+	cout << "\t|=|        ||||||||  ||                    SEAMLESS RIDE                    |=|" << endl;
+	cout << "\t|=|        ||        ||                                                     |=|" << endl;
+	cout << "\t|=|        ||        ||||||||              KIWI EXPERIENCE                  |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                   ! WELCOME TO FLIGHTLESS RIDES !                       |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|                               1. Rider                                  |=|" << endl;
+	cout << "\t|=|                               2. Driver                                 |=|" << endl;
+	cout << "\t|=|                               3. Admin                                  |=|" << endl;
+	cout << "\t|=|                               Q. Quit                                   |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
 
-	// check if file opened successfully
-	if (myFile.is_open())
+	cout << "\n\tPress a key to continue: ";
+	cin >> choice;
+
+	switch (choice)
 	{
-		// loop every line in file
-		string line;
-
-		// create temp person 
-		Person tempPerson;
-		while (getline(myFile, line))
-		{
-			// for each line check key if matches conditions
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-
-			// assign struct member value accordingly
-
-			if (key == "name")
-			{
-				tempPerson.name = val;
-			}
-			if (key == "age")
-			{
-				tempPerson.age = stoi(val);
-			}
-			if (key == "gender")
-			{
-				tempPerson.gender = stoi(val);
-			}
-			if (key == "mobile_number")
-			{
-				tempPerson.mobileNumber = val;
-			}
-			if (key == "country")
-			{
-				tempPerson.country = val;
-			}
-		}
-
-		cout << tempPerson.name << endl;
-		cout << tempPerson.age << endl;
-		cout << tempPerson.gender << endl;
-		cout << tempPerson.mobileNumber << endl;
-		cout << tempPerson.country << endl;
-	}
-	else
-	{
-		cout << "File not found!" << endl;
+	case 1:
+		
+		break;
+	case 2:
+	
+		break;
+	case 3:
+		
+		break;
+	case 4:
+		cout << "Thank you for visiting FL RIDES!" << endl;
+		break;
 	}
 }

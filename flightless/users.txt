@@ -1,5 +1,0 @@
-name: James Elazegui
-age: 28
-gender: 0
-country: New Zealand
-mobile_number: 021967719
