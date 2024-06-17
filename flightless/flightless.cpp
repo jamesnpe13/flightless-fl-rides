@@ -27,12 +27,19 @@ int main()
 	//vector<Booking> bookingVector;
 
 	//registerNewPassenger();
+	registerNewAdmin();
 
-	loadPassengerFile(&passengerVector);
+	loadAdminFile(&adminVector);
+	for (int i = 0; i < adminVector.size(); i++)
+	{
+		showAdminMembers(adminVector[i]);
+	}
+
+	/*loadPassengerFile(&passengerVector);
 	for (int i = 0; i < passengerVector.size(); i++)
 	{
 		showPassengerMembers(passengerVector[i]);
-	}
+	}*/
 
 	////loadDriverFile(&driverVector);
 	//loadAdminFile(&adminVector);

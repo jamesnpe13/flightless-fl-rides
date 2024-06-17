@@ -185,7 +185,7 @@ void registerNewPassenger()
 
 	// mobile number
 	cout << "Mobile number: ";
-	cin >> tempPassenger.mobileNumber;	
+	cin >> tempPassenger.mobileNumber;
 
 	// email
 	cout << "Email:  ";
@@ -257,20 +257,21 @@ void registerNewAdmin()
 
 	// first name
 	cout << "First name: ";
-	cin >> tempAdmin.firstName;
+	getline(cin, tempAdmin.firstName);
 
 	// last name
 	cout << "Last name: ";
-	cin >> tempAdmin.lastName;
+	getline(cin, tempAdmin.lastName);
 
 	// username
 	cout << "Username: ";
-	cin >> tempAdmin.username;
+	getline(cin, tempAdmin.username);
 
 	// password
 	cout << "Password: ";
-	cin >> tempAdmin.password;
+	getline(cin, tempAdmin.password);
 
+	writeToFile(&tempAdmin);
 	cout << "New admin registration successful." << endl;
 }
 
