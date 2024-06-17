@@ -17,6 +17,7 @@ void loadPassengerFile(vector<Passenger>* passengerVector_);
 void loadAdminFile(vector<Admin>* adminVector);
 //void loadPassengerFile(vector<Booking>* bookingVector);
 
+
 int main()
 {
 	// data vectors 
@@ -25,10 +26,24 @@ int main()
 	vector<Admin> adminVector;
 	//vector<Booking> bookingVector;
 
-	loadPassengerFile(&passengerVector);
-	//loadDriverFile(&driverVector);
+	//registerNewPassenger();
+	registerNewAdmin();
+
 	loadAdminFile(&adminVector);
-	//loadBookingFile(&bookingVector);
+	for (int i = 0; i < adminVector.size(); i++)
+	{
+		showAdminMembers(adminVector[i]);
+	}
+
+	/*loadPassengerFile(&passengerVector);
+	for (int i = 0; i < passengerVector.size(); i++)
+	{
+		showPassengerMembers(passengerVector[i]);
+	}*/
+
+	////loadDriverFile(&driverVector);
+	//loadAdminFile(&adminVector);
+	////loadBookingFile(&bookingVector);
 
 
 	return 0;
@@ -78,11 +93,7 @@ void loadPassengerFile(vector<Passenger>* passengerVector_)
 		cout << "ERROR! Unable to open file " << fileName << endl;
 	}
 
-
-	for (int i = 0; i < (*passengerVector_).size(); i++)
-	{
-		showPassengeMembers((*passengerVector_)[i]);
-	}
+	file.close();
 }
 
 // load admin file
@@ -123,11 +134,7 @@ void loadAdminFile(vector<Admin>* adminVector_)
 		cout << "ERROR! Unable to open file " << fileName << endl;
 	}
 
-
-	for (int i = 0; i < (*adminVector_).size(); i++)
-	{
-		showAdminMembers((*adminVector_)[i]);
-	}
+	file.close();
 }
 
 

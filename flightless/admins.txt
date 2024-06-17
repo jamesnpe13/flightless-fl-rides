@@ -1,9 +1,5 @@
-firstName: James [admin]
-lastName: Elazegui
-username: jamesnpe13
-password: prairie123
+firstName: The new admin guy
+lastName: The last name
+username: admin
+password: password
 
-firstName: Francis [admin]
-lastName: Elazegui
-username: jamesnpe13
-password: prairie123
