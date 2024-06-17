@@ -17,6 +17,11 @@ void loadPassengerFile(vector<Passenger>* passengerVector_);
 void loadAdminFile(vector<Admin>* adminVector);
 //void loadPassengerFile(vector<Booking>* bookingVector);
 
+void menuA();
+
+void menuB();
+
+void loadUserData();
 
 int main()
 {
@@ -25,28 +30,46 @@ int main()
 	//vector<Driver> driverVector;
 	vector<Admin> adminVector;
 	//vector<Booking> bookingVector;
+	loadUserData();
+	registerNewPassenger();
+	/*registerNewAdmin();*/
 
-	//registerNewPassenger();
-	registerNewAdmin();
+	//loadAdminFile(&adminVector);
+	//for (int i = 0; i < adminVector.size(); i++)
+	//{
+	//	showAdminMembers(adminVector[i]);
+	//}
 
-	loadAdminFile(&adminVector);
-	for (int i = 0; i < adminVector.size(); i++)
-	{
-		showAdminMembers(adminVector[i]);
-	}
-
-	/*loadPassengerFile(&passengerVector);
+	loadPassengerFile(&passengerVector);
 	for (int i = 0; i < passengerVector.size(); i++)
 	{
 		showPassengerMembers(passengerVector[i]);
-	}*/
+	}
 
-	////loadDriverFile(&driverVector);
+	////loadDriverFile(&driverVector);	
 	//loadAdminFile(&adminVector);
 	////loadBookingFile(&bookingVector);
 
 
 	return 0;
+}
+
+void loadUserData()
+{
+	string fileName = "user.txt";
+	fstream file;
+	file.open(fileName, ios::in);
+	string line;
+	string currentUserName;
+
+	if (file.is_open())
+	{
+		getline(file, line);
+		currentUserName = line.substr(line.find(":") + 2);
+
+		cout << "Greetings, " << currentUserName << "!" << endl;
+
+	}
 }
 
 // load passenger file
@@ -136,6 +159,7 @@ void loadAdminFile(vector<Admin>* adminVector_)
 
 	file.close();
 }
+
 
 
 

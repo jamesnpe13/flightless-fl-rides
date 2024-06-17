@@ -60,6 +60,8 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 // cout struct members
 void showPassengerMembers(const Passenger& target_)
 {
+	cout << "=================================" << endl;
+	cout << "[PASSENGER]" << endl;
 	cout << "First name: " << target_.firstName << endl;
 	cout << "Last name: " << target_.lastName << endl;
 	cout << "Gender: " << target_.gender << endl;
@@ -71,15 +73,19 @@ void showPassengerMembers(const Passenger& target_)
 	cout << "Card number: " << target_.cardNumber << endl;
 	cout << "Card expiry month: " << target_.cardExpiryM << endl;
 	cout << "Card expiry Year: " << target_.cardExpiryY << endl;
+	cout << "=================================" << endl;
 }
 
 // cout struct members
 void showAdminMembers(const Admin& target_)
 {
+	cout << "=================================" << endl;
+	cout << "[ADMIN]" << endl;
 	cout << "First name: " << target_.firstName << endl;
 	cout << "Last name: " << target_.lastName << endl;
 	cout << "Username: " << target_.username << endl;
 	cout << "Password: " << target_.password << endl;
+	cout << "=================================" << endl;
 }
 
 // check if input data type matches variable dataw type
@@ -146,8 +152,6 @@ void writeToFile(Admin* tempUser)
 
 	file.close();
 }
-
-
 
 // register new passenger
 void registerNewPassenger()

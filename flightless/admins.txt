@@ -3,3 +3,13 @@ lastName: The last name
 username: admin
 password: password
 
+firstName: My name is new admin
+lastName: This is my last name
+username: admin
+password: password
+
+firstName: Prairie Admin
+lastName: Admin po
+username: admin
+password: password
+
