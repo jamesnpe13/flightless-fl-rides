@@ -58,7 +58,7 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 }
 
 // cout struct members
-void showPassengeMembers(const Passenger& target_)
+void showPassengerMembers(const Passenger& target_)
 {
 	cout << "First name: " << target_.firstName << endl;
 	cout << "Last name: " << target_.lastName << endl;
@@ -107,6 +107,46 @@ bool isNumber(const std::string& s)
 		USER REGISTRATION
 */
 
+void writeToFile(Passenger* tempUser)
+{
+	fstream file;
+	file.open("passengers.txt", ios::app);
+
+	if (file.is_open())
+	{
+		file << "firstName: " << tempUser->firstName << endl;
+		file << "lastName: " << tempUser->lastName << endl;
+		file << "gender: " << tempUser->gender << endl;
+		file << "mobileNumber: " << tempUser->mobileNumber << endl;
+		file << "email: " << tempUser->email << endl;
+		file << "username: " << tempUser->username << endl;
+		file << "password: " << tempUser->password << endl;
+		file << "paymentMethod: " << tempUser->paymentMethod << endl;
+		file << "cardNumber: " << tempUser->cardNumber << endl;
+		file << "cardExpiryM: " << tempUser->cardExpiryM << endl;
+		file << "cardExpiryY: " << tempUser->cardExpiryY << endl;
+		file << endl;
+	}
+
+	file.close();
+}
+void writeToFile(Admin* tempUser)
+{
+	fstream file;
+	file.open("admins.txt", ios::app);
+
+	if (file.is_open())
+	{
+		file << "firstName: " << tempUser->firstName << endl;
+		file << "lastName: " << tempUser->lastName << endl;
+		file << "username: " << tempUser->username << endl;
+		file << "password: " << tempUser->password << endl;
+		file << endl;
+	}
+
+	file.close();
+}
+
 
 
 // register new passenger
@@ -117,19 +157,19 @@ void registerNewPassenger()
 
 	// first name
 	cout << "First name: ";
-	cin >> tempPassenger.firstName;
+	getline(cin, tempPassenger.firstName);
 
 	// last name
 	cout << "Last name: ";
-	cin >> tempPassenger.lastName;
+	getline(cin, tempPassenger.lastName);
 
 	// username
 	cout << "Username: ";
-	cin >> tempPassenger.username;
+	getline(cin, tempPassenger.username);
 
 	// password
 	cout << "Password: ";
-	cin >> tempPassenger.password;
+	getline(cin, tempPassenger.password);
 
 	// gender
 	cout << "Gender (0 = male, 1 = female): ";
@@ -145,7 +185,7 @@ void registerNewPassenger()
 
 	// mobile number
 	cout << "Mobile number: ";
-	cin >> tempPassenger.mobileNumber;
+	cin >> tempPassenger.mobileNumber;	
 
 	// email
 	cout << "Email:  ";
@@ -205,6 +245,7 @@ void registerNewPassenger()
 		}
 	}
 
+	writeToFile(&tempPassenger);
 	cout << "New passenger registration successful." << endl;
 }
 
@@ -265,13 +306,13 @@ void mainMenu()
 	switch (choice)
 	{
 	case 1:
-		
+
 		break;
 	case 2:
-	
+
 		break;
 	case 3:
-		
+
 		break;
 	case 4:
 		cout << "Thank you for visiting FL RIDES!" << endl;

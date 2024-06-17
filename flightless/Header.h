@@ -7,7 +7,7 @@
 unsigned int getDay();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_);
-void showPassengeMembers(const Passenger& target_);
+void showPassengerMembers(const Passenger& target_);
 void showAdminMembers(const Admin& target_);
 void inputValidation(int* target_);
 bool isNumber(const std::string& s);
@@ -18,6 +18,9 @@ enum UserType
 	driver,
 	passenger
 };
+
+void writeToFile(Passenger * tempUser_);
+//void writeToFile(vector<Admin>* tempUser_);
 
 void registerNewPassenger();
 void registerNewAdmin();

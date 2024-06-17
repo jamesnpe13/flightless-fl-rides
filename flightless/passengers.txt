@@ -4,20 +4,33 @@ gender: 0
 mobileNumber: 021967716
 email: jameselazegui21@gmail.com
 username: jamesnpe13
-password: prairie123
+password: prairie135
 paymentMethod: 1
 cardNumber: 1111222233334444
-cardExpiryM: 10
-cardExpiryY: 26
+cardExpiryM: 11
+cardExpiryY: 2025
 
 firstName: Prairie
 lastName: Elazegui
 gender: 1
 mobileNumber: 0274644449
-email: prairie@gmail.com
-username: prairieE
-password: prairie123
+email: prairieelaz@gmail.com
+username: prairieelaz
+password: james135
 paymentMethod: 1
 cardNumber: 1111222233334444
-cardExpiryM: 10
-cardExpiryY: 26
+cardExpiryM: 4
+cardExpiryY: 2025
+
+firstName: Maureen
+lastName: Bay
+gender: 1
+mobileNumber: 123345123
+email: asdasd@gmail.copm
+username: maubay
+password: 123123
+paymentMethod: 1
+cardNumber: 1111222233334444
+cardExpiryM: 12
+cardExpiryY: 2026
+
