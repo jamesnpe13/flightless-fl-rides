@@ -4,7 +4,7 @@
 #include "Structs.h"
 #include <vector>
 
-typedef string date_t;
+
 typedef vector<Passenger> passengerV_t;
 typedef vector<Admin> adminV_t;
 //typedef vector<Driver> driverV_t;

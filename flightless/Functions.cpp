@@ -12,6 +12,7 @@
 
 using namespace std;
 
+// date handling functions
 unsigned int getDay()
 {
 	time_t now = time(0);
@@ -19,7 +20,6 @@ unsigned int getDay()
 
 	return ltm->tm_mday;
 }
-
 unsigned int getYear()
 {
 	time_t now = time(0);
@@ -27,8 +27,6 @@ unsigned int getYear()
 
 	return ltm->tm_year + 1900;
 }
-
-// check if date is valid. returns boolean
 bool dateIsValid(int targetMonth_, int targetYear_)
 {
 	// checks whether a given dd/yyyy date is still valid
@@ -57,7 +55,7 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 	return timeDiffDays > 0 ? 1 : 0;
 }
 
-// cout struct members
+// print struct members functions
 static void showPassengerMembers(const s_Passenger& target_)
 {
 	cout << "=================================" << endl;
@@ -75,8 +73,6 @@ static void showPassengerMembers(const s_Passenger& target_)
 	cout << "Card expiry Year: " << target_.cardExpiryY << endl;
 	cout << "=================================" << endl;
 }
-
-// cout struct members
 static void showAdminMembers(const s_Admin& target_)
 {
 	cout << "=================================" << endl;
@@ -87,7 +83,6 @@ static void showAdminMembers(const s_Admin& target_)
 	cout << "Password: " << target_.password << endl;
 	cout << "=================================" << endl;
 }
-
 void showAll(const adminV_t* targetVector_)
 {
 	for (s_Admin item : *targetVector_)
@@ -117,7 +112,7 @@ void showAll(const passengerV_t* targetVector_)
 //	}
 //}
 
-// check if input data type matches variable data type
+// Input validation functions
 void inputValidation(int* target_)
 {
 	while (!cin)
@@ -128,20 +123,13 @@ void inputValidation(int* target_)
 		cin >> *target_;
 	}
 }
-
-// check if string consists of numbers
 bool isNumber(const std::string& s)
 {
 	return !s.empty() && std::find_if(s.begin(),
 		s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
 }
 
-
-
-/*
-		USER REGISTRATION
-*/
-
+// file handling functions
 void writeToFile(s_Passenger* tempUser)
 {
 	fstream file;
@@ -182,7 +170,7 @@ void writeToFile(s_Admin* tempUser)
 	file.close();
 }
 
-// register new passenger
+// user registration functions
 void registerNewPassenger()
 {
 	// create struct
@@ -281,8 +269,6 @@ void registerNewPassenger()
 	writeToFile(&tempPassenger);
 	cout << "New passenger registration successful." << endl;
 }
-
-// register new administrator
 void registerNewAdmin()
 {
 	// create struct
@@ -308,6 +294,7 @@ void registerNewAdmin()
 	cout << "New admin registration successful." << endl;
 }
 
+// UI functions
 void mainMenu()
 {
 	int choice;
