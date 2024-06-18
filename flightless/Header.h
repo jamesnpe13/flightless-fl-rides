@@ -26,10 +26,9 @@ static adminV_t adminVector;
 
 // date handling functions
 unsigned int getDay();
-unsigned int getMonth();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_, int targetDay_ = NULL);
-long calcTimeDifference(int month, int day, int year);
+long calcTimeDifference(int month, int day, int year, bool reverse = 0);
 time_t dateToTimeT(int month, int day, int year);
 time_t badTime();
 time_t now();
@@ -60,6 +59,5 @@ void registerNewDriver();
 
 // booking functions
 //void registerNewBooking();
-
 
 #endif

@@ -25,12 +25,14 @@ void menu(int* userSelect_)
 	cout << "4. Show all passengers." << endl;
 	cout << "5. Register new driver." << endl;
 	cout << "6. Show all drivers." << endl;
+	cout << "7. TEST - Calculate date difference." << endl;
 
 	cin >> *userSelect_;
 }
 
 int main()
 {
+
 	while (1)
 	{
 		loadFiles();
@@ -56,7 +58,17 @@ int main()
 			break;
 		case 6:
 			break;
-
+		case 7:
+			cout << "Calculate date difference." << endl;
+			int m, y, d;
+			cout << "Enter day: ";
+			cin >> d;
+			cout << "Enter month: ";
+			cin >> m;
+			cout << "Enter year: ";
+			cin >> y;
+			cout << calcTimeDifference(m, d, y, 1) << endl;
+			break;
 		}
 	}
 
@@ -74,7 +86,6 @@ int main()
 
 	//showAll(&passengerVector);
 	//showAll(&adminVector);
-
 
 	return 0;
 }

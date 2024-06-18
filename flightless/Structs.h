@@ -56,6 +56,7 @@ typedef struct Driver
 	string mobileNumber;
 	string email;
 	date_t DOB;
+	//int age;
 	string ethnicity;
 	string bankAccountNumber;
 
@@ -104,8 +105,6 @@ typedef struct Driver
 	{
 
 	}
-
-
 
 	// default constructor
 	Driver()

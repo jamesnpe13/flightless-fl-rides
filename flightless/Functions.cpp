@@ -89,10 +89,40 @@ time_t now()
 {
 	return time(0);
 }
-long calcTimeDifference(int month, int day, int year)
+long calcTimeDifference(int month, int day, int year, bool reverse)
 {
-	time_t date1 = time(0);
-	time_t date2 = dateToTimeT(month, day, year);
+	time_t now = time(0);
+	struct tm date, tmp = tm();
+	localtime_s(&date, &now);
+
+	tmp.tm_mday = date.tm_mday;
+	tmp.tm_mon = date.tm_mon;
+	tmp.tm_year = date.tm_year;
+
+	time_t date1, date2, dateDiff;
+
+	if (!reverse)
+	{
+		date1 = mktime(&tmp);
+		date2 = dateToTimeT(month, day, year);
+	}
+	else
+	{
+		date2 = mktime(&tmp);
+		date1 = dateToTimeT(month, day, year);
+	}
+
+	dateDiff = date2 - date1;
+
+	cout << date1 << endl;
+	cout << date2 << endl;
+	cout << dateDiff << endl;
+
+	struct tm dateDiffTm;
+	localtime_s(&dateDiffTm, &dateDiff);
+
+	cout << "DATE DIFF MONTHS: " << dateDiffTm.tm_mon << endl;
+	cout << "DATE DIFF YEARS: " << dateDiffTm.tm_year - 70 << endl;
 
 	if ((date1 == badTime()) || (date2 == badTime()))
 	{
@@ -100,6 +130,7 @@ long calcTimeDifference(int month, int day, int year)
 		return EXIT_FAILURE;
 	}
 	double sec = difftime(date2, date1);
+
 	long days = static_cast<long>(sec / (60 * 60 * 24));
 	cout << days << endl;
 	return days;
@@ -245,7 +276,6 @@ void loadPassengerFile(passengerV_t* passengerVector_)
 	// attempt to open file with ios method of input
 	file.open(fileName, ios::in);
 
-
 	if (file.is_open()) // check if file successfully opened
 	{
 		string line; // create a storage for each line's value read from the file
@@ -289,7 +319,6 @@ void loadAdminFile(adminV_t* adminVector_)
 
 	// attempt to open file with ios method of input
 	file.open(fileName, ios::in);
-
 
 	if (file.is_open()) // check if file successfully opened
 	{
