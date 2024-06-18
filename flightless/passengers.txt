@@ -58,3 +58,15 @@ cardNumber: 1111222233334444
 cardExpiryM: 6
 cardExpiryY: 2026
 
+firstName: New guy
+lastName: Last name
+gender: 0
+mobileNumber: 123123123
+email: 123123@gmail.com
+username: newguy
+password: asdasdasd
+paymentMethod: 0
+cardNumber: 
+cardExpiryM: 0
+cardExpiryY: 0
+

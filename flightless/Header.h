@@ -13,8 +13,8 @@ typedef vector<Admin> adminV_t;
 unsigned int getDay();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_);
-void showPassengerMembers(const Passenger& target_);
-void showAdminMembers(const Admin& target_);
+void showPassengerMembers(const s_Passenger& target_);
+void showAdminMembers(const s_Admin& target_);
 void inputValidation(int* target_);
 bool isNumber(const std::string& s);
 
@@ -26,7 +26,7 @@ enum UserType
 };
 
 
-void writeToFile(Passenger* tempUser_);
+void writeToFile(s_Passenger* tempUser_);
 //void writeToFile(vector<Admin>* tempUser_);
 
 void registerNewPassenger();
