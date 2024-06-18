@@ -1,5 +1,4 @@
 // function definition here
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -15,44 +14,95 @@ using namespace std;
 // date handling functions
 unsigned int getDay()
 {
-	time_t now = time(0);
-	tm* ltm = localtime(&now);
 
-	return ltm->tm_mday;
+	time_t now = time(0);
+	struct tm date;
+	localtime_s(&date, &now);
+
+	return date.tm_mday;
+}
+unsigned int getMonth()
+{
+	time_t now = time(0);
+	struct tm date;
+	localtime_s(&date, &now);
+
+	return date.tm_mon + 1;
 }
 unsigned int getYear()
 {
 	time_t now = time(0);
-	tm* ltm = localtime(&now);
+	struct tm date;
+	localtime_s(&date, &now);
+	//tm* ltm = localtime(&now);
+	//char dateString[200];
+	//cout << ctime(&now) << endl;
 
-	return ltm->tm_year + 1900;
+	return date.tm_year + 1900;
 }
-bool dateIsValid(int targetMonth_, int targetYear_)
+bool dateIsValid(int targetMonth_, int targetYear_, int targetDay_)
 {
 	// checks whether a given dd/yyyy date is still valid
-	time_t timeA, timeB;
+	time_t timeA, timeB, timeC, timeN = time(0);
 
-	struct tm tA, tB, * tptr;
+	struct tm tA, tB, tC, tN;
 	int timeDiffDays;
 
 	time(&timeA);
 	time(&timeB);
+	time(&timeC);
+	time(&timeN);
 
-	tptr = localtime(&timeA);
-	tA = *tptr;
-	tptr = localtime(&timeB);
-	tB = *tptr;
+	localtime_s(&tA, &timeA);
+	localtime_s(&tB, &timeB);
+	localtime_s(&tC, &timeC);
+	localtime_s(&tN, &timeN);
 
 	//tB.tm_mday = 10; // day input
 	tB.tm_mon = targetMonth_ - 1; // month input
 	tB.tm_year = targetYear_ - 1900; // year input
 
+	tB.tm_mday = targetDay_ == NULL ? tN.tm_mday : targetDay_;
+
 	timeA = mktime(&tA);
 	timeB = mktime(&tB);
+	timeC = mktime(&tC);
 
 	timeDiffDays = (timeB - timeA) / 60 / 60 / 24;
 
 	return timeDiffDays > 0 ? 1 : 0;
+}
+time_t dateToTimeT(int month, int day, int year)
+{
+	// january 5, 2000 is passed as (1, 5, 2000)
+	tm tmp = tm();
+	tmp.tm_mday = day;
+	tmp.tm_mon = month - 1;
+	tmp.tm_year = year - 1900;
+	return mktime(&tmp);
+}
+time_t badTime()
+{
+	return time_t(-1);
+}
+time_t now()
+{
+	return time(0);
+}
+long calcTimeDifference(int month, int day, int year)
+{
+	time_t date1 = time(0);
+	time_t date2 = dateToTimeT(month, day, year);
+
+	if ((date1 == badTime()) || (date2 == badTime()))
+	{
+		cout << "unable to create a time_t struct" << endl;
+		return EXIT_FAILURE;
+	}
+	double sec = difftime(date2, date1);
+	long days = static_cast<long>(sec / (60 * 60 * 24));
+	cout << days << endl;
+	return days;
 }
 
 // print struct members functions
@@ -277,6 +327,10 @@ void registerNewPassenger()
 	// create struct
 	s_Passenger tempPassenger;
 
+	cout << "=================================" << endl;
+	cout << "\tPASSENGER REGISTRATION " << endl;
+	cout << "=================================" << endl;
+
 	// first name
 	cout << "First name: ";
 	getline(cin, tempPassenger.firstName);
@@ -340,7 +394,7 @@ void registerNewPassenger()
 		}
 
 		// card expiry month
-		while (!dateIsValid(tempPassenger.cardExpiryM, tempPassenger.cardExpiryY))
+		while (dateIsValid(tempPassenger.cardExpiryM, tempPassenger.cardExpiryY))
 		{
 			cout << "Card expiry month (mm): ";
 			cin >> tempPassenger.cardExpiryM;
@@ -375,6 +429,10 @@ void registerNewAdmin()
 	// create struct
 	s_Admin tempAdmin;
 
+	cout << "=================================" << endl;
+	cout << "\ADMIN REGISTRATION " << endl;
+	cout << "=================================" << endl;
+
 	// first name
 	cout << "First name: ";
 	getline(cin, tempAdmin.firstName);
@@ -393,6 +451,69 @@ void registerNewAdmin()
 
 	writeToFile(&tempAdmin);
 	cout << "New admin registration successful." << endl;
+}
+void registerNewDriver()
+{
+	// create temp struct
+	s_Driver tempDriver;
+
+	cout << "=================================" << endl;
+	cout << "\tDRIVER REGISTRATION " << endl;
+	cout << "=================================" << endl;
+
+	// get input
+	cout << "First name: ";
+	getline(cin, tempDriver.firstName);
+
+	cout << "Last name: ";
+	getline(cin, tempDriver.lastName);
+
+	cout << "Username: ";
+	getline(cin, tempDriver.username);
+
+	cout << "Password: ";
+	getline(cin, tempDriver.password);
+
+	cout << "Date of birth (dd-mm-yyyy): ";
+	getline(cin, tempDriver.DOB);
+
+	cout << "Gender (0 = male, 1 = female): ";
+	cin >> tempDriver.gender;
+
+	cout << "Mobile number: ";
+	cin >> tempDriver.mobileNumber;
+
+	cout << "Email: ";
+	getline(cin, tempDriver.email);
+
+	cout << "Ethnicity: ";
+	getline(cin, tempDriver.ethnicity);
+
+	cout << "Bank account number (Format: 12-1234-1234567-123): ";
+	cin >> tempDriver.bankAccountNumber;
+
+	cout << "Licence type: (0 = learner, 1 = restricted, 2 = full): ";
+	cin >> tempDriver.licenceType;
+
+	cout << "Driving experience in years: ";
+	cin >> tempDriver.drivingYears;
+
+	cout << "Licence expiry (dd-mm-yyyy): ";
+	getline(cin, tempDriver.licenceExpiry);
+
+	cout << "Vehicle registration number: ";
+	getline(cin, tempDriver.registrationNumber);
+
+	cout << "Vehicle registration expiry (dd-mm-yyyy): ";
+	getline(cin, tempDriver.licenceExpiry);
+
+	// validate input
+
+	// check eligibility
+
+	// generate endorsement number and expiry
+
+	// register user
 }
 
 // UI functions

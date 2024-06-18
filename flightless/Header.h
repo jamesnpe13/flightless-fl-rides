@@ -10,25 +10,7 @@ typedef vector<Admin> adminV_t;
 //typedef vector<Driver> driverV_t;
 //typedef vector<Booking> bookingV_t;
 
-
-// create data container vectors
-static passengerV_t passengerVector;
-static adminV_t adminVector;
-//vector<Driver> driverVector;
-//vector<Booking> bookingVector;
-
-unsigned int getDay();
-unsigned int getYear();
-bool dateIsValid(int targetMonth_, int targetYear_);
-void showPassengerMembers(const s_Passenger& target_);
-void showAdminMembers(const s_Admin& target_);
-void showAll(const adminV_t* targetVector_);
-void showAll(const passengerV_t* targetVector_);
-//void showAll(const driverV_t* targetVector_);
-//void showAll(const bookingV_t* targetVector_);
-void inputValidation(int* target_);
-bool isNumber(const std::string& s);
-
+// enum types
 enum UserType
 {
 	admin,
@@ -36,17 +18,48 @@ enum UserType
 	passenger
 };
 
+// create data container vectors
+static passengerV_t passengerVector;
+static adminV_t adminVector;
+//vector<Driver> driverVector;
+//vector<Booking> bookingVector;
+
+// date handling functions
+unsigned int getDay();
+unsigned int getMonth();
+unsigned int getYear();
+bool dateIsValid(int targetMonth_, int targetYear_, int targetDay_ = NULL);
+long calcTimeDifference(int month, int day, int year);
+time_t dateToTimeT(int month, int day, int year);
+time_t badTime();
+time_t now();
+
+// print struct members functions
+void showPassengerMembers(const s_Passenger& target_);
+void showAdminMembers(const s_Admin& target_);
+void showAll(const adminV_t* targetVector_);
+void showAll(const passengerV_t* targetVector_);
+//void showAll(const driverV_t* targetVector_);
+//void showAll(const bookingV_t* targetVector_);
+
+// input validatidation functions
+void inputValidation(int* target_);
+bool isNumber(const std::string& s);
+
+// file handling functions
 void writeToFile(s_Passenger* tempUser_);
-//void writeToFile(vector<Admin>* tempUser_);
-
-void registerNewPassenger();
-void registerNewAdmin();
-//void registerNewDriver();
-
-//void registerNewBooking();
-
+void writeToFile(s_Admin* tempUser_);
 void loadUserData();
 void loadPassengerFile(passengerV_t* passengerVector_);
 void loadAdminFile(adminV_t* adminVector);
+
+// user registration functions
+void registerNewPassenger();
+void registerNewAdmin();
+void registerNewDriver();
+
+// booking functions
+//void registerNewBooking();
+
 
 #endif

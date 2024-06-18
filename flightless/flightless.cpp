@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -11,17 +10,31 @@
 
 using namespace std;
 
-int main()
+void loadFiles()
 {
-	//load data
 	loadUserData();
 	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
+}
+
+int main()
+{
+	while (1)
+	{
+		loadFiles();
+	}
+
+	//cout << getDay() << "-" << getMonth() << "-" << getYear() << endl;
+	//load data
+	//loadUserData();
+	//loadAdminFile(&adminVector);
+	//loadPassengerFile(&passengerVector);
 	//loadBookingFile(&bookingVector);
 
 	// user registrations
 	//registerNewPassenger();
 	//registerNewAdmin();
+	//registerNewDriver();
 
 	//showAll(&passengerVector);
 	//showAll(&adminVector);
@@ -29,9 +42,3 @@ int main()
 
 	return 0;
 }
-
-
-
-
-
-

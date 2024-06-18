@@ -2,10 +2,11 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 #include <string>
+#include <cstdlib>
+
 using namespace std;
 
 typedef string date_t;
-
 typedef struct Passenger
 {
 	// personal details
@@ -32,7 +33,20 @@ typedef struct Passenger
 		gender = paymentMethod = cardExpiryM = cardExpiryY = 0;
 	}
 } s_Passenger;
+typedef struct Admin
+{
+	// personal details
+	string firstName;
+	string lastName;
+	string username;
+	string password;
 
+	// default constructor
+	Admin()
+	{
+		firstName = lastName = username = password = "";
+	}
+} s_Admin;
 typedef struct Driver
 {
 	// personal details
@@ -54,12 +68,43 @@ typedef struct Driver
 	int drivingYears;
 	string licenceNumber;
 	date_t licenceExpiry;
-	int endorsementNumber;
+	string endorsementNumber;
 	date_t endorsementExpiry;
 
 	// vehicle details
 	string registrationNumber;
 	date_t registrationExpiry;
+
+	bool isEligible()
+	{
+		// check eligibility
+	}
+
+	string generateEndorsementNumber()
+	{
+		srand(time(NULL));
+		int numLength = 12;
+		char letters[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+		string tempNum;
+
+		for (int i = 0; i < numLength; i++)
+		{
+			bool letOrNum = rand() % 2;
+			int ranNum = rand() % 10;
+			string s = to_string(ranNum);
+
+			//tempChar = letOrNum ? (letters[rand() % 26]) : (rand() % 10);
+			letOrNum ? (tempNum += s) : (tempNum += letters[rand() % 26]);
+		}
+
+		return tempNum;
+	}
+
+	string generateEndorsementExpiry()
+	{
+
+	}
+
 
 
 	// default constructor
@@ -83,31 +128,8 @@ typedef struct Driver
 		gender = 0;
 		licenceType = 0;
 		drivingYears = 0;
-		endorsementNumber = 0;
+		endorsementNumber = generateEndorsementNumber();
 	}
 } s_Driver;
-
-typedef struct Admin
-{
-	// personal details
-	string firstName;
-	string lastName;
-	string username;
-	string password;
-
-	// default constructor
-	Admin()
-	{
-		firstName = lastName = username = password = "";
-	}
-} s_Admin;
-
-typedef struct Test
-{
-	string text;
-	int num;
-
-
-} s_Test;
 
 #endif
