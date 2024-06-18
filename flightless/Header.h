@@ -25,7 +25,8 @@ enum UserType
 	passenger
 };
 
-void writeToFile(Passenger * tempUser_);
+
+void writeToFile(Passenger* tempUser_);
 //void writeToFile(vector<Admin>* tempUser_);
 
 void registerNewPassenger();

@@ -12,9 +12,9 @@
 using namespace std;
 
 // function declaration
-void loadPassengerFile(vector<Passenger>* passengerVector_);
+void loadPassengerFile(passengerV_t* passengerVector_);
 //void loadDriverFile(vector<Driver>* driverVector);
-void loadAdminFile(vector<Admin>* adminVector);
+void loadAdminFile(adminV_t* adminVector);
 //void loadPassengerFile(vector<Booking>* bookingVector);
 
 void menuA();
@@ -26,9 +26,9 @@ void loadUserData();
 int main()
 {
 	// data vectors 
-	vector<Passenger> passengerVector;
+	passengerV_t passengerVector;
 	//vector<Driver> driverVector;
-	vector<Admin> adminVector;
+	adminV_t adminVector;
 	//vector<Booking> bookingVector;
 	loadUserData();
 	registerNewPassenger();
@@ -73,7 +73,7 @@ void loadUserData()
 }
 
 // load passenger file
-void loadPassengerFile(vector<Passenger>* passengerVector_)
+void loadPassengerFile(passengerV_t* passengerVector_)
 {
 	string fileName = "passengers.txt"; // file to open
 	fstream file; // create an fstream object
@@ -120,7 +120,7 @@ void loadPassengerFile(vector<Passenger>* passengerVector_)
 }
 
 // load admin file
-void loadAdminFile(vector<Admin>* adminVector_)
+void loadAdminFile(adminV_t* adminVector_)
 {
 	string fileName = "admins.txt"; // file to open
 	fstream file; // create an fstream object

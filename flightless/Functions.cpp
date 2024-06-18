@@ -58,7 +58,7 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 }
 
 // cout struct members
-void showPassengerMembers(const Passenger& target_)
+void showPassengerMembers(const s_Passenger& target_)
 {
 	cout << "=================================" << endl;
 	cout << "[PASSENGER]" << endl;
@@ -77,7 +77,7 @@ void showPassengerMembers(const Passenger& target_)
 }
 
 // cout struct members
-void showAdminMembers(const Admin& target_)
+void showAdminMembers(const s_Admin& target_)
 {
 	cout << "=================================" << endl;
 	cout << "[ADMIN]" << endl;
@@ -113,7 +113,7 @@ bool isNumber(const std::string& s)
 		USER REGISTRATION
 */
 
-void writeToFile(Passenger* tempUser)
+void writeToFile(s_Passenger* tempUser)
 {
 	fstream file;
 	file.open("passengers.txt", ios::app);
@@ -136,7 +136,7 @@ void writeToFile(Passenger* tempUser)
 
 	file.close();
 }
-void writeToFile(Admin* tempUser)
+void writeToFile(s_Admin* tempUser)
 {
 	fstream file;
 	file.open("admins.txt", ios::app);
@@ -157,7 +157,7 @@ void writeToFile(Admin* tempUser)
 void registerNewPassenger()
 {
 	// create struct
-	struct Passenger tempPassenger;
+	s_Passenger tempPassenger;
 
 	// first name
 	cout << "First name: ";
@@ -257,7 +257,7 @@ void registerNewPassenger()
 void registerNewAdmin()
 {
 	// create struct
-	struct Admin tempAdmin;
+	s_Admin tempAdmin;
 
 	// first name
 	cout << "First name: ";
