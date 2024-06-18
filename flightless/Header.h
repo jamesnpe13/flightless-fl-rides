@@ -4,11 +4,18 @@
 #include "Structs.h"
 #include <vector>
 
-
+// custom type definitions
 typedef vector<Passenger> passengerV_t;
 typedef vector<Admin> adminV_t;
 //typedef vector<Driver> driverV_t;
 //typedef vector<Booking> bookingV_t;
+
+
+// create data container vectors
+static passengerV_t passengerVector;
+static adminV_t adminVector;
+//vector<Driver> driverVector;
+//vector<Booking> bookingVector;
 
 unsigned int getDay();
 unsigned int getYear();
@@ -37,5 +44,9 @@ void registerNewAdmin();
 //void registerNewDriver();
 
 //void registerNewBooking();
+
+void loadUserData();
+void loadPassengerFile(passengerV_t* passengerVector_);
+void loadAdminFile(adminV_t* adminVector);
 
 #endif
