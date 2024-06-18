@@ -4,6 +4,12 @@
 #include "Structs.h"
 #include <vector>
 
+typedef string date_t;
+typedef vector<Passenger> passengerV_t;
+typedef vector<Admin> adminV_t;
+//typedef vector<Driver> driverV_t;
+//typedef vector<Booking> bookingV_t;
+
 unsigned int getDay();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_);
