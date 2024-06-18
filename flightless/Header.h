@@ -4,6 +4,11 @@
 #include "Structs.h"
 #include <vector>
 
+typedef vector<Passenger> passengerV_t;
+typedef vector<Admin> adminV_t;
+//typedef vector<Driver> driverV_t;
+//typedef vector<Booking> bookingV_t;
+
 unsigned int getDay();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_);
@@ -19,7 +24,8 @@ enum UserType
 	passenger
 };
 
-void writeToFile(Passenger * tempUser_);
+
+void writeToFile(Passenger* tempUser_);
 //void writeToFile(vector<Admin>* tempUser_);
 
 void registerNewPassenger();

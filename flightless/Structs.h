@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-struct Passenger
+typedef struct Passenger
 {
 	// personal details
 	string firstName;
@@ -29,7 +29,7 @@ struct Passenger
 		firstName = lastName = mobileNumber = email = username = password = cardNumber = "";
 		gender = paymentMethod = cardExpiryM = cardExpiryY = 0;
 	}
-};
+} s_Passenger;
 
 struct Admin
 {
@@ -44,6 +44,6 @@ struct Admin
 	{
 		firstName = lastName = username = password = "";
 	}
-};
+} s_Admin;
 
 #endif
