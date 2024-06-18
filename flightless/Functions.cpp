@@ -58,7 +58,7 @@ bool dateIsValid(int targetMonth_, int targetYear_)
 }
 
 // cout struct members
-void showPassengerMembers(const s_Passenger& target_)
+static void showPassengerMembers(const s_Passenger& target_)
 {
 	cout << "=================================" << endl;
 	cout << "[PASSENGER]" << endl;
@@ -77,7 +77,7 @@ void showPassengerMembers(const s_Passenger& target_)
 }
 
 // cout struct members
-void showAdminMembers(const s_Admin& target_)
+static void showAdminMembers(const s_Admin& target_)
 {
 	cout << "=================================" << endl;
 	cout << "[ADMIN]" << endl;
@@ -88,7 +88,36 @@ void showAdminMembers(const s_Admin& target_)
 	cout << "=================================" << endl;
 }
 
-// check if input data type matches variable dataw type
+void showAll(const adminV_t* targetVector_)
+{
+	for (s_Admin item : *targetVector_)
+	{
+		showAdminMembers(item);
+	}
+}
+void showAll(const passengerV_t* targetVector_)
+{
+	for (s_Passenger item : *targetVector_)
+	{
+		showPassengerMembers(item);
+	}
+}
+//void showAll(const driverV_t* targetVector_)
+//{
+//	for (s_Driver item : *targetVector_)
+//	{
+//		showDriverMembers(item);
+//	}
+//}
+//void showAll(const bookingV_t* targetVector_)
+//{
+//	for (s_Booking item : *targetVector_)
+//	{
+//		showBookingMembers(item);
+//	}
+//}
+
+// check if input data type matches variable data type
 void inputValidation(int* target_)
 {
 	while (!cin)

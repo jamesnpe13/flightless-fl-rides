@@ -79,8 +79,9 @@ typedef struct Passenger
 //		registrationExpiry = "";
 //
 //		gender = 0;
-//
-//
+//		licenceType = 0;
+//		drivingYears = 0;
+//		endorsementNumber = 0;
 //	}
 //} s_Driver;
 
@@ -98,5 +99,13 @@ typedef struct Admin
 		firstName = lastName = username = password = "";
 	}
 } s_Admin;
+
+typedef struct Test
+{
+	string text;
+	int num;
+
+
+} s_Test;
 
 #endif

@@ -15,6 +15,10 @@ unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_);
 void showPassengerMembers(const s_Passenger& target_);
 void showAdminMembers(const s_Admin& target_);
+void showAll(const adminV_t* targetVector_);
+void showAll(const passengerV_t* targetVector_);
+//void showAll(const driverV_t* targetVector_);
+//void showAll(const bookingV_t* targetVector_);
 void inputValidation(int* target_);
 bool isNumber(const std::string& s);
 
@@ -24,7 +28,6 @@ enum UserType
 	driver,
 	passenger
 };
-
 
 void writeToFile(s_Passenger* tempUser_);
 //void writeToFile(vector<Admin>* tempUser_);

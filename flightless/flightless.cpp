@@ -11,6 +11,7 @@
 
 using namespace std;
 
+void loadUserData();
 // function declaration
 void loadPassengerFile(passengerV_t* passengerVector_);
 //void loadDriverFile(vector<Driver>* driverVector);
@@ -21,34 +22,27 @@ void menuA();
 
 void menuB();
 
-void loadUserData();
 
 int main()
 {
-	// data vectors 
+	// create data container vectors
 	passengerV_t passengerVector;
 	//vector<Driver> driverVector;
 	adminV_t adminVector;
 	//vector<Booking> bookingVector;
+
+	//load data
 	loadUserData();
-	registerNewPassenger();
-	/*registerNewAdmin();*/
-
-	//loadAdminFile(&adminVector);
-	//for (int i = 0; i < adminVector.size(); i++)
-	//{
-	//	showAdminMembers(adminVector[i]);
-	//}
-
+	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
-	for (int i = 0; i < passengerVector.size(); i++)
-	{
-		showPassengerMembers(passengerVector[i]);
-	}
+	//loadBookingFile(&bookingVector);
 
-	////loadDriverFile(&driverVector);	
-	//loadAdminFile(&adminVector);
-	////loadBookingFile(&bookingVector);
+	// user registrations
+	//registerNewPassenger();
+	//registerNewAdmin();
+
+	//showAll(&passengerVector);
+	//showAll(&adminVector);
 
 
 	return 0;
