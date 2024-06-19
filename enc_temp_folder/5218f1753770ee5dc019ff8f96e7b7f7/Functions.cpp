@@ -504,7 +504,7 @@ void registerNewAdmin()
 	s_Admin tempAdmin;
 
 	cout << "=================================" << endl;
-	cout << "\tADMIN REGISTRATION " << endl;
+	cout << "\ADMIN REGISTRATION " << endl;
 	cout << "=================================" << endl;
 	cin.ignore();
 

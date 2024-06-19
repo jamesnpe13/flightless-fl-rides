@@ -5,6 +5,7 @@
 #include <cstdlib>
 
 using namespace std;
+tm calcTimeDifference(int month, int day, int year, bool reverse);
 
 typedef string date_t;
 typedef struct Passenger
@@ -56,7 +57,7 @@ typedef struct Driver
 	string mobileNumber;
 	string email;
 	date_t DOB;
-	//int age;
+	int age;
 	string ethnicity;
 	string bankAccountNumber;
 
@@ -106,6 +107,11 @@ typedef struct Driver
 
 	}
 
+	void getAge(int d, int m, int y)
+	{
+		age = calcTimeDifference(m, d, y, 1).tm_year - 70;
+	}
+
 	// default constructor
 	Driver()
 	{
@@ -123,7 +129,7 @@ typedef struct Driver
 		licenceExpiry = "";
 		endorsementExpiry = "";
 		registrationExpiry = "";
-
+		age = 0;
 		gender = 0;
 		licenceType = 0;
 		drivingYears = 0;

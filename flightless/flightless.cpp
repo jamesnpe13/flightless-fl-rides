@@ -21,10 +21,13 @@ void menu(int* userSelect_)
 {
 	cout << "1. Register new admin." << endl;
 	cout << "2. Show all admins." << endl;
+	cout << endl;
 	cout << "3. Register new passenger." << endl;
 	cout << "4. Show all passengers." << endl;
+	cout << endl;
 	cout << "5. Register new driver." << endl;
 	cout << "6. Show all drivers." << endl;
+	cout << endl;
 	cout << "7. TEST - Calculate date difference." << endl;
 
 	cin >> *userSelect_;
@@ -55,10 +58,13 @@ int main()
 			showAll(&passengerVector);
 			break;
 		case 5:
+			registerNewDriver();
 			break;
 		case 6:
+			showAll(&driverVector);
 			break;
 		case 7:
+			s_Driver newDriver;
 			cout << "Calculate date difference." << endl;
 			int m, y, d;
 			cout << "Enter day: ";
@@ -67,7 +73,9 @@ int main()
 			cin >> m;
 			cout << "Enter year: ";
 			cin >> y;
-			cout << calcTimeDifference(m, d, y, 1) << endl;
+			newDriver.getAge(d, m, y);
+			cout << "My age is " << newDriver.age << endl;
+
 			break;
 		}
 	}
