@@ -80,12 +80,25 @@ typedef struct Driver
 	date_t endorsementExpiry;
 
 	// vehicle details
+	string vehicleMakeModel;
+	int vehicleModelYear;
 	string registrationNumber;
 	date_t registrationExpiry;
+	date_t wofExpiry;
 
 	bool isEligible()
 	{
-		// check eligibility
+		// full licence?
+		if (licenceType != 2) return 0;
+
+		// >= 2 years driving years?
+		if (drivingYears < 2) return 0;
+
+		// taxi model <= 10 years?
+		if ((getYear() - vehicleModelYear) > 10) return 0;
+
+		// Age >= 20 years old?
+		if (age < 20) return 0;
 	}
 
 	string generateEndorsementNumber()
@@ -118,9 +131,9 @@ typedef struct Driver
 		return to_string(day) + "-" + to_string(month) + "-" + to_string(year);
 
 	}
-	void getAge(int d, int m, int y)
+	void getAge(int day, int month, int year)
 	{
-		age = calcTimeDifference(m, d, y, 1).tm_year - 70;
+		age = calcTimeDifference(month, day, year, 1).tm_year - 70;
 	}
 
 	// default constructor
@@ -142,6 +155,9 @@ typedef struct Driver
 		endorsementExpiry = "";
 		registrationExpiry = "";
 		bankName = "";
+		vehicleMakeModel = "";
+		wofExpiry = "";
+		vehicleModelYear = 0;
 		age = 0;
 		gender = 0;
 		licenceType = 0;

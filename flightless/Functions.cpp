@@ -171,13 +171,16 @@ static void showDriverMembers(const s_Driver& target_)
 	cout << "Gender: " << target_.gender << endl;
 	cout << "Ethnicity: " << target_.ethnicity << endl;
 	cout << "Bank account number: " << target_.bankAccountNumber << endl;
-	cout << "`Bank name: " << target_.bankName << endl;
+	cout << "Bank name: " << target_.bankName << endl;
 	cout << "Driver licence number: " << target_.licenceNumber << endl;
 	cout << "Driver licence type: " << target_.licenceType << endl;
 	cout << "Vehicle registration number: " << target_.registrationNumber << endl;
+	cout << "Vehicle make and model: " << target_.vehicleMakeModel << endl;
+	cout << "Vehicle year: " << target_.vehicleModelYear << endl;
 	cout << "Years of driving experience: " << target_.drivingYears << endl;
 	cout << "Edorsement number: " << target_.endorsementNumber << endl;
 	cout << "Edorsement expiry: " << target_.endorsementExpiry << endl;
+	cout << "WOF expiry: " << target_.wofExpiry << endl;
 	cout << "=================================" << endl;
 }
 void showAll(const adminV_t* targetVector_)
@@ -640,9 +643,6 @@ void registerNewDriver()
 	{
 		string word, word_x, day, month, year;
 		word_x = day + month + year;
-
-		cout << word_x << endl;
-
 		do
 		{
 			cin >> tempDriver.DOB;
@@ -670,8 +670,8 @@ void registerNewDriver()
 		} while (tempDriver.DOB.size() != 10 || !isNumber(day + month + year) || tempDriver.DOB.substr(2, 1) != "-" || tempDriver.DOB.substr(5, 1) != "-");
 
 		tempDriver.getAge(stoi(day), stoi(month), stoi(year));
-
 	}
+
 	cout << "Gender (0 = male, 1 = female): ";
 	do
 	{
@@ -875,7 +875,6 @@ void registerNewDriver()
 	} while (tempDriver.registrationNumber.size() < 3 || tempDriver.registrationNumber.size() > 8);
 
 	cout << "Vehicle registration expiry (dd-mm-yyyy): ";
-
 	{
 
 		string word, word_x, day, month, year;
@@ -908,18 +907,109 @@ void registerNewDriver()
 		} while (tempDriver.registrationExpiry.size() != 10 || !isNumber(day + month + year) || tempDriver.registrationExpiry.substr(2, 1) != "-" || tempDriver.registrationExpiry.substr(5, 1) != "-");
 	}
 
-	showDriverMembers(tempDriver);
+	cout << "Vehicle Make and Model: ";
+	do
+	{
+		getLine(&tempDriver.vehicleMakeModel);
 
-	// validate input
+		if (tempDriver.vehicleMakeModel.size() < 5)
+		{
+			cout << "Make and model too short. Please enter a valid vehicle make and model." << endl;
+		}
+	} while (tempDriver.vehicleMakeModel.size() < 5);
 
-	// check eligibility
+	cout << "Vehicle year: ";
+	do
+	{
+		cin >> tempDriver.vehicleModelYear;
 
-	// generate endorsement number and expiry
+		while (!cin)
+		{
+			cout << "Please enter your vehicle year as an integer in the following format: yyyy." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+			cin >> tempDriver.vehicleModelYear;
+		}
 
-	// register user
+		if (to_string(tempDriver.vehicleModelYear).size() != 4)
+		{
+			cout << "Please enter your vehicle year in the following format: yyyy." << endl;
+		}
+	} while (to_string(tempDriver.vehicleModelYear).size() != 4);
 
-	writeToFile(&tempDriver);
-	cout << "New Driver registration successful." << endl;
+	cout << "WOF expiry (dd-mm-yyyy): ";
+	{
+
+		string word, word_x, day, month, year;
+		word_x = day + month + year;
+
+		do
+		{
+			cin >> tempDriver.wofExpiry;
+			while (tempDriver.wofExpiry.size() != 10)
+			{
+				cout << "Please enter WOF expiry date in the following format: dd-mm-yyyy." << endl;
+				cin >> tempDriver.wofExpiry;
+			}
+
+			day = tempDriver.wofExpiry.substr(0, 2);
+			month = tempDriver.wofExpiry.substr(3, 2);
+			year = tempDriver.wofExpiry.substr(6, 4);
+			word_x = day + month + year;
+
+			if (tempDriver.wofExpiry.substr(2, 1) != "-" || tempDriver.wofExpiry.substr(5, 1) != "-")
+			{
+				cout << "Please include hyphens in between day, month, and year." << endl;
+			}
+
+			if (!isNumber(word_x))
+			{
+				cout << "Please enter WOF expiry date as intergers." << endl;
+			}
+
+		} while (tempDriver.wofExpiry.size() != 10 || !isNumber(day + month + year) || tempDriver.wofExpiry.substr(2, 1) != "-" || tempDriver.wofExpiry.substr(5, 1) != "-");
+	}
+
+	if (tempDriver.isEligible())
+	{
+		// register user
+		writeToFile(&tempDriver);
+		showDriverMembers(tempDriver); // delete after
+		cout << "New Driver registration successful." << endl;
+	}
+	else
+	{
+		int selection;
+		cout << "You are not eligible to register as a driver." << endl;
+		cout << "Would you like to complete another registration? (1: yes, 0: no)";
+
+		do
+		{
+			cin >> selection;
+
+			while (!cin)
+			{
+				cout << "Please select 1 for yes or 0 for no." << endl;
+				cin >> selection;
+			}
+
+			if (to_string(selection).size() != 1)
+			{
+				cout << "Please enter 1 digit, 1 for yes or 0 for no." << endl;
+			}
+
+			if (selection == 1)
+			{
+				registerNewDriver();
+			}
+			else if (selection == 0)
+			{
+				cout << "Returning to main menu." << endl;
+			}
+
+		} while (to_string(selection).size() != 1);
+
+	}
 }
 
 // UI functions
