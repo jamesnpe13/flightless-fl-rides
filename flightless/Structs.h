@@ -6,6 +6,9 @@
 
 using namespace std;
 tm calcTimeDifference(int month, int day, int year, bool reverse);
+unsigned int getDay();
+unsigned int getMonth();
+unsigned int getYear();
 
 typedef string date_t;
 typedef struct Passenger
@@ -107,9 +110,14 @@ typedef struct Driver
 
 	string generateEndorsementExpiry()
 	{
+		int day, month, year, period = 2;
+		day = getDay();
+		month = getMonth();
+		year = getYear() + period;
+
+		return to_string(day) + "-" + to_string(month) + "-" + to_string(year);
 
 	}
-
 	void getAge(int d, int m, int y)
 	{
 		age = calcTimeDifference(m, d, y, 1).tm_year - 70;
@@ -139,6 +147,7 @@ typedef struct Driver
 		licenceType = 0;
 		drivingYears = 0;
 		endorsementNumber = generateEndorsementNumber();
+		endorsementExpiry = generateEndorsementExpiry();
 	}
 } s_Driver;
 

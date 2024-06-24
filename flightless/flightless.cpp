@@ -38,6 +38,7 @@ int main()
 
 	while (1)
 	{
+
 		loadFiles();
 		int userSelect;
 
