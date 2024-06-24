@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -11,131 +10,90 @@
 
 using namespace std;
 
-// function declaration
-void loadPassengerFile(passengerV_t* passengerVector_);
-//void loadDriverFile(vector<Driver>* driverVector);
-void loadAdminFile(adminV_t* adminVector);
-//void loadPassengerFile(vector<Booking>* bookingVector);
+void loadFiles()
+{
+	loadUserData();
+	loadAdminFile(&adminVector);
+	loadPassengerFile(&passengerVector);
+}
 
+void menu(int* userSelect_)
+{
+	cout << "1. Register new admin." << endl;
+	cout << "2. Show all admins." << endl;
+	cout << endl;
+	cout << "3. Register new passenger." << endl;
+	cout << "4. Show all passengers." << endl;
+	cout << endl;
+	cout << "5. Register new driver." << endl;
+	cout << "6. Show all drivers." << endl;
+	cout << endl;
+	cout << "7. TEST - Calculate date difference." << endl;
+
+	cin >> *userSelect_;
+}
 
 int main()
 {
-	// data vectors 
-	passengerV_t passengerVector;
-	//vector<Driver> driverVector;
-	adminV_t adminVector;
-	//vector<Booking> bookingVector;
 
-	//registerNewPassenger();
-	registerNewAdmin();
-
-	loadAdminFile(&adminVector);
-	for (int i = 0; i < adminVector.size(); i++)
+	while (1)
 	{
-		showAdminMembers(adminVector[i]);
+
+		loadFiles();
+		int userSelect;
+
+		menu(&userSelect);
+
+		switch (userSelect)
+		{
+		case 1:
+			registerNewAdmin();
+			break;
+		case 2:
+			showAll(&adminVector);
+			break;
+		case 3:
+			registerNewPassenger();
+			break;
+		case 4:
+			showAll(&passengerVector);
+			break;
+		case 5:
+			registerNewDriver();
+			break;
+		case 6:
+			showAll(&driverVector);
+			break;
+		case 7:
+			s_Driver newDriver;
+			cout << "Calculate date difference." << endl;
+			int m, y, d;
+			cout << "Enter day: ";
+			cin >> d;
+			cout << "Enter month: ";
+			cin >> m;
+			cout << "Enter year: ";
+			cin >> y;
+			newDriver.getAge(d, m, y);
+			cout << "My age is " << newDriver.age << endl;
+
+			break;
+		}
 	}
-
-	/*loadPassengerFile(&passengerVector);
-	for (int i = 0; i < passengerVector.size(); i++)
-	{
-		showPassengerMembers(passengerVector[i]);
-	}*/
-
-	////loadDriverFile(&driverVector);
+	//cout << getDay() << "-" << getMonth() << "-" << getYear() << endl;
+	//load data
+	//loadUserData();
 	//loadAdminFile(&adminVector);
-	////loadBookingFile(&bookingVector);
+	//loadPassengerFile(&passengerVector);
+	//loadBookingFile(&bookingVector);
 
+	// user registrations
+	//registerNewPassenger();
+	//registerNewAdmin();
+	//registerNewDriver();
+
+	//showAll(&passengerVector);
+	//showAll(&adminVector);
 
 	return 0;
 }
-
-// load passenger file
-void loadPassengerFile(passengerV_t* passengerVector_)
-{
-	string fileName = "passengers.txt"; // file to open
-	fstream file; // create an fstream object
-	Passenger tempUser; // create temp struct to store passenger data
-
-	// attempt to open file with ios method of input
-	file.open(fileName, ios::in);
-
-
-	if (file.is_open()) // check if file successfully opened
-	{
-		string line; // create a storage for each line's value read from the file
-
-		while (getline(file, line))
-		{
-			if (line.empty() || file.peek() == EOF)
-			{
-				(*passengerVector_).push_back(tempUser);
-				continue;
-			}
-
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "gender")	tempUser.gender = stoi(val);
-			if (key == "mobileNumber")	tempUser.mobileNumber = val;
-			if (key == "email")	tempUser.email = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
-			if (key == "paymentMethod")	tempUser.paymentMethod = stoi(val);
-			if (key == "cardNumber")	tempUser.cardNumber = val;
-			if (key == "cardExpiryM")	tempUser.cardExpiryM = stoi(val);
-			if (key == "cardExpiryY")	tempUser.cardExpiryY = stoi(val);
-		}
-	}
-	else // if file fail to open
-	{
-		cout << "ERROR! Unable to open file " << fileName << endl;
-	}
-
-	file.close();
-}
-
-// load admin file
-void loadAdminFile(adminV_t* adminVector_)
-{
-	string fileName = "admins.txt"; // file to open
-	fstream file; // create an fstream object
-	Admin tempUser; // create temp struct to store passenger data
-
-	// attempt to open file with ios method of input
-	file.open(fileName, ios::in);
-
-
-	if (file.is_open()) // check if file successfully opened
-	{
-		string line; // create a storage for each line's value read from the file
-
-		while (getline(file, line))
-		{
-			if (line.empty() || file.peek() == EOF)
-			{
-				(*adminVector_).push_back(tempUser);
-				continue;
-			}
-
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
-
-		}
-	}
-	else // if file fail to open
-	{
-		cout << "ERROR! Unable to open file " << fileName << endl;
-	}
-
-	file.close();
-}
-
-
-
