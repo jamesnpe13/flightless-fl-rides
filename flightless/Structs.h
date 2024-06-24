@@ -16,6 +16,7 @@ typedef struct Passenger
 	int gender; // 0 = male, 1 = female
 	string mobileNumber;
 	string email;
+	string address;
 
 	// account details
 	string username;
@@ -30,7 +31,7 @@ typedef struct Passenger
 	// default constructor
 	Passenger()
 	{
-		firstName = lastName = mobileNumber = email = username = password = cardNumber = "";
+		firstName = lastName = mobileNumber = email = username = password = cardNumber = address = "";
 		gender = paymentMethod = cardExpiryM = cardExpiryY = 0;
 	}
 } s_Passenger;
@@ -56,6 +57,7 @@ typedef struct Driver
 	int gender; // 0 = male, 1 = female
 	string mobileNumber;
 	string email;
+	string address;
 	date_t DOB;
 	int age;
 	string ethnicity;
@@ -64,6 +66,7 @@ typedef struct Driver
 	// account details
 	string username;
 	string password;
+	string bankName;
 
 	// Licence details
 	int licenceType; // 0 = learner, 1 = restricted, 2 = full
@@ -119,6 +122,7 @@ typedef struct Driver
 		lastName = "";
 		mobileNumber = "";
 		email = "";
+		address = "";
 		ethnicity = "";
 		bankAccountNumber = "";
 		username = "";
@@ -129,6 +133,7 @@ typedef struct Driver
 		licenceExpiry = "";
 		endorsementExpiry = "";
 		registrationExpiry = "";
+		bankName = "";
 		age = 0;
 		gender = 0;
 		licenceType = 0;
