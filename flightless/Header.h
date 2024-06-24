@@ -45,7 +45,7 @@ void showAll(const driverV_t* targetVector_);
 
 // input validatidation functions
 void inputValidation(int* target_);
-bool isNumber(const std::string& s);
+bool isNumber(const string& s);
 void getLine(string* target_);
 
 // file handling functions

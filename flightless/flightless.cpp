@@ -79,7 +79,6 @@ int main()
 			break;
 		}
 	}
-
 	//cout << getDay() << "-" << getMonth() << "-" << getYear() << endl;
 	//load data
 	//loadUserData();

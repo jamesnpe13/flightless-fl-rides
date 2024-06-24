@@ -110,20 +110,20 @@ tm calcTimeDifference(int month, int day, int year, bool reverse)
 
 	dateDiff = date2 - date1;
 
-	cout << date1 << endl;
+	/*cout << date1 << endl;
 	cout << date2 << endl;
-	cout << dateDiff << endl;
+	cout << dateDiff << endl;*/
 
 	struct tm dateDiffTm;
 	localtime_s(&dateDiffTm, &dateDiff);
 
-	cout << "DATE DIFF MONTHS: " << dateDiffTm.tm_mon << endl;
-	cout << "DATE DIFF YEARS: " << dateDiffTm.tm_year - 70 << endl;
+	//cout << "DATE DIFF MONTHS: " << dateDiffTm.tm_mon << endl;
+	//cout << "DATE DIFF YEARS: " << dateDiffTm.tm_year - 70 << endl;
 
 	double sec = difftime(date2, date1);
 
 	long days = static_cast<long>(sec / (60 * 60 * 24));
-	cout << days << endl;
+	//cout << days << endl;
 	return dateDiffTm;
 }
 
@@ -209,7 +209,7 @@ void showAll(const driverV_t* targetVector_)
 // Input validation functions
 void inputValidation(int* target_)
 {
-	while (!cin)
+	while (!cin >> *target_)
 	{
 		cout << "Invalid data type. Please enter an integer." << endl;
 		cin.clear();
@@ -217,7 +217,18 @@ void inputValidation(int* target_)
 		cin >> *target_;
 	}
 }
-bool isNumber(const std::string& s)
+bool isValidDataType(int* target_)
+{
+	if (!cin >> *target_)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+bool isNumber(const string& s)
 {
 	return !s.empty() && std::find_if(s.begin(),
 		s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
@@ -225,7 +236,6 @@ bool isNumber(const std::string& s)
 void getLine(string* target_)
 {
 	string temp;
-	cin.ignore();
 	getline(cin, temp);
 
 	(*target_) = temp;
@@ -400,6 +410,7 @@ void loadAdminFile(adminV_t* adminVector_)
 }
 
 // user registration functions
+
 void registerNewPassenger()
 {
 	// create struct
@@ -408,10 +419,10 @@ void registerNewPassenger()
 	cout << "=================================" << endl;
 	cout << "\tPASSENGER REGISTRATION " << endl;
 	cout << "=================================" << endl;
-	cin.ignore();
 
 	// first name
 	cout << "First name: ";
+	cin.ignore();
 	getLine(&tempPassenger.firstName);
 
 	cout << "Last name: ";
@@ -424,16 +435,24 @@ void registerNewPassenger()
 	getLine(&tempPassenger.password);
 
 	cout << "Gender (0 = male, 1 = female): ";
-	cin >> tempPassenger.gender;
-
-	inputValidation(&tempPassenger.gender);
-	while (tempPassenger.gender != 1 && tempPassenger.gender != 0)
+	do
 	{
-		cout << "Please select 0 for male or 1 for female." << endl;
-		cin.clear();
-		cin.ignore(10000, '\n');
 		cin >> tempPassenger.gender;
-	}
+
+		while (!cin)
+		{
+			cout << "Please enter an integer." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+			cin >> tempPassenger.gender;
+		}
+
+		if (tempPassenger.gender != 1 && tempPassenger.gender != 0)
+		{
+			cout << "Please select 0 for male or 1 for female." << endl;
+		}
+
+	} while (tempPassenger.gender != 1 && tempPassenger.gender != 0);
 
 	cout << "Mobile number: ";
 	cin >> tempPassenger.mobileNumber;
@@ -535,46 +554,162 @@ void registerNewDriver()
 	cout << "=================================" << endl;
 	cout << "\tDRIVER REGISTRATION " << endl;
 	cout << "=================================" << endl;
+	cin.ignore();
 
-	// get input
-	cout << "First name: ";
-	getLine(&tempDriver.firstName);
+	//// get input
+	//cout << "First name: ";
+	//getLine(&tempDriver.firstName);
 
-	cout << "Last name: ";
-	getLine(&tempDriver.lastName);
+	//cout << "Last name: ";
+	//getLine(&tempDriver.lastName);
 
-	cout << "Username: ";
-	getLine(&tempDriver.username);
+	//cout << "Username: ";
+	//getLine(&tempDriver.username);
 
-	cout << "Password: ";
-	getLine(&tempDriver.password);
+	//cout << "Password: ";
+	//getLine(&tempDriver.password);
 
-	cout << "Date of birth (dd-mm-yyyy): ";
-	getLine(&tempDriver.DOB);
+	//cout << "Date of birth (dd-mm-yyyy): ";
+	//do
+	//{
+	//	getLine(&tempDriver.DOB);
 
-	cout << "Gender (0 = male, 1 = female): ";
-	cin >> tempDriver.gender;
+	//	if (tempDriver.DOB.size() != 10)
+	//	{
+	//		cout << "Please enter your date of birth in the following format: dd-mm-yyyy." << endl;
+	//	}
 
-	cout << "Mobile number: ";
-	cin >> tempDriver.mobileNumber;
+	//	if (tempDriver.DOB.substr(2, 1) != "-" || tempDriver.DOB.substr(5, 1) != "-")
+	//	{
+	//		cout << "Please include hyphen between date, month, and year." << endl;
+	//	}
 
-	cout << "Email: ";
-	cin >> tempDriver.email;
+	//} while (tempDriver.DOB.size() != 10 || tempDriver.DOB.substr(2, 1) != "-" || tempDriver.DOB.substr(5, 1) != "-");
+
+	//cout << "Gender (0 = male, 1 = female): ";
+	//do
+	//{
+	//	cin >> tempDriver.gender;
+
+	//	while (!cin)
+	//	{
+	//		cout << "Please enter an integer." << endl;
+	//		cin.clear();
+	//		cin.ignore(100, '\n');
+	//		cin >> tempDriver.gender;
+	//	}
+
+	//	if (tempDriver.gender != 1 && tempDriver.gender != 0)
+	//	{
+	//		cout << "Please select 0 for male or 1 for female." << endl;
+	//	}
+
+	//} while (tempDriver.gender != 1 && tempDriver.gender != 0);
+
+	//cout << "Mobile number: ";
+	//do
+	//{
+	//	cin >> tempDriver.mobileNumber;
+
+	//	if (tempDriver.mobileNumber.size() < 6)
+	//	{
+	//		cout << "Please enter a valid mobile number that is no less than 6 digits." << endl;
+	//	}
+
+	//	if (tempDriver.mobileNumber.size() > 12)
+	//	{
+	//		cout << "Please enter a valid mobile number that is no more than 12 digits." << endl;
+	//	}
+
+	//} while (tempDriver.mobileNumber.size() < 6 || tempDriver.mobileNumber.size() > 12);
+
+	/*cout << "Email: ";
+
+	do
+	{
+		cin >> tempDriver.email;
+
+		if ((tempDriver.email.find("@") != string::npos) == 0 || tempDriver.email.substr(0, tempDriver.email.find("@")).size() == 0 || tempDriver.email.substr(tempDriver.email.find("@") + 1).size() == 0)
+		{
+			cout << "Please enter a valid email address." << endl;
+			continue;
+		}
+
+		if (tempDriver.email.size() < 5)
+		{
+			cout << "Email address too short. Please enter at least 5 characters." << endl;
+		}
+
+	} while (tempDriver.email.size() < 5 || (tempDriver.email.find("@") != string::npos) == 0 || tempDriver.email.substr(0, tempDriver.email.find("@")).size() == 0 || tempDriver.email.substr(tempDriver.email.find("@") + 1).size() == 0);
 
 	cout << "Ethnicity: ";
-	getLine(&tempDriver.ethnicity);
+	cin.ignore();
+	getLine(&tempDriver.ethnicity);*/
 
 	cout << "Bank account number (Format: 12-1234-1234567-123): ";
-	cin >> tempDriver.bankAccountNumber;
+	{
+		string val;
+		do
+		{
+			cin >> tempDriver.bankAccountNumber;
 
+			while (tempDriver.bankAccountNumber.size() != 19)
+			{
+				cout << "Please enter 16 digit bank account number including hyphen in between." << endl;
+				cin >> tempDriver.bankAccountNumber;
+			}
+
+			val = tempDriver.bankAccountNumber.substr(0, 2) + tempDriver.bankAccountNumber.substr(3, 4) + tempDriver.bankAccountNumber.substr(8, 7) + tempDriver.bankAccountNumber.substr(16, 3);
+
+			if (!isNumber(val))
+			{	
+				cout << "Your input contained characters that are not integers. Please enter a valid bank account number." << endl;
+			}
+
+			if (tempDriver.bankAccountNumber.size() != 19 || tempDriver.bankAccountNumber.substr(2, 1) != "-" || tempDriver.bankAccountNumber.substr(7, 1) != "-")
+			{
+				cout << "Please enter your bank account number in the following format: 12-1234-1234567-123." << endl;
+			}
+
+		} while (!isNumber(val) || tempDriver.bankAccountNumber.size() != 19 || tempDriver.bankAccountNumber.substr(2, 1) != "-" || tempDriver.bankAccountNumber.substr(7, 1) != "-");
+
+	}
 	cout << "Licence type: (0 = learner, 1 = restricted, 2 = full): ";
 	cin >> tempDriver.licenceType;
+	inputValidation(&tempDriver.licenceType);
+	while (tempDriver.licenceType < 0 || tempDriver.licenceType > 2 || !cin)
+	{
+		cout << "Please select 0 for learner, 1 for restricted, or 2 for full." << endl;
+		cin.clear();
+		cin.ignore(10000, '\n');
+
+		cin >> tempDriver.licenceType;
+		inputValidation(&tempDriver.licenceType);
+	}
 
 	cout << "Driving experience in years: ";
 	cin >> tempDriver.drivingYears;
+	inputValidation(&tempDriver.drivingYears);
+	while (tempDriver.drivingYears < 0 || !cin)
+	{
+		cout << "Please enter your years of driving experience as an integer." << endl;
+		cin.clear();
+		cin.ignore(10000, '\n');
+
+		cin >> tempDriver.drivingYears;
+		inputValidation(&tempDriver.drivingYears);
+	}
 
 	cout << "Licence expiry (dd-mm-yyyy): ";
 	cin >> tempDriver.licenceExpiry;
+	{
+		int day = stoi(tempDriver.DOB.substr(0, 2));
+		int month = stoi(tempDriver.DOB.substr(3, 2));
+		int year = stoi(tempDriver.DOB.substr(6, 4));
+
+		tempDriver.getAge(day, month, year);
+
+	}
 
 	cout << "Vehicle registration number: ";
 	cin >> tempDriver.registrationNumber;
