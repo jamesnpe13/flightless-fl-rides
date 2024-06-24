@@ -3,9 +3,10 @@
 #define STRUCTS_H
 #include <string>
 #include <cstdlib>
+#include "Header.h"
 
 using namespace std;
-tm calcTimeDifference(int month, int day, int year, bool reverse);
+tm calcTimeDifference(int month, int day, int year, bool reverse = 0);
 unsigned int getDay();
 unsigned int getMonth();
 unsigned int getYear();
@@ -99,6 +100,15 @@ typedef struct Driver
 
 		// Age >= 20 years old?
 		if (age < 20) return 0;
+	}
+
+	bool isDatePositive(date_t* target_)
+	{
+		int day = stoi((*target_).substr(0, 2));
+		int month = stoi((*target_).substr(3, 2));
+		int year = stoi((*target_).substr(6, 4));
+
+		return (calcTimeDifference(month, day, year).tm_wday > 0);
 	}
 
 	string generateEndorsementNumber()

@@ -664,7 +664,7 @@ void registerNewDriver()
 
 			if (!isNumber(word_x))
 			{
-				cout << "Please enter date of birith as intergers." << endl;
+				cout << "Please enter date of birth as intergers." << endl;
 			}
 
 		} while (tempDriver.DOB.size() != 10 || !isNumber(day + month + year) || tempDriver.DOB.substr(2, 1) != "-" || tempDriver.DOB.substr(5, 1) != "-");
@@ -860,7 +860,16 @@ void registerNewDriver()
 				cout << "Please enter licence expiry date as intergers." << endl;
 			}
 
-		} while (tempDriver.licenceExpiry.size() != 10 || !isNumber(day + month + year) || tempDriver.licenceExpiry.substr(2, 1) != "-" || tempDriver.licenceExpiry.substr(5, 1) != "-");
+			if (!tempDriver.isDatePositive(&tempDriver.licenceExpiry))
+			{
+				cout << "The licence expiry you entered is expired." << endl;
+			}
+
+		} while (tempDriver.licenceExpiry.size() != 10 ||
+			!isNumber(day + month + year) ||
+			tempDriver.licenceExpiry.substr(2, 1) != "-" ||
+			tempDriver.licenceExpiry.substr(5, 1) != "-" ||
+			!tempDriver.isDatePositive(&tempDriver.licenceExpiry));
 	}
 
 	cout << "Vehicle registration number: ";
@@ -901,15 +910,25 @@ void registerNewDriver()
 
 			if (!isNumber(word_x))
 			{
-				cout << "Please enter licence expiry date as intergers." << endl;
+				cout << "Please enter registration expiry date as intergers." << endl;
 			}
 
-		} while (tempDriver.registrationExpiry.size() != 10 || !isNumber(day + month + year) || tempDriver.registrationExpiry.substr(2, 1) != "-" || tempDriver.registrationExpiry.substr(5, 1) != "-");
+			if (!tempDriver.isDatePositive(&tempDriver.registrationExpiry))
+			{
+				cout << "The registration expiry you entered is expired." << endl;
+			}
+
+		} while (tempDriver.registrationExpiry.size() != 10 ||
+			!isNumber(day + month + year) ||
+			tempDriver.registrationExpiry.substr(2, 1) != "-" ||
+			tempDriver.registrationExpiry.substr(5, 1) != "-" ||
+			!tempDriver.isDatePositive(&tempDriver.registrationExpiry));
 	}
 
 	cout << "Vehicle Make and Model: ";
 	do
 	{
+		cin.ignore();
 		getLine(&tempDriver.vehicleMakeModel);
 
 		if (tempDriver.vehicleMakeModel.size() < 5)
@@ -967,7 +986,16 @@ void registerNewDriver()
 				cout << "Please enter WOF expiry date as intergers." << endl;
 			}
 
-		} while (tempDriver.wofExpiry.size() != 10 || !isNumber(day + month + year) || tempDriver.wofExpiry.substr(2, 1) != "-" || tempDriver.wofExpiry.substr(5, 1) != "-");
+			if (!tempDriver.isDatePositive(&tempDriver.wofExpiry))
+			{
+				cout << "The WOF expiry you entered is expired." << endl;
+			}
+
+		} while (tempDriver.wofExpiry.size() != 10 ||
+			!isNumber(day + month + year) ||
+			tempDriver.wofExpiry.substr(2, 1) != "-" ||
+			tempDriver.wofExpiry.substr(5, 1) != "-" ||
+			!tempDriver.isDatePositive(&tempDriver.wofExpiry));
 	}
 
 	if (tempDriver.isEligible())
