@@ -31,7 +31,7 @@ unsigned int getDay();
 unsigned int getMonth();
 unsigned int getYear();
 bool dateIsValid(int targetMonth_, int targetYear_, int targetDay_ = NULL);
-tm calcTimeDifference(int month, int day, int year, bool reverse = 0);
+//tm calcTimeDifference(int month, int day, int year, bool reverse = 0);
 time_t dateToTimeT(int month, int day, int year);
 time_t now();
 
