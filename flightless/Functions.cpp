@@ -1,4 +1,5 @@
 // function definition here
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -8,6 +9,16 @@
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
+
+passengerV_t passengerVector;
+adminV_t adminVector;
+driverV_t driverVector;
+
+s_Passenger activeUserPassenger;
+s_Driver activeUserDriver;
+s_Admin activeUserAdmin;
+
+UserType activeUserType;
 
 using namespace std;
 
@@ -250,9 +261,15 @@ void getLine(string* target_)
 // file handling functions
 void loadFiles()
 {
+
 	loadUserData();
 	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
+	loadDriverFile(&driverVector);
+
+	//showAll(&passengerVector);
+	//showAll(&driverVector);
+	//showAll(&adminVector);
 }
 void writeToFile(s_Passenger* tempUser)
 {
@@ -265,6 +282,7 @@ void writeToFile(s_Passenger* tempUser)
 		file << "lastName: " << tempUser->lastName << endl;
 		file << "gender: " << tempUser->gender << endl;
 		file << "mobileNumber: " << tempUser->mobileNumber << endl;
+		file << "address: " << tempUser->address << endl;
 		file << "email: " << tempUser->email << endl;
 		file << "username: " << tempUser->username << endl;
 		file << "password: " << tempUser->password << endl;
@@ -272,6 +290,40 @@ void writeToFile(s_Passenger* tempUser)
 		file << "cardNumber: " << tempUser->cardNumber << endl;
 		file << "cardExpiryM: " << tempUser->cardExpiryM << endl;
 		file << "cardExpiryY: " << tempUser->cardExpiryY << endl;
+		file << endl;
+	}
+
+	file.close();
+}
+void writeToFile(s_Driver* tempUser)
+{
+	fstream file;
+	file.open("drivers.txt", ios::app);
+
+	if (file.is_open())
+	{
+		file << "firstName: " << tempUser->firstName << endl;
+		file << "lastName: " << tempUser->lastName << endl;
+		file << "username: " << tempUser->username << endl;
+		file << "password: " << tempUser->password << endl;
+		file << "gender: " << tempUser->gender << endl;
+		file << "address: " << tempUser->address << endl;
+		file << "mobileNumber: " << tempUser->mobileNumber << endl;
+		file << "email: " << tempUser->email << endl;
+		file << "DOB: " << tempUser->DOB << endl;
+		file << "age: " << tempUser->age << endl;
+		file << "ethnicity: " << tempUser->ethnicity << endl;
+		file << "bankAccountNumber: " << tempUser->bankName << endl;
+		file << "bankName: " << tempUser->bankAccountNumber << endl;
+		file << "licenceType: " << tempUser->licenceType << endl;
+		file << "drivingYears: " << tempUser->drivingYears << endl;
+		file << "licenceNumber: " << tempUser->licenceNumber << endl;
+		file << "licenceExpiry: " << tempUser->licenceExpiry << endl;
+		file << "vehicleMakeModel: " << tempUser->vehicleMakeModel << endl;
+		file << "vehicleModelYear: " << tempUser->vehicleModelYear << endl;
+		file << "registrationNumber: " << tempUser->registrationNumber << endl;
+		file << "registrationExpiry: " << tempUser->registrationExpiry << endl;
+		file << "wofExpiry: " << tempUser->wofExpiry << endl;
 		file << endl;
 	}
 
@@ -293,35 +345,30 @@ void writeToFile(s_Admin* tempUser)
 
 	file.close();
 }
-void writeToFile(s_Driver* tempUser)
+
+void setActiveUser(const s_Passenger* target_)
 {
-	fstream file;
-	file.open("drivers.txt", ios::app);
+	cout << "signed in as passenger" << endl;
+	activeUserType = passenger;
+	activeUserPassenger = *target_;
+	// go to passenger dashboard
 
-	if (file.is_open())
-	{
-		file << "firstName: " << tempUser->firstName << endl;
-		file << "lastName: " << tempUser->lastName << endl;
-		file << "username: " << tempUser->username << endl;
-		file << "password: " << tempUser->password << endl;
-		file << "gender: " << tempUser->gender << endl;
-		file << "mobileNumber: " << tempUser->mobileNumber << endl;
-		file << "email: " << tempUser->email << endl;
-		file << "DOB: " << tempUser->DOB << endl;
-		file << "age: " << tempUser->age << endl;
-		file << "ethnicity: " << tempUser->ethnicity << endl;
-		file << "bankAccountNumber: " << tempUser->bankAccountNumber << endl;
-		file << "licenceType: " << tempUser->licenceType << endl;
-		file << "drivingYears: " << tempUser->drivingYears << endl;
-		file << "licenceNumber: " << tempUser->licenceNumber << endl;
-		file << "licenceExpiry: " << tempUser->licenceExpiry << endl;
-		file << "registrationNumber: " << tempUser->registrationNumber << endl;
-		file << "registrationExpiry: " << tempUser->registrationExpiry << endl;
-		file << endl;
-	}
-
-	file.close();
 }
+void setActiveUser(const s_Driver* target_)
+{
+	cout << "signed in as driver" << endl;
+	activeUserType = driver;
+	activeUserDriver = *target_;
+	// go to driver dashboard
+}
+void setActiveUser(const s_Admin* target_)
+{
+	cout << "signed in as admin" << endl;
+	activeUserType = admin;
+	activeUserAdmin = *target_;
+	// go to admin dashboard
+}
+
 void loadUserData()
 {
 	string fileName = "user.txt";
@@ -332,10 +379,13 @@ void loadUserData()
 
 	if (file.is_open())
 	{
-		getline(file, line);
-		currentUserName = line.substr(line.find(":") + 2);
+		if (file.peek() != ifstream::traits_type::eof())
+		{
+			getline(file, line);
+			currentUserName = line.substr(line.find(":") + 2);
 
-		cout << "Greetings, " << currentUserName << "!" << endl;
+			cout << "Greetings, " << currentUserName << "!" << endl;
+		}
 
 	}
 }
@@ -351,29 +401,32 @@ void loadPassengerFile(passengerV_t* passengerVector_)
 	if (file.is_open()) // check if file successfully opened
 	{
 		string line; // create a storage for each line's value read from the file
-
-		while (getline(file, line))
+		if (file.peek() != ifstream::traits_type::eof())
 		{
-			if (line.empty() || file.peek() == EOF)
+			while (getline(file, line))
 			{
-				(*passengerVector_).push_back(tempUser);
-				continue;
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*passengerVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "gender")	tempUser.gender = stoi(val);
+				if (key == "mobileNumber")	tempUser.mobileNumber = val;
+				if (key == "email")	tempUser.email = val;
+				if (key == "address")	tempUser.address = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
+				if (key == "paymentMethod")	tempUser.paymentMethod = stoi(val);
+				if (key == "cardNumber")	tempUser.cardNumber = val;
+				if (key == "cardExpiryM")	tempUser.cardExpiryM = stoi(val);
+				if (key == "cardExpiryY")	tempUser.cardExpiryY = stoi(val);
 			}
-
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "gender")	tempUser.gender = stoi(val);
-			if (key == "mobileNumber")	tempUser.mobileNumber = val;
-			if (key == "email")	tempUser.email = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
-			if (key == "paymentMethod")	tempUser.paymentMethod = stoi(val);
-			if (key == "cardNumber")	tempUser.cardNumber = val;
-			if (key == "cardExpiryM")	tempUser.cardExpiryM = stoi(val);
-			if (key == "cardExpiryY")	tempUser.cardExpiryY = stoi(val);
 		}
 	}
 	else // if file fail to open
@@ -396,21 +449,85 @@ void loadAdminFile(adminV_t* adminVector_)
 	{
 		string line; // create a storage for each line's value read from the file
 
-		while (getline(file, line))
+		if (file.peek() != ifstream::traits_type::eof())
 		{
-			if (line.empty() || file.peek() == EOF)
+			while (getline(file, line))
 			{
-				(*adminVector_).push_back(tempUser);
-				continue;
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*adminVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
 			}
 
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
+		}
+	}
+	else // if file fail to open
+	{
+		cout << "ERROR! Unable to open file " << fileName << endl;
+	}
 
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
+	file.close();
+}
+void loadDriverFile(driverV_t* driverVector_)
+{
+	string fileName = "drivers.txt"; // file to open
+	fstream file; // create an fstream object
+	Driver tempUser; // create temp struct to store passenger data
+
+	// attempt to open file with ios method of input
+	file.open(fileName, ios::in);
+
+	if (file.is_open()) // check if file successfully opened
+	{
+		string line; // create a storage for each line's value read from the file
+
+		if (file.peek() != ifstream::traits_type::eof())
+		{
+			while (getline(file, line))
+			{
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*driverVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "gender")	tempUser.gender = stoi(val);
+				if (key == "mobileNumber")	tempUser.mobileNumber = val;
+				if (key == "email")	tempUser.email = val;
+				if (key == "address")	tempUser.address = val;
+				if (key == "DOB")	tempUser.DOB = val;
+				if (key == "age")	tempUser.age = stoi(val);
+				if (key == "ethnicity")	tempUser.ethnicity = val;
+				if (key == "bankAccountNumber")	tempUser.bankAccountNumber = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
+				if (key == "bankName")	tempUser.bankName = val;
+				if (key == "licenceType")	tempUser.licenceType = stoi(val);
+				if (key == "drivingYears")	tempUser.drivingYears = stoi(val);
+				if (key == "licenceNumber")	tempUser.licenceNumber = val;
+				if (key == "licenceExpiry")	tempUser.licenceExpiry = val;
+				if (key == "endorsementNumber")	tempUser.endorsementNumber = val;
+				if (key == "endorsementExpiry")	tempUser.endorsementExpiry = val;
+				if (key == "vehicleMakeModel")	tempUser.vehicleMakeModel = val;
+				if (key == "vehicleModelYear")	tempUser.vehicleModelYear = stoi(val);
+				if (key == "registrationNumber")	tempUser.registrationNumber = val;
+				if (key == "registrationExpiry")	tempUser.registrationExpiry = val;
+				if (key == "wofExpiry")	tempUser.wofExpiry = val;
+			}
 
 		}
 	}
@@ -428,9 +545,9 @@ void registerNewPassenger()
 	// create struct
 	s_Passenger tempPassenger;
 
-	cout << "=================================" << endl;
-	cout << "\tPASSENGER REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "  PASSENGER REGISTRATION " << endl;
+	cout << "-------------------------" << endl;
 
 	// first name
 	cout << "First name: ";
@@ -526,8 +643,6 @@ void registerNewPassenger()
 		cin >> tempPassenger.paymentMethod;
 	}
 
-	// card number
-
 	if (tempPassenger.paymentMethod == 1)
 	{
 		cout << "Card number (1234-1234-1234-1234): ";
@@ -590,17 +705,46 @@ void registerNewPassenger()
 
 	}
 
-	writeToFile(&tempPassenger);
-	cout << "New passenger registration successful." << endl;
+	// confirmation or cancel
+	{
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempPassenger);
+			cout << "New passenger registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+	}
+
 }
 void registerNewAdmin()
 {
 	// create struct
 	s_Admin tempAdmin;
 
-	cout << "=================================" << endl;
-	cout << "\tADMIN REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "    ADMIN REGISTRATION   " << endl;
+	cout << "-------------------------" << endl;
 	cin.ignore();
 
 	// first name
@@ -619,17 +763,45 @@ void registerNewAdmin()
 	cout << "Password: ";
 	getLine(&tempAdmin.password);
 
-	writeToFile(&tempAdmin);
-	cout << "New admin registration successful." << endl;
+	// confirmation or cancel
+	{
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempAdmin);
+			cout << "New admin registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+	}
 }
 void registerNewDriver()
 {
 	// create temp struct
 	s_Driver tempDriver;
 
-	cout << "=================================" << endl;
-	cout << "\tDRIVER REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "   DRIVER REGISTRATION   " << endl;
+	cout << "-------------------------" << endl;
 	cin.ignore();
 
 	// get input
@@ -748,7 +920,6 @@ void registerNewDriver()
 	} while (tempDriver.address.size() < 8);
 
 	cout << "Ethnicity: ";
-	cin.ignore();
 	getLine(&tempDriver.ethnicity);
 
 	cout << "Bank name: ";
@@ -839,8 +1010,6 @@ void registerNewDriver()
 
 		string word, word_x, day, month, year;
 		word_x = day + month + year;
-
-		cout << word_x << endl;
 
 		do
 		{
@@ -1006,10 +1175,35 @@ void registerNewDriver()
 
 	if (tempDriver.isEligible())
 	{
-		// register user
-		writeToFile(&tempDriver);
-		showDriverMembers(tempDriver); // delete after
-		cout << "New Driver registration successful." << endl;
+		// confirmation or cancel
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempDriver);
+			cout << "New driver registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+
 	}
 	else
 	{
@@ -1038,7 +1232,7 @@ void registerNewDriver()
 			}
 			else if (selection == 0)
 			{
-				cout << "Returning to main menu." << endl;
+				signInRegMenu();
 			}
 
 		} while (to_string(selection).size() != 1);
@@ -1046,49 +1240,188 @@ void registerNewDriver()
 	}
 }
 
-// UI functions
-void mainMenu()
+// user sign in functions
+void signInForm(int userType)
 {
-	int choice;
-
-	cout << "\n\t===============================================================================" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|        ||||||||  ||                    COST EFFECTIVE                   |=|" << endl;
-	cout << "\t|=|        ||        ||                    &                                |=|" << endl;
-	cout << "\t|=|        ||||||||  ||                    SEAMLESS RIDE                    |=|" << endl;
-	cout << "\t|=|        ||        ||                                                     |=|" << endl;
-	cout << "\t|=|        ||        ||||||||              KIWI EXPERIENCE                  |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t===============================================================================" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                   -------------------------------                       |=|" << endl;
-	cout << "\t|=|                   ! WELCOME TO FLIGHTLESS RIDES !                       |=|" << endl;
-	cout << "\t|=|                   -------------------------------                       |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                               1. Rider                                  |=|" << endl;
-	cout << "\t|=|                               2. Driver                                 |=|" << endl;
-	cout << "\t|=|                               3. Admin                                  |=|" << endl;
-	cout << "\t|=|                               Q. Quit                                   |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t===============================================================================" << endl;
-
-	cout << "\n\tPress a key to continue: ";
-	cin >> choice;
-
-	switch (choice)
+	while (1)
 	{
-	case 1:
+		bool isGood = 0;
+		string username, password;
 
-		break;
-	case 2:
+		switch (userType)
+		{
+		case 1:
+			cout << "-------------------------" << endl;
+			cout << "    PASSENGER SIGN IN    " << endl;
+			cout << "-------------------------" << endl;
 
-		break;
-	case 3:
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
 
-		break;
-	case 4:
-		cout << "Thank you for visiting FL RIDES!" << endl;
-		break;
+			for (s_Passenger p : passengerVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showPassengerMembers(p);
+					setActiveUser(&p);
+					dashboard(&activeUserType);
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		case 2:
+			cout << "-------------------------" << endl;
+			cout << "      DRIVER SIGN IN     " << endl;
+			cout << "-------------------------" << endl;
+
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
+
+			for (s_Driver p : driverVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showDriverMembers(p);
+					setActiveUser(&p);
+					dashboard(&activeUserType);
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		case 3:
+			cout << "-------------------------" << endl;
+			cout << "      ADMIN SIGN IN      " << endl;
+			cout << "-------------------------" << endl;
+
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
+
+			for (s_Admin p : adminVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showAdminMembers(p);
+					setActiveUser(&p);
+					dashboard(&activeUserType);
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		}
+
 	}
 }
