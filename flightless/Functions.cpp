@@ -261,8 +261,6 @@ void getLine(string* target_)
 // file handling functions
 void loadFiles()
 {
-
-	loadUserData();
 	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
 	loadDriverFile(&driverVector);
@@ -369,26 +367,6 @@ void setActiveUser(const s_Admin* target_)
 	// go to admin dashboard
 }
 
-void loadUserData()
-{
-	string fileName = "user.txt";
-	fstream file;
-	file.open(fileName, ios::in);
-	string line;
-	string currentUserName;
-
-	if (file.is_open())
-	{
-		if (file.peek() != ifstream::traits_type::eof())
-		{
-			getline(file, line);
-			currentUserName = line.substr(line.find(":") + 2);
-
-			cout << "Greetings, " << currentUserName << "!" << endl;
-		}
-
-	}
-}
 void loadPassengerFile(passengerV_t* passengerVector_)
 {
 	string fileName = "passengers.txt"; // file to open

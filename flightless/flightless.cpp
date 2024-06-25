@@ -73,9 +73,6 @@ void signInRegMenu()
 
 	while (1)
 	{
-		showAll(&driverVector);
-
-		cout << activeUserType << endl;
 		cout << "---------------------" << endl;
 		cout << " SIGN IN or REGISTER " << endl;
 		cout << "---------------------" << endl;
