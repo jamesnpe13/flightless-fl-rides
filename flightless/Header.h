@@ -20,13 +20,15 @@ enum UserType
 };
 
 // create data container vectors
-static passengerV_t passengerVector;
-static adminV_t adminVector;
-static driverV_t driverVector;
+extern passengerV_t passengerVector;
+extern adminV_t adminVector;
+extern driverV_t driverVector;
 
-static s_Passenger activeUserPassenger;
-static s_Driver activeUserDriver;
-static s_Admin activeUserAdmin;
+extern s_Passenger activeUserPassenger;
+extern s_Driver activeUserDriver;
+extern s_Admin activeUserAdmin;
+
+extern UserType activeUserType;
 
 //vector<Driver> driverVector;
 //vector<Booking> bookingVector;
@@ -43,6 +45,7 @@ time_t now();
 // print struct members functions
 void showPassengerMembers(const s_Passenger& target_);
 void showAdminMembers(const s_Admin& target_);
+void showDriverMembers(const s_Driver& target_);
 void showAll(const adminV_t* targetVector_);
 void showAll(const passengerV_t* targetVector_);
 void showAll(const driverV_t* targetVector_);

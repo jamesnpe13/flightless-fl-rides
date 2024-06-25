@@ -1,4 +1,5 @@
 // function definition here
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -8,6 +9,16 @@
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
+
+passengerV_t passengerVector;
+adminV_t adminVector;
+driverV_t driverVector;
+
+s_Passenger activeUserPassenger;
+s_Driver activeUserDriver;
+s_Admin activeUserAdmin;
+
+UserType activeUserType;
 
 using namespace std;
 
@@ -250,6 +261,7 @@ void getLine(string* target_)
 // file handling functions
 void loadFiles()
 {
+
 	loadUserData();
 	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
@@ -336,85 +348,23 @@ void writeToFile(s_Admin* tempUser)
 
 void setActiveUser(const s_Passenger* target_)
 {
-
-	fstream file;
-	file.open("user.txt");
-
-	if (file.is_open())
-	{
-		file << "firstName: " << target_->firstName << endl;
-		file << "lastName: " << target_->lastName << endl;
-		file << "gender: " << target_->gender << endl;
-		file << "mobileNumber: " << target_->mobileNumber << endl;
-		file << "address: " << target_->address << endl;
-		file << "email: " << target_->email << endl;
-		file << "username: " << target_->username << endl;
-		file << "password: " << target_->password << endl;
-		file << "paymentMethod: " << target_->paymentMethod << endl;
-		file << "cardNumber: " << target_->cardNumber << endl;
-		file << "cardExpiryM: " << target_->cardExpiryM << endl;
-		file << "cardExpiryY: " << target_->cardExpiryY << endl;
-		file << endl;
-	}
-
-	file.close();
-
+	cout << "signed in as passenger" << endl;
+	activeUserType = passenger;
+	activeUserPassenger = *target_;
 	// go to passenger dashboard
 }
 void setActiveUser(const s_Driver* target_)
 {
-
-	fstream file;
-	file.open("user.txt");
-
-	if (file.is_open())
-	{
-		file << "firstName: " << target_->firstName << endl;
-		file << "lastName: " << target_->lastName << endl;
-		file << "username: " << target_->username << endl;
-		file << "password: " << target_->password << endl;
-		file << "gender: " << target_->gender << endl;
-		file << "address: " << target_->address << endl;
-		file << "mobileNumber: " << target_->mobileNumber << endl;
-		file << "email: " << target_->email << endl;
-		file << "DOB: " << target_->DOB << endl;
-		file << "age: " << target_->age << endl;
-		file << "ethnicity: " << target_->ethnicity << endl;
-		file << "bankAccountNumber: " << target_->bankName << endl;
-		file << "bankName: " << target_->bankAccountNumber << endl;
-		file << "licenceType: " << target_->licenceType << endl;
-		file << "drivingYears: " << target_->drivingYears << endl;
-		file << "licenceNumber: " << target_->licenceNumber << endl;
-		file << "licenceExpiry: " << target_->licenceExpiry << endl;
-		file << "vehicleMakeModel: " << target_->vehicleMakeModel << endl;
-		file << "vehicleModelYear: " << target_->vehicleModelYear << endl;
-		file << "registrationNumber: " << target_->registrationNumber << endl;
-		file << "registrationExpiry: " << target_->registrationExpiry << endl;
-		file << "wofExpiry: " << target_->wofExpiry << endl;
-		file << endl;
-	}
-
-	file.close();
-
+	cout << "signed in as driver" << endl;
+	activeUserType = driver;
+	activeUserDriver = *target_;
 	// go to driver dashboard
 }
 void setActiveUser(const s_Admin* target_)
 {
-
-	fstream file;
-	file.open("user.txt");
-
-	if (file.is_open())
-	{
-		file << "firstName: " << target_->firstName << endl;
-		file << "lastName: " << target_->lastName << endl;
-		file << "username: " << target_->username << endl;
-		file << "password: " << target_->password << endl;
-		file << endl;
-	}
-
-	file.close();
-
+	cout << "signed in as admin" << endl;
+	activeUserType = admin;
+	activeUserAdmin = *target_;
 	// go to admin dashboard
 }
 
