@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <vector>
 #include "Header.h"
-#include "Structs.h"
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
