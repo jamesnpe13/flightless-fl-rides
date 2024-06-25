@@ -50,6 +50,7 @@ bool isNumber(const string& s);
 void getLine(string* target_);
 
 // file handling functions
+void loadFiles();
 void writeToFile(s_Passenger* tempUser_);
 void writeToFile(s_Admin* tempUser_);
 void writeToFile(s_Driver* tempUser);

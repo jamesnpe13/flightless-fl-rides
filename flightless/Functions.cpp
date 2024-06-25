@@ -246,7 +246,14 @@ void getLine(string* target_)
 
 	(*target_) = temp;
 }
+
 // file handling functions
+void loadFiles()
+{
+	loadUserData();
+	loadAdminFile(&adminVector);
+	loadPassengerFile(&passengerVector);
+}
 void writeToFile(s_Passenger* tempUser)
 {
 	fstream file;
@@ -416,7 +423,6 @@ void loadAdminFile(adminV_t* adminVector_)
 }
 
 // user registration functions
-
 void registerNewPassenger()
 {
 	// create struct
