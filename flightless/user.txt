@@ -1,4 +1,0 @@
-firstName: James Elazegui
-lastName: The last name
-username: admin
-password: password
