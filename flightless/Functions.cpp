@@ -428,9 +428,9 @@ void registerNewPassenger()
 	// create struct
 	s_Passenger tempPassenger;
 
-	cout << "=================================" << endl;
-	cout << "\tPASSENGER REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "  PASSENGER REGISTRATION " << endl;
+	cout << "-------------------------" << endl;
 
 	// first name
 	cout << "First name: ";
@@ -598,9 +598,9 @@ void registerNewAdmin()
 	// create struct
 	s_Admin tempAdmin;
 
-	cout << "=================================" << endl;
-	cout << "\tADMIN REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "    ADMIN REGISTRATION   " << endl;
+	cout << "-------------------------" << endl;
 	cin.ignore();
 
 	// first name
@@ -627,9 +627,9 @@ void registerNewDriver()
 	// create temp struct
 	s_Driver tempDriver;
 
-	cout << "=================================" << endl;
-	cout << "\tDRIVER REGISTRATION " << endl;
-	cout << "=================================" << endl;
+	cout << "-------------------------" << endl;
+	cout << "   DRIVER REGISTRATION   " << endl;
+	cout << "-------------------------" << endl;
 	cin.ignore();
 
 	// get input
@@ -1044,6 +1044,21 @@ void registerNewDriver()
 		} while (to_string(selection).size() != 1);
 
 	}
+}
+
+// user sign in functions
+void signInPassenger()
+{
+	cout << "Signing in as passenger" << endl;
+}
+
+void signInAdmin()
+{
+	cout << "Signing in as admin" << endl;
+}
+void signInDriver()
+{
+	cout << "Signing in as driver" << endl;
 }
 
 // UI functions

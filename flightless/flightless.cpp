@@ -11,25 +11,26 @@
 using namespace std;
 
 int userSelectionInput(int* target_);
-void displayTC();							// 1
-void welcomeScreen();						// 2
-void signInRegMenu(int* masterMenuLoc_);	// 3
-void userTypeMenu(int* masterMenuLoc_);		// 4
-//void dashboard(int* masterMenuLoc_);		// 5
+void displayTC();
+void welcomeScreen();
+void signInRegMenu();
+void userTypeMenu(bool isRegister_ = 0);
+//void dashboard();		
 
 int main()
 {
-	int menuLoc = 0;
-	cout << "program start" << endl;
-
+	int userSelection;
 	// displayTC
 	// welcome screen
 
 	while (1)
 	{
-		int userSelection;
-		cout << "Main menu" << endl;
-		userSelectionInput(&menuLoc);
+		int menuLoc = 3;
+
+		cout << "---------------------" << endl;
+		cout << "    PROGRAM START    " << endl;
+		cout << "---------------------" << endl;
+
 		switch (menuLoc)
 		{
 		case 1:
@@ -39,10 +40,7 @@ int main()
 			welcomeScreen();
 			break;
 		case 3:
-			signInRegMenu(&menuLoc);
-			break;
-		case 4:
-			userTypeMenu(&menuLoc);
+			signInRegMenu();
 			break;
 			/*case 5:
 				dashboard(&menuLoc);
@@ -78,22 +76,28 @@ void welcomeScreen()
 {
 	cout << "Welcome screen" << endl;
 }
-void signInRegMenu(int* masterMenuLoc_)
+void signInRegMenu()
 {
-	cout << "sign in or reg" << endl;
 
-	while (*masterMenuLoc_ == 3)
+	while (1)
 	{
+		cout << "---------------------" << endl;
+		cout << " SIGN IN or REGISTER " << endl;
+		cout << "---------------------" << endl;
+
+		cout << "1. Sign in" << endl;
+		cout << "2. Register new user" << endl;
+
 		int menuLoc;
 
 		userSelectionInput(&menuLoc);
 		switch (menuLoc)
 		{
 		case 1:
-			cout << "Sign in" << endl;
+			userTypeMenu();
 			break;
 		case 2:
-			cout << "Register" << endl;
+			userTypeMenu(1);
 			break;
 		case 0:
 			return;
@@ -104,25 +108,43 @@ void signInRegMenu(int* masterMenuLoc_)
 		}
 	}
 }
-void userTypeMenu(int* masterMenuLoc_)
+void userTypeMenu(bool isRegister_)
 {
-	cout << "Select user type" << endl;
 
-	while (*masterMenuLoc_ == 4)
+	while (1)
 	{
+		if (isRegister_)
+		{
+			cout << "---------------------" << endl;
+			cout << "     REGISTER AS     " << endl;
+			cout << "---------------------" << endl;
+		}
+		else
+		{
+			cout << "---------------------" << endl;
+			cout << "      SIGN IN AS     " << endl;
+			cout << "---------------------" << endl;
+		}
+
+		cout << "1. Passenger" << endl;
+		cout << "2. Driver" << endl;
+		cout << "3. Admin" << endl;
+		cout << "4. Passenger" << endl;
+		cout << "0. Return to menu" << endl;
+
 		int menuLoc;
 
 		userSelectionInput(&menuLoc);
 		switch (menuLoc)
 		{
 		case 1:
-			cout << "Passenger" << endl;
+			isRegister_ ? registerNewPassenger() : signInPassenger();
 			break;
 		case 2:
-			cout << "Driver" << endl;
+			isRegister_ ? registerNewDriver() : signInDriver();
 			break;
 		case 3:
-			cout << "Admin" << endl;
+			isRegister_ ? registerNewAdmin() : signInAdmin();
 			break;
 		case 0:
 			return;
@@ -133,7 +155,7 @@ void userTypeMenu(int* masterMenuLoc_)
 		}
 	}
 }
-//void dashboard(int* masterMenuLoc_)
+//void dashboard()
 //{
 //	cout << "User dashboard" << endl;
 //

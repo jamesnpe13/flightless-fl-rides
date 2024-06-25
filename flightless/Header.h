@@ -63,6 +63,11 @@ void registerNewPassenger();
 void registerNewAdmin();
 void registerNewDriver();
 
+// user sign in functions
+void signInPassenger();
+void signInAdmin();
+void signInDriver();
+
 // booking functions
 //void registerNewBooking();
 
