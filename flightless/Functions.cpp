@@ -352,6 +352,7 @@ void setActiveUser(const s_Passenger* target_)
 	activeUserType = passenger;
 	activeUserPassenger = *target_;
 	// go to passenger dashboard
+
 }
 void setActiveUser(const s_Driver* target_)
 {
@@ -1269,7 +1270,7 @@ void signInForm(int userType)
 					cout << "User found." << endl;
 					showPassengerMembers(p);
 					setActiveUser(&p);
-					signInRegMenu(); // change to dashboard auto sign in
+					dashboard(&activeUserType);
 					break;
 				}
 				isGood = 0;
@@ -1326,7 +1327,7 @@ void signInForm(int userType)
 					cout << "User found." << endl;
 					showDriverMembers(p);
 					setActiveUser(&p);
-					signInRegMenu(); // change to dashboard auto sign in
+					dashboard(&activeUserType);
 					break;
 				}
 				isGood = 0;
@@ -1383,7 +1384,7 @@ void signInForm(int userType)
 					cout << "User found." << endl;
 					showAdminMembers(p);
 					setActiveUser(&p);
-					signInRegMenu(); // change to dashboard auto sign in
+					dashboard(&activeUserType);
 					break;
 				}
 				isGood = 0;
