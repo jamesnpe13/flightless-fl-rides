@@ -503,8 +503,6 @@ void loadDriverFile(driverV_t* driverVector_)
 	file.close();
 }
 
-// load driver file
-
 // user registration functions
 void registerNewPassenger()
 {
@@ -609,8 +607,6 @@ void registerNewPassenger()
 		cin >> tempPassenger.paymentMethod;
 	}
 
-	// card number
-
 	if (tempPassenger.paymentMethod == 1)
 	{
 		cout << "Card number (1234-1234-1234-1234): ";
@@ -673,9 +669,37 @@ void registerNewPassenger()
 
 	}
 
-	writeToFile(&tempPassenger);
-	cout << "New passenger registration successful." << endl;
-	loadFiles();
+	// confirmation or cancel
+	{
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempPassenger);
+			cout << "New passenger registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+	}
+
 }
 void registerNewAdmin()
 {
@@ -703,9 +727,36 @@ void registerNewAdmin()
 	cout << "Password: ";
 	getLine(&tempAdmin.password);
 
-	writeToFile(&tempAdmin);
-	cout << "New admin registration successful." << endl;
-	loadFiles();
+	// confirmation or cancel
+	{
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempAdmin);
+			cout << "New admin registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+	}
 }
 void registerNewDriver()
 {
@@ -1088,10 +1139,35 @@ void registerNewDriver()
 
 	if (tempDriver.isEligible())
 	{
-		// register user
-		writeToFile(&tempDriver);
-		cout << "New Driver registration successful." << endl;
-		loadFiles();
+		// confirmation or cancel
+		int x;
+		cout << "Confirm registration? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempDriver);
+			cout << "New driver registration successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
+
 	}
 	else
 	{
@@ -1120,7 +1196,7 @@ void registerNewDriver()
 			}
 			else if (selection == 0)
 			{
-				cout << "Returning to main menu." << endl;
+				signInRegMenu();
 			}
 
 		} while (to_string(selection).size() != 1);
@@ -1129,18 +1205,201 @@ void registerNewDriver()
 }
 
 // user sign in functions
+void signInForm(int userType)
+{
+	while (1)
+	{
+		bool isGood = 0;
+		string username, password;
+
+		switch (userType)
+		{
+		case 1:
+			cout << "-------------------------" << endl;
+			cout << "    PASSENGER SIGN IN    " << endl;
+			cout << "-------------------------" << endl;
+
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
+
+			for (s_Passenger p : passengerVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showPassengerMembers(p);
+					signInRegMenu(); // change to dashboard auto sign in
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		case 2:
+			cout << "-------------------------" << endl;
+			cout << "      DRIVER SIGN IN     " << endl;
+			cout << "-------------------------" << endl;
+
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
+
+			for (s_Driver p : driverVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showDriverMembers(p);
+					signInRegMenu(); // change to dashboard auto sign in
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		case 3:
+			cout << "-------------------------" << endl;
+			cout << "      ADMIN SIGN IN      " << endl;
+			cout << "-------------------------" << endl;
+
+			cin.ignore();
+			cout << "Username: ";
+			getLine(&username);
+			cout << "Password: ";
+			getLine(&password);
+
+			for (s_Admin p : adminVector)
+			{
+				// if user found and credentials match
+				if (p.username == username && p.password == password)
+				{
+					isGood = 1;
+					cout << "User found." << endl;
+					showAdminMembers(p);
+					signInRegMenu(); // change to dashboard auto sign in
+					break;
+				}
+				isGood = 0;
+			}
+
+			// if user not found or credentials don't match
+			if (!isGood)
+			{
+				int x;
+				cout << "Your username and password credentials do not match or user does not exist." << endl;
+				cout << "Try again? (1: yes, 2: no) ";
+				do
+				{
+					cin >> x;
+
+					while (!cin || to_string(x).size() != 1)
+					{
+						cout << "Select 1 for yes or 2 for no." << endl;
+						cin.clear();
+						cin.ignore(100, '\n');
+						cin >> x;
+					}
+
+				} while (to_string(x).size() != 1 || !cin);
+
+				if (x == 1)
+				{
+					break;
+				}
+				else if (x == 2)
+				{
+					signInRegMenu();	// return to main menu
+				}
+			}
+
+			break;
+		}
+
+	}
+}
 void signInPassenger()
 {
 	cout << "Signing in as passenger" << endl;
-}
-
-void signInAdmin()
-{
-	cout << "Signing in as admin" << endl;
+	signInForm(1);
 }
 void signInDriver()
 {
 	cout << "Signing in as driver" << endl;
+	signInForm(2);
+}
+void signInAdmin()
+{
+	cout << "Signing in as admin" << endl;
+	signInForm(3);
 }
 
 // UI functions

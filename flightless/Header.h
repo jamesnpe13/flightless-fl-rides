@@ -70,11 +70,20 @@ void registerNewAdmin();
 void registerNewDriver();
 
 // user sign in functions
+void signInForm(int userType);
 void signInPassenger();
 void signInAdmin();
 void signInDriver();
 
 // booking functions
 //void registerNewBooking();
+
+// menu functions
+int userSelectionInput(int* target_);
+void displayTC();
+void welcomeScreen();
+void signInRegMenu();
+void userTypeMenu(bool isRegister_ = 0);
+//void dashboard();		
 
 #endif

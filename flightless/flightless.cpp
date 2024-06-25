@@ -10,13 +10,6 @@
 
 using namespace std;
 
-int userSelectionInput(int* target_);
-void displayTC();
-void welcomeScreen();
-void signInRegMenu();
-void userTypeMenu(bool isRegister_ = 0);
-//void dashboard();		
-
 int main()
 {
 
@@ -130,7 +123,6 @@ void userTypeMenu(bool isRegister_)
 		cout << "1. Passenger" << endl;
 		cout << "2. Driver" << endl;
 		cout << "3. Admin" << endl;
-		cout << "4. Passenger" << endl;
 		cout << "0. Return to menu" << endl;
 
 		int menuLoc;
