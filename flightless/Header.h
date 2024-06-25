@@ -4,6 +4,8 @@
 #include "Structs.h"
 #include <vector>
 
+extern bool isSignedIn;
+
 // custom type definitions
 typedef vector<Passenger> passengerV_t;
 typedef vector<Admin> adminV_t;
@@ -49,7 +51,6 @@ void showDriverMembers(const s_Driver& target_);
 void showAll(const adminV_t* targetVector_);
 void showAll(const passengerV_t* targetVector_);
 void showAll(const driverV_t* targetVector_);
-//void showAll(const driverV_t* targetVector_);
 //void showAll(const bookingV_t* targetVector_);
 
 // input validatidation functions

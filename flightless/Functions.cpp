@@ -10,6 +10,8 @@
 #include <ctime>
 #include <fstream>
 
+using namespace std;
+
 passengerV_t passengerVector;
 adminV_t adminVector;
 driverV_t driverVector;
@@ -17,10 +19,9 @@ driverV_t driverVector;
 s_Passenger activeUserPassenger;
 s_Driver activeUserDriver;
 s_Admin activeUserAdmin;
-
 UserType activeUserType;
 
-using namespace std;
+bool isSignedIn = 0;
 
 // date handling functions
 unsigned int getDay()
@@ -349,6 +350,7 @@ void setActiveUser(const s_Passenger* target_)
 	cout << "signed in as passenger" << endl;
 	activeUserType = passenger;
 	activeUserPassenger = *target_;
+	isSignedIn = 1;
 	// go to passenger dashboard
 
 }
@@ -357,6 +359,7 @@ void setActiveUser(const s_Driver* target_)
 	cout << "signed in as driver" << endl;
 	activeUserType = driver;
 	activeUserDriver = *target_;
+	isSignedIn = 1;
 	// go to driver dashboard
 }
 void setActiveUser(const s_Admin* target_)
@@ -364,6 +367,7 @@ void setActiveUser(const s_Admin* target_)
 	cout << "signed in as admin" << endl;
 	activeUserType = admin;
 	activeUserAdmin = *target_;
+	isSignedIn = 1;
 	// go to admin dashboard
 }
 

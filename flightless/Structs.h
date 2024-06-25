@@ -3,9 +3,12 @@
 #define STRUCTS_H
 #include <string>
 #include <cstdlib>
-#include "Header.h"
+//#include "Header.h"
 
 using namespace std;
+
+extern bool isSignedIn;
+
 tm calcTimeDifference(int month, int day, int year, bool reverse = 0);
 unsigned int getDay();
 unsigned int getMonth();
@@ -100,6 +103,8 @@ typedef struct Driver
 
 		// Age >= 20 years old?
 		if (age < 20) return 0;
+
+		return 1;
 	}
 
 	bool isDatePositive(date_t* target_)
@@ -176,5 +181,115 @@ typedef struct Driver
 		endorsementExpiry = generateEndorsementExpiry();
 	}
 } s_Driver;
+
+extern s_Passenger activeUserPassenger;
+extern s_Admin activeUserAdmin;
+extern s_Driver activeUserDriver;
+
+typedef struct Booking
+{
+	unsigned long long tripNumber;
+	string customerName;
+	string customerMobileNumber;
+	string startAddress;
+	string endAddress;
+	string bookingDate;
+	string bookingTime;
+	int numberOfPersons;
+	string notes;
+	int luggageType;
+	string cardNumber;
+	string cardExpiry;
+	bool isPaid;
+	bool isAvailable;
+
+	void generateTripNumber()
+	{
+		srand(time(NULL));
+		int numLength = 12;
+		string temp;
+		unsigned long long tempInt;
+
+		for (int i = 0; i < numLength; i++)
+		{
+			int randNum = rand() % 10;
+
+			temp += to_string(randNum);
+		}
+		tempInt = stoll(temp);
+		tripNumber = tempInt;
+	}
+
+	void attachUserData()
+	{
+		s_Passenger user = activeUserPassenger;
+		customerName = user.firstName + " " + user.lastName;
+		customerMobileNumber = user.mobileNumber;
+		if (user.paymentMethod == 1)
+		{
+			cardNumber = user.cardNumber;
+			cardExpiry = user.cardExpiryM + " " + user.cardExpiryY;
+			isPaid = 1;
+		}
+		else if (user.paymentMethod == 0)
+		{
+			cardNumber = "N/A";
+			cardExpiry = "N/A";
+			isPaid = 0;
+		}
+	}
+
+	void attachDateAndTime()
+	{
+		time_t now = time(0);
+		struct tm nowTM;
+		localtime_s(&nowTM, &now);
+		string temp = to_string(nowTM.tm_hour) + ":" + to_string(nowTM.tm_min);
+
+		bookingDate = to_string(getDay()) + "/" + to_string(getMonth()) + "/" + to_string(getYear());
+		bookingTime = temp;
+	}
+
+	void showSummary()
+	{
+		cout << "Trip number: " << tripNumber << endl;
+		cout << "Customer name: " << customerName << endl;
+		cout << "Mobile number: " << customerMobileNumber << endl;
+		cout << "Pickup address: " << startAddress << endl;
+		cout << "Destination: " << endAddress << endl;
+		cout << "Date: " << bookingDate << endl;
+		cout << "Time: " << bookingTime << endl;
+		cout << "Number of passengers: " << numberOfPersons << endl;
+		cout << "Notes: " << notes << endl;
+		cout << "Luggage weight: " << luggageType << endl;
+		cout << "Card number: " << cardNumber << endl;
+		cout << "Card expiry: " << cardExpiry << endl;
+		cout << "Payment status: " << (isPaid ? "Paid" : "Pending payment") << endl;
+		cout << "Booking availability: " << (isAvailable ? "Available" : "Unavailable") << endl;
+	}
+
+	Booking()
+	{
+		customerName = "";
+		customerMobileNumber = "";
+		startAddress = "";
+		endAddress = "";
+		bookingDate = "";
+		bookingTime = "";
+		notes = "";
+		cardNumber = "";
+		cardExpiry = "";
+		tripNumber = 0;
+		numberOfPersons = 0;
+		luggageType = 0;
+		isAvailable = 1;
+
+		generateTripNumber();
+		attachUserData();
+		attachDateAndTime();
+		showSummary();
+	}
+
+} s_Booking;
 
 #endif

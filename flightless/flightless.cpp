@@ -11,9 +11,10 @@
 
 using namespace std;
 
+
+
 int main()
 {
-
 	// displayTC
 	// welcome screen
 
@@ -154,6 +155,8 @@ void dashboard(const UserType* activeUserType_)
 	case passenger:
 		while (1)
 		{
+			s_Booking temp;
+
 			cout << "---------------------" << endl;
 			cout << " PASSENGER DASHBOARD " << endl;
 			cout << "---------------------" << endl;
@@ -171,6 +174,7 @@ void dashboard(const UserType* activeUserType_)
 				// view active bookings
 				break;
 			case 2:
+				temp.showSummary();
 				// create new booking
 				break;
 			case 3:
