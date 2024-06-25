@@ -253,6 +253,11 @@ void loadFiles()
 	loadUserData();
 	loadAdminFile(&adminVector);
 	loadPassengerFile(&passengerVector);
+	loadDriverFile(&driverVector);
+
+	//showAll(&passengerVector);
+	//showAll(&driverVector);
+	//showAll(&adminVector);
 }
 void writeToFile(s_Passenger* tempUser)
 {
@@ -265,6 +270,7 @@ void writeToFile(s_Passenger* tempUser)
 		file << "lastName: " << tempUser->lastName << endl;
 		file << "gender: " << tempUser->gender << endl;
 		file << "mobileNumber: " << tempUser->mobileNumber << endl;
+		file << "address: " << tempUser->address << endl;
 		file << "email: " << tempUser->email << endl;
 		file << "username: " << tempUser->username << endl;
 		file << "password: " << tempUser->password << endl;
@@ -305,18 +311,23 @@ void writeToFile(s_Driver* tempUser)
 		file << "username: " << tempUser->username << endl;
 		file << "password: " << tempUser->password << endl;
 		file << "gender: " << tempUser->gender << endl;
+		file << "address: " << tempUser->address << endl;
 		file << "mobileNumber: " << tempUser->mobileNumber << endl;
 		file << "email: " << tempUser->email << endl;
 		file << "DOB: " << tempUser->DOB << endl;
 		file << "age: " << tempUser->age << endl;
 		file << "ethnicity: " << tempUser->ethnicity << endl;
-		file << "bankAccountNumber: " << tempUser->bankAccountNumber << endl;
+		file << "bankAccountNumber: " << tempUser->bankName << endl;
+		file << "bankName: " << tempUser->bankAccountNumber << endl;
 		file << "licenceType: " << tempUser->licenceType << endl;
 		file << "drivingYears: " << tempUser->drivingYears << endl;
 		file << "licenceNumber: " << tempUser->licenceNumber << endl;
 		file << "licenceExpiry: " << tempUser->licenceExpiry << endl;
+		file << "vehicleMakeModel: " << tempUser->vehicleMakeModel << endl;
+		file << "vehicleModelYear: " << tempUser->vehicleModelYear << endl;
 		file << "registrationNumber: " << tempUser->registrationNumber << endl;
 		file << "registrationExpiry: " << tempUser->registrationExpiry << endl;
+		file << "wofExpiry: " << tempUser->wofExpiry << endl;
 		file << endl;
 	}
 
@@ -332,10 +343,13 @@ void loadUserData()
 
 	if (file.is_open())
 	{
-		getline(file, line);
-		currentUserName = line.substr(line.find(":") + 2);
+		if (file.peek() != ifstream::traits_type::eof())
+		{
+			getline(file, line);
+			currentUserName = line.substr(line.find(":") + 2);
 
-		cout << "Greetings, " << currentUserName << "!" << endl;
+			cout << "Greetings, " << currentUserName << "!" << endl;
+		}
 
 	}
 }
@@ -351,29 +365,32 @@ void loadPassengerFile(passengerV_t* passengerVector_)
 	if (file.is_open()) // check if file successfully opened
 	{
 		string line; // create a storage for each line's value read from the file
-
-		while (getline(file, line))
+		if (file.peek() != ifstream::traits_type::eof())
 		{
-			if (line.empty() || file.peek() == EOF)
+			while (getline(file, line))
 			{
-				(*passengerVector_).push_back(tempUser);
-				continue;
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*passengerVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "gender")	tempUser.gender = stoi(val);
+				if (key == "mobileNumber")	tempUser.mobileNumber = val;
+				if (key == "email")	tempUser.email = val;
+				if (key == "address")	tempUser.address = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
+				if (key == "paymentMethod")	tempUser.paymentMethod = stoi(val);
+				if (key == "cardNumber")	tempUser.cardNumber = val;
+				if (key == "cardExpiryM")	tempUser.cardExpiryM = stoi(val);
+				if (key == "cardExpiryY")	tempUser.cardExpiryY = stoi(val);
 			}
-
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "gender")	tempUser.gender = stoi(val);
-			if (key == "mobileNumber")	tempUser.mobileNumber = val;
-			if (key == "email")	tempUser.email = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
-			if (key == "paymentMethod")	tempUser.paymentMethod = stoi(val);
-			if (key == "cardNumber")	tempUser.cardNumber = val;
-			if (key == "cardExpiryM")	tempUser.cardExpiryM = stoi(val);
-			if (key == "cardExpiryY")	tempUser.cardExpiryY = stoi(val);
 		}
 	}
 	else // if file fail to open
@@ -396,21 +413,24 @@ void loadAdminFile(adminV_t* adminVector_)
 	{
 		string line; // create a storage for each line's value read from the file
 
-		while (getline(file, line))
+		if (file.peek() != ifstream::traits_type::eof())
 		{
-			if (line.empty() || file.peek() == EOF)
+			while (getline(file, line))
 			{
-				(*adminVector_).push_back(tempUser);
-				continue;
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*adminVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
 			}
-
-			string key = line.substr(0, line.find(":"));
-			string val = line.substr(line.find(":") + 2);
-
-			if (key == "firstName")	tempUser.firstName = val;
-			if (key == "lastName")	tempUser.lastName = val;
-			if (key == "username")	tempUser.username = val;
-			if (key == "password")	tempUser.password = val;
 
 		}
 	}
@@ -421,6 +441,69 @@ void loadAdminFile(adminV_t* adminVector_)
 
 	file.close();
 }
+void loadDriverFile(driverV_t* driverVector_)
+{
+	string fileName = "drivers.txt"; // file to open
+	fstream file; // create an fstream object
+	Driver tempUser; // create temp struct to store passenger data
+
+	// attempt to open file with ios method of input
+	file.open(fileName, ios::in);
+
+	if (file.is_open()) // check if file successfully opened
+	{
+		string line; // create a storage for each line's value read from the file
+
+		if (file.peek() != ifstream::traits_type::eof())
+		{
+			while (getline(file, line))
+			{
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*driverVector_).push_back(tempUser);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "firstName")	tempUser.firstName = val;
+				if (key == "lastName")	tempUser.lastName = val;
+				if (key == "gender")	tempUser.gender = stoi(val);
+				if (key == "mobileNumber")	tempUser.mobileNumber = val;
+				if (key == "email")	tempUser.email = val;
+				if (key == "address")	tempUser.address = val;
+				if (key == "DOB")	tempUser.DOB = val;
+				if (key == "age")	tempUser.age = stoi(val);
+				if (key == "ethnicity")	tempUser.ethnicity = val;
+				if (key == "bankAccountNumber")	tempUser.bankAccountNumber = val;
+				if (key == "username")	tempUser.username = val;
+				if (key == "password")	tempUser.password = val;
+				if (key == "bankName")	tempUser.bankName = val;
+				if (key == "licenceType")	tempUser.licenceType = stoi(val);
+				if (key == "drivingYears")	tempUser.drivingYears = stoi(val);
+				if (key == "licenceNumber")	tempUser.licenceNumber = val;
+				if (key == "licenceExpiry")	tempUser.licenceExpiry = val;
+				if (key == "endorsementNumber")	tempUser.endorsementNumber = val;
+				if (key == "endorsementExpiry")	tempUser.endorsementExpiry = val;
+				if (key == "vehicleMakeModel")	tempUser.vehicleMakeModel = val;
+				if (key == "vehicleModelYear")	tempUser.vehicleModelYear = stoi(val);
+				if (key == "registrationNumber")	tempUser.registrationNumber = val;
+				if (key == "registrationExpiry")	tempUser.registrationExpiry = val;
+				if (key == "wofExpiry")	tempUser.wofExpiry = val;
+			}
+
+		}
+	}
+	else // if file fail to open
+	{
+		cout << "ERROR! Unable to open file " << fileName << endl;
+	}
+
+	file.close();
+}
+
+// load driver file
 
 // user registration functions
 void registerNewPassenger()
@@ -592,6 +675,7 @@ void registerNewPassenger()
 
 	writeToFile(&tempPassenger);
 	cout << "New passenger registration successful." << endl;
+	loadFiles();
 }
 void registerNewAdmin()
 {
@@ -621,6 +705,7 @@ void registerNewAdmin()
 
 	writeToFile(&tempAdmin);
 	cout << "New admin registration successful." << endl;
+	loadFiles();
 }
 void registerNewDriver()
 {
@@ -748,7 +833,6 @@ void registerNewDriver()
 	} while (tempDriver.address.size() < 8);
 
 	cout << "Ethnicity: ";
-	cin.ignore();
 	getLine(&tempDriver.ethnicity);
 
 	cout << "Bank name: ";
@@ -839,8 +923,6 @@ void registerNewDriver()
 
 		string word, word_x, day, month, year;
 		word_x = day + month + year;
-
-		cout << word_x << endl;
 
 		do
 		{
@@ -1008,8 +1090,8 @@ void registerNewDriver()
 	{
 		// register user
 		writeToFile(&tempDriver);
-		showDriverMembers(tempDriver); // delete after
 		cout << "New Driver registration successful." << endl;
+		loadFiles();
 	}
 	else
 	{

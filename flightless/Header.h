@@ -23,6 +23,11 @@ enum UserType
 static passengerV_t passengerVector;
 static adminV_t adminVector;
 static driverV_t driverVector;
+
+static s_Passenger activeUserPassenger;
+static s_Driver activeUserDriver;
+static s_Admin activeUserAdmin;
+
 //vector<Driver> driverVector;
 //vector<Booking> bookingVector;
 
@@ -57,6 +62,7 @@ void writeToFile(s_Driver* tempUser);
 void loadUserData();
 void loadPassengerFile(passengerV_t* passengerVector_);
 void loadAdminFile(adminV_t* adminVector);
+void loadDriverFile(driverV_t* driverVector_);
 
 // user registration functions
 void registerNewPassenger();

@@ -19,10 +19,11 @@ void userTypeMenu(bool isRegister_ = 0);
 
 int main()
 {
-	int userSelection;
+
 	// displayTC
 	// welcome screen
 
+	loadFiles();
 	while (1)
 	{
 		int menuLoc = 3;
