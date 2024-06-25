@@ -10,90 +10,152 @@
 
 using namespace std;
 
-void loadFiles()
-{
-	loadUserData();
-	loadAdminFile(&adminVector);
-	loadPassengerFile(&passengerVector);
-}
-
-void menu(int* userSelect_)
-{
-	cout << "1. Register new admin." << endl;
-	cout << "2. Show all admins." << endl;
-	cout << endl;
-	cout << "3. Register new passenger." << endl;
-	cout << "4. Show all passengers." << endl;
-	cout << endl;
-	cout << "5. Register new driver." << endl;
-	cout << "6. Show all drivers." << endl;
-	cout << endl;
-	cout << "7. TEST - Calculate date difference." << endl;
-
-	cin >> *userSelect_;
-}
+int userSelectionInput(int* target_);
+void displayTC();							// 1
+void welcomeScreen();						// 2
+void signInRegMenu(int* masterMenuLoc_);	// 3
+void userTypeMenu(int* masterMenuLoc_);		// 4
+//void dashboard(int* masterMenuLoc_);		// 5
 
 int main()
 {
+	int menuLoc = 0;
+	cout << "program start" << endl;
+
+	// displayTC
+	// welcome screen
 
 	while (1)
 	{
-
-		loadFiles();
-		int userSelect;
-
-		menu(&userSelect);
-
-		switch (userSelect)
+		int userSelection;
+		cout << "Main menu" << endl;
+		userSelectionInput(&menuLoc);
+		switch (menuLoc)
 		{
 		case 1:
-			registerNewAdmin();
+			displayTC();
 			break;
 		case 2:
-			showAll(&adminVector);
+			welcomeScreen();
 			break;
 		case 3:
-			registerNewPassenger();
+			signInRegMenu(&menuLoc);
 			break;
 		case 4:
-			showAll(&passengerVector);
+			userTypeMenu(&menuLoc);
 			break;
-		case 5:
-			registerNewDriver();
-			break;
-		case 6:
-			showAll(&driverVector);
-			break;
-		case 7:
-			s_Driver newDriver;
-			cout << "Calculate date difference." << endl;
-			int m, y, d;
-			cout << "Enter day: ";
-			cin >> d;
-			cout << "Enter month: ";
-			cin >> m;
-			cout << "Enter year: ";
-			cin >> y;
-			newDriver.getAge(d, m, y);
-			cout << "My age is " << newDriver.age << endl;
-
+			/*case 5:
+				dashboard(&menuLoc);
+				break;*/
+		default:
+			cout << "Please select from the menu options." << endl;
 			break;
 		}
 	}
-	//cout << getDay() << "-" << getMonth() << "-" << getYear() << endl;
-	//load data
-	//loadUserData();
-	//loadAdminFile(&adminVector);
-	//loadPassengerFile(&passengerVector);
-	//loadBookingFile(&bookingVector);
-
-	// user registrations
-	//registerNewPassenger();
-	//registerNewAdmin();
-	//registerNewDriver();
-
-	//showAll(&passengerVector);
-	//showAll(&adminVector);
 
 	return 0;
 }
+
+int userSelectionInput(int* target_)
+{
+	do
+	{
+		cin >> *target_;
+		if (!cin)
+		{
+			cin.clear();
+			cin.ignore(100, '\n');
+		}
+	} while (!cin);
+
+	return *target_;
+}
+void displayTC()
+{
+	cout << "T&C" << endl;
+}
+void welcomeScreen()
+{
+	cout << "Welcome screen" << endl;
+}
+void signInRegMenu(int* masterMenuLoc_)
+{
+	cout << "sign in or reg" << endl;
+
+	while (*masterMenuLoc_ == 3)
+	{
+		int menuLoc;
+
+		userSelectionInput(&menuLoc);
+		switch (menuLoc)
+		{
+		case 1:
+			cout << "Sign in" << endl;
+			break;
+		case 2:
+			cout << "Register" << endl;
+			break;
+		case 0:
+			return;
+			break;
+		default:
+			cout << "Please select from the menu options." << endl;
+			break;
+		}
+	}
+}
+void userTypeMenu(int* masterMenuLoc_)
+{
+	cout << "Select user type" << endl;
+
+	while (*masterMenuLoc_ == 4)
+	{
+		int menuLoc;
+
+		userSelectionInput(&menuLoc);
+		switch (menuLoc)
+		{
+		case 1:
+			cout << "Passenger" << endl;
+			break;
+		case 2:
+			cout << "Driver" << endl;
+			break;
+		case 3:
+			cout << "Admin" << endl;
+			break;
+		case 0:
+			return;
+			break;
+		default:
+			cout << "Please select from the menu options." << endl;
+			break;
+		}
+	}
+}
+//void dashboard(int* masterMenuLoc_)
+//{
+//	cout << "User dashboard" << endl;
+//
+//	while (*masterMenuLoc_ == 5)
+//	{
+//		int menuLoc;
+//
+//		userSelectionInput(&menuLoc);
+//		switch (menuLoc)
+//		{
+//		case 1:
+//			cout << "Sign in" << endl;
+//			break;
+//		case 2:
+//			cout << "Register" << endl;
+//			break;
+//		case 0:
+//			return;
+//			break;
+//		default:
+//			cout << "Please select from the menu options." << endl;
+//			break;
+//		}
+//	}
+//}
