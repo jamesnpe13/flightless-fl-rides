@@ -269,7 +269,7 @@ void loadFiles()
 	//showAll(&driverVector);
 	//showAll(&adminVector);
 }
-void writeToFile(s_Passenger* tempUser)
+void writeToFile(const s_Passenger* tempUser)
 {
 	fstream file;
 	file.open("passengers.txt", ios::app);
@@ -293,7 +293,7 @@ void writeToFile(s_Passenger* tempUser)
 
 	file.close();
 }
-void writeToFile(s_Driver* tempUser)
+void writeToFile(const s_Driver* tempUser)
 {
 	fstream file;
 	file.open("drivers.txt", ios::app);
@@ -327,7 +327,7 @@ void writeToFile(s_Driver* tempUser)
 
 	file.close();
 }
-void writeToFile(s_Admin* tempUser)
+void writeToFile(const s_Admin* tempUser)
 {
 	fstream file;
 	file.open("admins.txt", ios::app);

@@ -57,11 +57,11 @@ void inputValidation(int* target_);
 bool isNumber(const string& s);
 void getLine(string* target_);
 
-// file htatandling functions
+// file handling functions
 void loadFiles();
-void writeToFile(s_Passenger* tempUser_);
-void writeToFile(s_Admin* tempUser_);
-void writeToFile(s_Driver* tempUser);
+void writeToFile(const s_Passenger* tempUser_);
+void writeToFile(const s_Admin* tempUser_);
+void writeToFile(const s_Driver* tempUser);
 void setActiveUser(const s_Passenger* target_);
 void setActiveUser(const s_Driver* target_);
 void setActiveUser(const s_Admin* target_);
