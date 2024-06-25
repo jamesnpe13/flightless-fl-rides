@@ -65,7 +65,6 @@ void writeToFile(const s_Driver* tempUser);
 void setActiveUser(const s_Passenger* target_);
 void setActiveUser(const s_Driver* target_);
 void setActiveUser(const s_Admin* target_);
-void loadUserData();
 void loadPassengerFile(passengerV_t* passengerVector_);
 void loadAdminFile(adminV_t* adminVector);
 void loadDriverFile(driverV_t* driverVector_);
