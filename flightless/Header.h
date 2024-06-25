@@ -2,23 +2,21 @@
 #ifndef HEADER_H
 #define HEADER_H
 #include <vector>
-
-// structs
-
 #include <string>
 #include <cstdlib>
-//#include "Header.h"
 
 using namespace std;
 
-extern bool isSignedIn;
-
+// time functions
 tm calcTimeDifference(int month, int day, int year, bool reverse = 0);
 unsigned int getDay();
 unsigned int getMonth();
 unsigned int getYear();
-
 typedef string date_t;
+
+extern bool isSignedIn;
+
+// structs
 typedef struct Passenger
 {
 	// personal details
@@ -290,8 +288,6 @@ typedef struct Booking
 	}
 
 } s_Booking;
-
-extern bool isSignedIn;
 
 // custom type definitions
 typedef vector<Passenger> passengerV_t;
