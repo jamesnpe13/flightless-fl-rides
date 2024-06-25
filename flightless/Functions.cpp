@@ -283,22 +283,6 @@ void writeToFile(s_Passenger* tempUser)
 
 	file.close();
 }
-void writeToFile(s_Admin* tempUser)
-{
-	fstream file;
-	file.open("admins.txt", ios::app);
-
-	if (file.is_open())
-	{
-		file << "firstName: " << tempUser->firstName << endl;
-		file << "lastName: " << tempUser->lastName << endl;
-		file << "username: " << tempUser->username << endl;
-		file << "password: " << tempUser->password << endl;
-		file << endl;
-	}
-
-	file.close();
-}
 void writeToFile(s_Driver* tempUser)
 {
 	fstream file;
@@ -333,6 +317,107 @@ void writeToFile(s_Driver* tempUser)
 
 	file.close();
 }
+void writeToFile(s_Admin* tempUser)
+{
+	fstream file;
+	file.open("admins.txt", ios::app);
+
+	if (file.is_open())
+	{
+		file << "firstName: " << tempUser->firstName << endl;
+		file << "lastName: " << tempUser->lastName << endl;
+		file << "username: " << tempUser->username << endl;
+		file << "password: " << tempUser->password << endl;
+		file << endl;
+	}
+
+	file.close();
+}
+
+void setActiveUser(const s_Passenger* target_)
+{
+
+	fstream file;
+	file.open("user.txt");
+
+	if (file.is_open())
+	{
+		file << "firstName: " << target_->firstName << endl;
+		file << "lastName: " << target_->lastName << endl;
+		file << "gender: " << target_->gender << endl;
+		file << "mobileNumber: " << target_->mobileNumber << endl;
+		file << "address: " << target_->address << endl;
+		file << "email: " << target_->email << endl;
+		file << "username: " << target_->username << endl;
+		file << "password: " << target_->password << endl;
+		file << "paymentMethod: " << target_->paymentMethod << endl;
+		file << "cardNumber: " << target_->cardNumber << endl;
+		file << "cardExpiryM: " << target_->cardExpiryM << endl;
+		file << "cardExpiryY: " << target_->cardExpiryY << endl;
+		file << endl;
+	}
+
+	file.close();
+
+	// go to passenger dashboard
+}
+void setActiveUser(const s_Driver* target_)
+{
+
+	fstream file;
+	file.open("user.txt");
+
+	if (file.is_open())
+	{
+		file << "firstName: " << target_->firstName << endl;
+		file << "lastName: " << target_->lastName << endl;
+		file << "username: " << target_->username << endl;
+		file << "password: " << target_->password << endl;
+		file << "gender: " << target_->gender << endl;
+		file << "address: " << target_->address << endl;
+		file << "mobileNumber: " << target_->mobileNumber << endl;
+		file << "email: " << target_->email << endl;
+		file << "DOB: " << target_->DOB << endl;
+		file << "age: " << target_->age << endl;
+		file << "ethnicity: " << target_->ethnicity << endl;
+		file << "bankAccountNumber: " << target_->bankName << endl;
+		file << "bankName: " << target_->bankAccountNumber << endl;
+		file << "licenceType: " << target_->licenceType << endl;
+		file << "drivingYears: " << target_->drivingYears << endl;
+		file << "licenceNumber: " << target_->licenceNumber << endl;
+		file << "licenceExpiry: " << target_->licenceExpiry << endl;
+		file << "vehicleMakeModel: " << target_->vehicleMakeModel << endl;
+		file << "vehicleModelYear: " << target_->vehicleModelYear << endl;
+		file << "registrationNumber: " << target_->registrationNumber << endl;
+		file << "registrationExpiry: " << target_->registrationExpiry << endl;
+		file << "wofExpiry: " << target_->wofExpiry << endl;
+		file << endl;
+	}
+
+	file.close();
+
+	// go to driver dashboard
+}
+void setActiveUser(const s_Admin* target_)
+{
+
+	fstream file;
+	file.open("user.txt");
+
+	if (file.is_open())
+	{
+		file << "firstName: " << target_->firstName << endl;
+		file << "lastName: " << target_->lastName << endl;
+		file << "username: " << target_->username << endl;
+		file << "password: " << target_->password << endl;
+		file << endl;
+	}
+
+	file.close();
+
+	// go to admin dashboard
+}
+
 void loadUserData()
 {
 	string fileName = "user.txt";
@@ -1233,6 +1318,7 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					showPassengerMembers(p);
+					setActiveUser(&p);
 					signInRegMenu(); // change to dashboard auto sign in
 					break;
 				}
@@ -1289,6 +1375,7 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					showDriverMembers(p);
+					setActiveUser(&p);
 					signInRegMenu(); // change to dashboard auto sign in
 					break;
 				}
@@ -1345,6 +1432,7 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					showAdminMembers(p);
+					setActiveUser(&p);
 					signInRegMenu(); // change to dashboard auto sign in
 					break;
 				}
@@ -1384,67 +1472,5 @@ void signInForm(int userType)
 			break;
 		}
 
-	}
-}
-void signInPassenger()
-{
-	cout << "Signing in as passenger" << endl;
-	signInForm(1);
-}
-void signInDriver()
-{
-	cout << "Signing in as driver" << endl;
-	signInForm(2);
-}
-void signInAdmin()
-{
-	cout << "Signing in as admin" << endl;
-	signInForm(3);
-}
-
-// UI functions
-void mainMenu()
-{
-	int choice;
-
-	cout << "\n\t===============================================================================" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|        ||||||||  ||                    COST EFFECTIVE                   |=|" << endl;
-	cout << "\t|=|        ||        ||                    &                                |=|" << endl;
-	cout << "\t|=|        ||||||||  ||                    SEAMLESS RIDE                    |=|" << endl;
-	cout << "\t|=|        ||        ||                                                     |=|" << endl;
-	cout << "\t|=|        ||        ||||||||              KIWI EXPERIENCE                  |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t===============================================================================" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                   -------------------------------                       |=|" << endl;
-	cout << "\t|=|                   ! WELCOME TO FLIGHTLESS RIDES !                       |=|" << endl;
-	cout << "\t|=|                   -------------------------------                       |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                               1. Rider                                  |=|" << endl;
-	cout << "\t|=|                               2. Driver                                 |=|" << endl;
-	cout << "\t|=|                               3. Admin                                  |=|" << endl;
-	cout << "\t|=|                               Q. Quit                                   |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t|=|                                                                         |=|" << endl;
-	cout << "\t===============================================================================" << endl;
-
-	cout << "\n\tPress a key to continue: ";
-	cin >> choice;
-
-	switch (choice)
-	{
-	case 1:
-
-		break;
-	case 2:
-
-		break;
-	case 3:
-
-		break;
-	case 4:
-		cout << "Thank you for visiting FL RIDES!" << endl;
-		break;
 	}
 }

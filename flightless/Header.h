@@ -54,11 +54,14 @@ void inputValidation(int* target_);
 bool isNumber(const string& s);
 void getLine(string* target_);
 
-// file handling functions
+// file htatandling functions
 void loadFiles();
 void writeToFile(s_Passenger* tempUser_);
 void writeToFile(s_Admin* tempUser_);
 void writeToFile(s_Driver* tempUser);
+void setActiveUser(const s_Passenger* target_);
+void setActiveUser(const s_Driver* target_);
+void setActiveUser(const s_Admin* target_);
 void loadUserData();
 void loadPassengerFile(passengerV_t* passengerVector_);
 void loadAdminFile(adminV_t* adminVector);
@@ -71,9 +74,6 @@ void registerNewDriver();
 
 // user sign in functions
 void signInForm(int userType);
-void signInPassenger();
-void signInAdmin();
-void signInDriver();
 
 // booking functions
 //void registerNewBooking();

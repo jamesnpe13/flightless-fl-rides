@@ -131,13 +131,13 @@ void userTypeMenu(bool isRegister_)
 		switch (menuLoc)
 		{
 		case 1:
-			isRegister_ ? registerNewPassenger() : signInPassenger();
+			isRegister_ ? registerNewPassenger() : signInForm(1);
 			break;
 		case 2:
-			isRegister_ ? registerNewDriver() : signInDriver();
+			isRegister_ ? registerNewDriver() : signInForm(2);
 			break;
 		case 3:
-			isRegister_ ? registerNewAdmin() : signInAdmin();
+			isRegister_ ? registerNewAdmin() : signInForm(3);
 			break;
 		case 0:
 			return;
