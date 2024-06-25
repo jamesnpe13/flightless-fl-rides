@@ -183,8 +183,6 @@ typedef struct Driver
 } s_Driver;
 
 extern s_Passenger activeUserPassenger;
-extern s_Admin activeUserAdmin;
-extern s_Driver activeUserDriver;
 
 typedef struct Booking
 {
@@ -287,7 +285,6 @@ typedef struct Booking
 		generateTripNumber();
 		attachUserData();
 		attachDateAndTime();
-		showSummary();
 	}
 
 } s_Booking;
