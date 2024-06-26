@@ -1,0 +1,26 @@
+firstName: James
+lastName: Elazegui
+gender: 0
+mobileNumber: 021967716
+address: 12A Kakariki Avenue, Mount Eden, Auckland
+email: james_elzgui@yahoo.com
+username: jamesnpe13
+password: prairie135
+paymentMethod: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiryM: 26
+cardExpiryY: 25
+
+firstName: Job
+lastName: Eliab
+gender: 0
+mobileNumber: 123456789
+address: asdasdasd
+email: asdasd@yahoo.com
+username: jobe
+password: jobe
+paymentMethod: 0
+cardNumber: 
+cardExpiryM: 0
+cardExpiryY: 0
+

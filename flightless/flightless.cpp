@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <vector>
 #include "Header.h"
-#include "Structs.h"
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
@@ -13,7 +12,6 @@ using namespace std;
 
 int main()
 {
-
 	// displayTC
 	// welcome screen
 
@@ -22,9 +20,7 @@ int main()
 	{
 		int menuLoc = 3;
 
-		cout << "---------------------" << endl;
-		cout << "    PROGRAM START    " << endl;
-		cout << "---------------------" << endl;
+		cout << "*** PROGRAM START ***" << endl;
 
 		switch (menuLoc)
 		{
@@ -102,7 +98,6 @@ void signInRegMenu()
 }
 void userTypeMenu(bool isRegister_)
 {
-
 	while (1)
 	{
 		if (isRegister_)
@@ -148,7 +143,9 @@ void userTypeMenu(bool isRegister_)
 }
 void dashboard(const UserType* activeUserType_)
 {
+
 	int menuLoc;
+
 	switch (*activeUserType_)
 	{
 	case passenger:
@@ -158,7 +155,7 @@ void dashboard(const UserType* activeUserType_)
 			cout << " PASSENGER DASHBOARD " << endl;
 			cout << "---------------------" << endl;
 
-			cout << "1. View active bookings" << endl;
+			cout << "1. View my active bookings" << endl;
 			cout << "2. Create a new booking" << endl;
 			cout << "3. See booking history" << endl;
 			cout << "0. Sign out" << endl;
@@ -167,14 +164,14 @@ void dashboard(const UserType* activeUserType_)
 
 			switch (menuLoc)
 			{
-			case 1:
-				// view active bookings
+			case 1:// view active bookings				
+				listItems(&bookingVector, 1, 1);
 				break;
-			case 2:
-				// create new booking
+			case 2: // create new booking
+				createNewBooking();
 				break;
-			case 3:
-				// see booking history
+			case 3: // see booking history
+				listItems(&bookingVector, 0, 1);
 				break;
 			case 0:
 				signInRegMenu();
@@ -184,7 +181,6 @@ void dashboard(const UserType* activeUserType_)
 				break;
 			}
 		}
-
 		break;
 	case driver:
 		while (1)
@@ -193,8 +189,8 @@ void dashboard(const UserType* activeUserType_)
 			cout << "   DRIVER DASHBOARD  " << endl;
 			cout << "---------------------" << endl;
 
-			cout << "1. View available bookings" << endl;
-			// list all bookings and choose to accept trip
+			cout << "1. View all available bookings" << endl;
+			// list all bookings and choose to accept trip			
 			cout << "2. Trip reports" << endl;
 			// shows todays trips and search by date
 			cout << "3. My payment details" << endl;
@@ -207,6 +203,7 @@ void dashboard(const UserType* activeUserType_)
 			{
 			case 1:
 				cout << "all bookings available" << endl;
+				listItems(&bookingVector);
 				break;
 			case 2:
 				cout << "trip reports" << endl;
@@ -263,8 +260,8 @@ void dashboard(const UserType* activeUserType_)
 				cout << "Please select from the menu options." << endl;
 				break;
 			}
-			break;
 		}
+		break;
 	}
 
 }
