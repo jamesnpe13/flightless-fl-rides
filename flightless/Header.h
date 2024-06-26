@@ -346,7 +346,6 @@ typedef struct Booking
 		cout << "Payment status: " << (isPaid ? "paid" : "pending payment") << endl;
 		cout << "Booking availability: " << (isAvailable ? "Available" : "Unavailable") << endl;
 		cout << "=================================" << endl;
-		cout << isAvailable << endl;
 	}
 
 	Booking()
@@ -447,6 +446,13 @@ void createNewBooking();
 
 // user sign in functions
 void signInForm(int userType);
+
+// driver dashboard functions
+void bookingAcceptance();
+void bookingAcceptanceSingle(s_Booking* target_);
+void acceptBooking(s_Booking* target_);
+void getTripRecords(bool writeToFile = 0, s_Booking* target_ = NULL);
+void setTripRecord(vector<string>* tempLines, s_Booking* target_ = NULL);
 
 // booking functions
 //void registerNewBooking();

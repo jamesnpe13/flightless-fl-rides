@@ -202,11 +202,11 @@ void dashboard(const UserType* activeUserType_)
 			switch (menuLoc)
 			{
 			case 1:
-				cout << "all bookings available" << endl;
-				listItems(&bookingVector);
+				bookingAcceptance();
 				break;
 			case 2:
 				cout << "trip reports" << endl;
+				getTripRecords();
 				break;
 			case 3:
 				cout << "payment details" << endl;
