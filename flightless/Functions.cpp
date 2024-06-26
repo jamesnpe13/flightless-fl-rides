@@ -538,7 +538,6 @@ void writeToFile(const s_Booking* tempBooking)
 }
 void setActiveUser(const s_Passenger* target_)
 {
-	cout << "signed in as passenger" << endl;
 	activeUserType = passenger;
 	activeUserPassenger = *target_;
 	isSignedIn = 1;
@@ -547,7 +546,6 @@ void setActiveUser(const s_Passenger* target_)
 }
 void setActiveUser(const s_Driver* target_)
 {
-	cout << "signed in as driver" << endl;
 	activeUserType = driver;
 	activeUserDriver = *target_;
 	isSignedIn = 1;
@@ -555,7 +553,6 @@ void setActiveUser(const s_Driver* target_)
 }
 void setActiveUser(const s_Admin* target_)
 {
-	cout << "signed in as admin" << endl;
 	activeUserType = admin;
 	activeUserAdmin = *target_;
 	isSignedIn = 1;
@@ -1571,6 +1568,10 @@ void createNewBooking()
 			cout << "Please enter 1 for normal luggage or 2 for heavy luggage." << endl;
 		}
 	} while (tempBooking.luggageType != 1 && tempBooking.luggageType != 2);
+
+	cout << "-------------------------" << endl;
+	cout << "  YOUR BOOKING SUMMARY   " << endl;
+	cout << "-------------------------" << endl;
 
 	tempBooking.showSummary();
 
