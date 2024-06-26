@@ -7,20 +7,17 @@
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
+#include<windows.h>
 
 using namespace std;
 
 int main()
 {
-	// displayTC
-	// welcome screen
-
 	loadFiles();
+	displayTC();
 	while (1)
 	{
 		int menuLoc = 3;
-
-		cout << "*** PROGRAM START ***" << endl;
 
 		switch (menuLoc)
 		{
@@ -58,17 +55,98 @@ int userSelectionInput(int* target_)
 }
 void displayTC()
 {
-	cout << "T&C" << endl;
+	int selection;
+	cout << "---------------------" << endl;
+	cout << "  TERMS & CONDITIONS " << endl;
+	cout << "---------------------" << endl;
+	cout << "1. Introduction" << endl;
+	cout << "Welcome to Flightless rides Taxi Booking App.By using our taxi booking system console application, you agree to these Terms and Conditions.If you do not agree, do not use the App." << endl;
+
+	cout << "2. Eligibility" << endl;
+	cout << "You must be at least 18 years old to use the App.By using it, you confirm that you meet this requirement." << endl;
+
+	cout << "3. User Accounts" << endl;
+	cout << "Create an account with accurate information. Keep your account details confidential. You are responsible for all activities under your account." << endl;
+
+	cout << "4. Booking and Payment" << endl;
+	cout << "Bookings are subject to availability. Payment must be made through the App. You agree to pay all applicable fees." << endl;
+
+	cout << "5. Cancellation and Refunds" << endl;
+	cout << "Cancel bookings according to the App's cancellation policy.	Refunds, if applicable, will follow the App's refund policy." << endl;
+
+	cout << "6. Conduct	Use the App lawfully" << endl;
+	cout << "Do not damage, disable, or impair the App.Do not attempt unauthorized access." << endl;
+
+	cout << "7. Limitation of Liability" << endl;
+	cout << "The App is provided 'as is' without warranties. We are not liable for any damages arising from your use of the App." << endl;
+
+	cout << "8. Indemnification" << endl;
+	cout << "You agree to indemnify Flightless Rides against any claims or expenses arising from your use of the App or violation of these Terms." << endl;
+
+	cout << "9. Modifications" << endl;
+	cout << "We may update these Terms at any time.Continued use of the App means you accept the new Terms." << endl;
+
+	cout << "10. Governing Law" << endl;
+	cout << "These Terms are governed by the laws of New Zealand.Disputes will be resolved in the courts of New Zealand." << endl;
+
+	cout << "11. Contact Us" << endl;
+	cout << "For questions, contact us at 111222333." << endl;
+	cout << endl;
+	cout << "------------------------------------" << endl;
+	cout << "Do you agree? (1: yes, 0: no) " << endl;
+
+	do
+	{
+		cin >> selection;
+		while (!cin)
+		{
+			cout << "Please select 1: agree or 0: to exit the app." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+			cin >> selection;
+		}
+		if (selection != 1 && selection != 0)
+		{
+			cout << "Please choose one of the options." << endl;
+		}
+
+	} while (selection != 1 && selection != 0);
+
+	if (selection == 1)
+	{
+		welcomeScreen();
+	}
+	else if (selection == 0)
+	{
+		exit(1);
+	}
 }
 void welcomeScreen()
 {
-	cout << "Welcome screen" << endl;
+	system("cls");
+	cout << "\n\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|          ||||||||  ||         |||||||        COST EFFECTIVE             |=|" << endl;
+	cout << "\t|=|          ||        ||         ||    ||                                  |=|" << endl;
+	cout << "\t|=|          ||||||||  ||         |||||||        SEAMLESS RIDE              |=|" << endl;
+	cout << "\t|=|          ||        ||         ||  ||                                    |=|" << endl;
+	cout << "\t|=|          ||        ||||||||   ||    ||       KIWI EXPERIENCE            |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                   ! WELCOME TO FLIGHTLESS RIDES !                       |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
+	Sleep(4000);
+	signInRegMenu();
 }
 void signInRegMenu()
 {
-
 	while (1)
 	{
+		system("cls");
 		cout << "---------------------" << endl;
 		cout << " SIGN IN or REGISTER " << endl;
 		cout << "---------------------" << endl;
@@ -100,6 +178,7 @@ void userTypeMenu(bool isRegister_)
 {
 	while (1)
 	{
+		system("cls");
 		if (isRegister_)
 		{
 			cout << "---------------------" << endl;
@@ -124,12 +203,15 @@ void userTypeMenu(bool isRegister_)
 		switch (menuLoc)
 		{
 		case 1:
+			system("cls");
 			isRegister_ ? registerNewPassenger() : signInForm(1);
 			break;
 		case 2:
+			system("cls");
 			isRegister_ ? registerNewDriver() : signInForm(2);
 			break;
 		case 3:
+			system("cls");
 			isRegister_ ? registerNewAdmin() : signInForm(3);
 			break;
 		case 0:
@@ -164,13 +246,16 @@ void dashboard(const UserType* activeUserType_)
 
 			switch (menuLoc)
 			{
-			case 1:// view active bookings				
+			case 1:// view active bookings		
+				system("cls");
 				listItems(&bookingVector, 1, 1);
 				break;
 			case 2: // create new booking
+				system("cls");
 				createNewBooking();
 				break;
 			case 3: // see booking history
+				system("cls");
 				listItems(&bookingVector, 0, 1);
 				break;
 			case 0:
@@ -202,16 +287,19 @@ void dashboard(const UserType* activeUserType_)
 			switch (menuLoc)
 			{
 			case 1:
-				cout << "all bookings available" << endl;
-				listItems(&bookingVector);
+				system("cls");
+				bookingAcceptance();
 				break;
 			case 2:
-				cout << "trip reports" << endl;
+				system("cls");
+				getTripRecords(0, NULL, 1);
 				break;
 			case 3:
-				cout << "payment details" << endl;
+				system("cls");
+				cout << "Bank account number: " << activeUserDriver.bankAccountNumber << endl;
 				break;
 			case 0:
+				system("cls");
 				signInRegMenu();
 				break;
 			default:
@@ -228,13 +316,9 @@ void dashboard(const UserType* activeUserType_)
 			cout << "---------------------" << endl;
 
 			cout << "1. Trip reports" << endl;
-			// list all bookings and choose to accept trip
 			cout << "2. Trip cancellation report" << endl;
-			// list all trip cancellations
 			cout << "3. View all drivers" << endl;
-			// shows todays trips and search by date
 			cout << "4. View all passengers" << endl;
-			// show payment details			
 			cout << "0. Sign out" << endl;
 
 			userSelectionInput(&menuLoc);
@@ -242,16 +326,38 @@ void dashboard(const UserType* activeUserType_)
 			switch (menuLoc)
 			{
 			case 1:
-				cout << "trip reports" << endl;
+				system("cls");
+				cout << "---------------------" << endl;
+				cout << "     TRIP REPORTS    " << endl;
+				cout << "---------------------" << endl;
+				for (int i = 0; i < bookingVector.size(); i++)
+				{
+					bookingVector[i].showSummary();
+				}
 				break;
 			case 2:
-				cout << "trip cancellation report" << endl;
+				system("cls");
+				cout << "** FEATURE UNAVAILABLE **" << endl;
 				break;
 			case 3:
-				cout << "all drivers" << endl;
+				system("cls");
+				cout << "---------------------" << endl;
+				cout << "     ALL DRIVERS     " << endl;
+				cout << "---------------------" << endl;
+				for (int i = 0; i < driverVector.size(); i++)
+				{
+					driverVector[i].showSummary();
+				}
 				break;
 			case 4:
-				cout << "all passengers" << endl;
+				system("cls");
+				cout << "---------------------" << endl;
+				cout << "    ALL PASSENGERS   " << endl;
+				cout << "---------------------" << endl;
+				for (int i = 0; i < passengerVector.size(); i++)
+				{
+					passengerVector[i].showSummary();
+				}
 				break;
 			case 0:
 				signInRegMenu();

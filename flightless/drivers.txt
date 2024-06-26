@@ -1,0 +1,23 @@
+firstName: James
+lastName: Elazegui
+username: james
+password: elazegui
+gender: 0
+address: 12 Mountain Road, Mount Wellington, Auckland
+mobileNumber: 0215556456
+email: james@gmail.com
+DOB: 26-09-1995
+age: 28
+ethnicity: Filipino
+bankAccountNumber: Westpac
+bankName: 12-1234-1234567-123
+licenceType: 2
+drivingYears: 8
+licenceNumber: DO123456
+licenceExpiry: 26-09-2026
+vehicleMakeModel: Toyota Camry
+vehicleModelYear: 2021
+registrationNumber: KWD125
+registrationExpiry: 26-09-2025
+wofExpiry: 09-05-2026
+
