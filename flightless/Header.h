@@ -451,7 +451,7 @@ void signInForm(int userType);
 void bookingAcceptance();
 void bookingAcceptanceSingle(s_Booking* target_);
 void acceptBooking(s_Booking* target_);
-void getTripRecords(bool writeToFile = 0, s_Booking* target_ = NULL);
+void getTripRecords(bool writeToFile = 0, s_Booking* target_ = NULL, bool readOnly_ = 0);
 void setTripRecord(vector<string>* tempLines, s_Booking* target_ = NULL);
 
 // booking functions

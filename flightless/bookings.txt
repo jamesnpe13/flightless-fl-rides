@@ -1,0 +1,30 @@
+tripNumber: 376300341783
+customerName: Job Eliab
+customerMobileNumber: 123456789
+startAddress: Mangere East
+endAddress: Auckland CBD
+bookingDate: 27/6/2024
+bookingTime: 2:52
+numberOfPersons: 3
+notes: Need ramp
+luggageType: 2
+cardNumber: 1234-1234-1234-1234
+cardExpiry: 26/26
+isPaid: 1
+isAvailable: 0
+
+tripNumber: 841680639519
+customerName: Prairie Alcantara
+customerMobileNumber: 123456789
+startAddress: 56 Hersham place, Manurewa, Auckland
+endAddress: Auckland CBD
+bookingDate: 27/6/2024
+bookingTime: 3:17
+numberOfPersons: 2
+notes: none
+luggageType: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiry: 26/26
+isPaid: 1
+isAvailable: 1
+

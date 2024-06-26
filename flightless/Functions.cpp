@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <ctime>
 #include <fstream>
-
+#include<windows.h>
 using namespace std;
 
 passengerV_t passengerVector;
@@ -969,10 +969,13 @@ void registerNewPassenger()
 			writeToFile(&tempPassenger);
 			cout << "New passenger registration successful." << endl;
 			loadFiles();
+			Sleep(2000);
+			system("cls");
 			signInRegMenu();
 		}
 		else if (x == 2)
 		{
+			system("cls");
 			signInRegMenu();	// return to main menu
 		}
 	}
@@ -1027,10 +1030,13 @@ void registerNewAdmin()
 			writeToFile(&tempAdmin);
 			cout << "New admin registration successful." << endl;
 			loadFiles();
+			Sleep(2000);
+			system("cls");
 			signInRegMenu();
 		}
 		else if (x == 2)
 		{
+			system("cls");
 			signInRegMenu();	// return to main menu
 		}
 	}
@@ -1438,10 +1444,13 @@ void registerNewDriver()
 			writeToFile(&tempDriver);
 			cout << "New driver registration successful." << endl;
 			loadFiles();
+			Sleep(2000);
+			system("cls");
 			signInRegMenu();
 		}
 		else if (x == 2)
 		{
+			system("cls");
 			signInRegMenu();	// return to main menu
 		}
 
@@ -1608,8 +1617,10 @@ void createNewBooking()
 			writeToFile(&tempBooking);
 			cout << "New booking successful." << endl;
 			loadFiles();
+			Sleep(2000);
 		}
 
+		system("cls");
 		dashboard(&activeUserType);
 	}
 }
@@ -1617,8 +1628,10 @@ void createNewBooking()
 // user sign in functions
 void signInForm(int userType)
 {
+
 	while (1)
 	{
+		system("cls");
 		bool isGood = 0;
 		string username, password;
 
@@ -1643,6 +1656,8 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					setActiveUser(&p);
+					Sleep(2000);
+					system("cls");
 					dashboard(&activeUserType);
 					break;
 				}
@@ -1675,6 +1690,8 @@ void signInForm(int userType)
 				}
 				else if (x == 2)
 				{
+
+					system("cls");
 					signInRegMenu();	// return to main menu
 				}
 			}
@@ -1699,6 +1716,8 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					setActiveUser(&p);
+					Sleep(2000);
+					system("cls");
 					dashboard(&activeUserType);
 					break;
 				}
@@ -1731,6 +1750,7 @@ void signInForm(int userType)
 				}
 				else if (x == 2)
 				{
+					system("cls");
 					signInRegMenu();	// return to main menu
 				}
 			}
@@ -1755,6 +1775,8 @@ void signInForm(int userType)
 					isGood = 1;
 					cout << "User found." << endl;
 					setActiveUser(&p);
+					Sleep(2000);
+					system("cls");
 					dashboard(&activeUserType);
 					break;
 				}
@@ -1787,6 +1809,7 @@ void signInForm(int userType)
 				}
 				else if (x == 2)
 				{
+					system("cls");
 					signInRegMenu();	// return to main menu
 				}
 			}
@@ -1844,6 +1867,7 @@ void bookingAcceptance()
 	}
 	if (selection == 0)
 	{
+		system("cls");
 		dashboard(&activeUserType);
 	}
 	for (int i = 0; i < tempAvailableBookings.size(); i++)
@@ -1851,12 +1875,11 @@ void bookingAcceptance()
 		if (selection == i + 1)
 		{
 			// view booking in full details
+			//Sleep(2000);
+			system("cls");
 			bookingAcceptanceSingle(&tempAvailableBookings[i]);
 		}
 	}
-
-	// option to accept or go back
-	// confirmation
 
 }
 void bookingAcceptanceSingle(s_Booking* target_)
@@ -1870,9 +1893,12 @@ void bookingAcceptanceSingle(s_Booking* target_)
 	switch (selection)
 	{
 	case 1:
+		system("cls");
 		acceptBooking(target_);
 		break;
 	case 2:
+		//Sleep(2000);
+		system("cls");
 		bookingAcceptance();
 		break;
 	default:
@@ -1978,9 +2004,6 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 
 		for (int i = 0; i < tempLine.size(); i++)
 		{
-			cout << "i + 1: " << i + 1 << endl;
-			cout << "size: " << tempLine.size() << endl;
-			cout << activeUserDriver.firstName << endl;
 			// find name
 			if (tempLine[i] == activeUserDriver.firstName + " " + activeUserDriver.lastName)
 			{
@@ -2030,7 +2053,7 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 
 }
 
-void getTripRecords(bool writeToFile, s_Booking* target_)
+void getTripRecords(bool writeToFile, s_Booking* target_, bool readOnly_)
 {
 	string fileName = "tripRecords.txt";
 	vector<string> tempLine;
@@ -2049,7 +2072,6 @@ void getTripRecords(bool writeToFile, s_Booking* target_)
 				if (line == activeUserDriver.firstName + " " + activeUserDriver.lastName)
 				{
 					string line2;
-					cout << "found name in file." << endl;
 
 					while (getline(file, line2))
 					{
@@ -2060,10 +2082,13 @@ void getTripRecords(bool writeToFile, s_Booking* target_)
 							break;
 						}
 					}
+					break;
 
 				}
-
-				break;
+				else
+				{
+					continue;
+				}
 
 			}
 		}
@@ -2071,6 +2096,18 @@ void getTripRecords(bool writeToFile, s_Booking* target_)
 	else // if file fail to open
 	{
 		cout << "ERROR! Unable to open file " << fileName << endl;
+	}
+
+	if (readOnly_)
+	{
+		cout << "---------------------" << endl;
+		cout << "      TRIP ID's      " << endl;
+		cout << "---------------------" << endl;
+		for (int i = 0; i < tempLine.size(); i++)
+		{
+			cout << i + 1 << ". " << tempLine[i] << endl;
+		}
+		cout << "---------------------" << endl;
 	}
 
 	file.close();

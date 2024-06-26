@@ -13,8 +13,8 @@ using namespace std;
 
 int main()
 {
-	displayTC();
 	loadFiles();
+	displayTC();
 	while (1)
 	{
 		int menuLoc = 3;
@@ -123,16 +123,30 @@ void displayTC()
 }
 void welcomeScreen()
 {
-	clearConsole();
-	cout << "Welcome screen" << endl;
-	Sleep(2000);
+	system("cls");
+	cout << "\n\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|          ||||||||  ||         |||||||        COST EFFECTIVE             |=|" << endl;
+	cout << "\t|=|          ||        ||         ||    ||                                  |=|" << endl;
+	cout << "\t|=|          ||||||||  ||         |||||||        SEAMLESS RIDE              |=|" << endl;
+	cout << "\t|=|          ||        ||         ||  ||                                    |=|" << endl;
+	cout << "\t|=|          ||        ||||||||   ||    ||       KIWI EXPERIENCE            |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                   ! WELCOME TO FLIGHTLESS RIDES !                       |=|" << endl;
+	cout << "\t|=|                   -------------------------------                       |=|" << endl;
+	cout << "\t|=|                                                                         |=|" << endl;
+	cout << "\t===============================================================================" << endl;
+	Sleep(4000);
 	signInRegMenu();
 }
 void signInRegMenu()
 {
-
 	while (1)
 	{
+		system("cls");
 		cout << "---------------------" << endl;
 		cout << " SIGN IN or REGISTER " << endl;
 		cout << "---------------------" << endl;
@@ -164,6 +178,7 @@ void userTypeMenu(bool isRegister_)
 {
 	while (1)
 	{
+		system("cls");
 		if (isRegister_)
 		{
 			cout << "---------------------" << endl;
@@ -188,12 +203,15 @@ void userTypeMenu(bool isRegister_)
 		switch (menuLoc)
 		{
 		case 1:
+			system("cls");
 			isRegister_ ? registerNewPassenger() : signInForm(1);
 			break;
 		case 2:
+			system("cls");
 			isRegister_ ? registerNewDriver() : signInForm(2);
 			break;
 		case 3:
+			system("cls");
 			isRegister_ ? registerNewAdmin() : signInForm(3);
 			break;
 		case 0:
@@ -228,13 +246,16 @@ void dashboard(const UserType* activeUserType_)
 
 			switch (menuLoc)
 			{
-			case 1:// view active bookings				
+			case 1:// view active bookings		
+				system("cls");
 				listItems(&bookingVector, 1, 1);
 				break;
 			case 2: // create new booking
+				system("cls");
 				createNewBooking();
 				break;
 			case 3: // see booking history
+				system("cls");
 				listItems(&bookingVector, 0, 1);
 				break;
 			case 0:
@@ -266,15 +287,19 @@ void dashboard(const UserType* activeUserType_)
 			switch (menuLoc)
 			{
 			case 1:
+				system("cls");
 				bookingAcceptance();
 				break;
 			case 2:
-				getTripRecords();
+				system("cls");
+				getTripRecords(0, NULL, 1);
 				break;
 			case 3:
+				system("cls");
 				cout << "Bank account number: " << activeUserDriver.bankAccountNumber << endl;
 				break;
 			case 0:
+				system("cls");
 				signInRegMenu();
 				break;
 			default:
@@ -301,6 +326,7 @@ void dashboard(const UserType* activeUserType_)
 			switch (menuLoc)
 			{
 			case 1:
+				system("cls");
 				cout << "---------------------" << endl;
 				cout << "     TRIP REPORTS    " << endl;
 				cout << "---------------------" << endl;
@@ -310,9 +336,11 @@ void dashboard(const UserType* activeUserType_)
 				}
 				break;
 			case 2:
+				system("cls");
 				cout << "** FEATURE UNAVAILABLE **" << endl;
 				break;
 			case 3:
+				system("cls");
 				cout << "---------------------" << endl;
 				cout << "     ALL DRIVERS     " << endl;
 				cout << "---------------------" << endl;
@@ -322,6 +350,7 @@ void dashboard(const UserType* activeUserType_)
 				}
 				break;
 			case 4:
+				system("cls");
 				cout << "---------------------" << endl;
 				cout << "    ALL PASSENGERS   " << endl;
 				cout << "---------------------" << endl;
