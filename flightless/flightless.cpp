@@ -172,7 +172,7 @@ void dashboard(const UserType* activeUserType_)
 				break;
 			case 2:
 				temp.showSummary();
-				// create new booking
+				createNewBooking();
 				break;
 			case 3:
 				// see booking history

@@ -226,7 +226,7 @@ typedef struct Booking
 		if (user.paymentMethod == 1)
 		{
 			cardNumber = user.cardNumber;
-			cardExpiry = to_string(user.cardExpiryM) + "/" + to_string(user.cardExpiryY);
+			cardExpiry = to_string(user.cardExpiryM) + " " + to_string(user.cardExpiryY);
 			isPaid = 1;
 		}
 		else if (user.paymentMethod == 0)

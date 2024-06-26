@@ -343,7 +343,32 @@ void writeToFile(const s_Admin* tempUser)
 
 	file.close();
 }
+void writeToFile(const s_Booking* tempBooking)
+{
+	fstream file;
+	file.open("bookings.txt", ios::app);
 
+	if (file.is_open())
+	{
+		file << "tripNumber: " << tempBooking->tripNumber << endl;
+		file << "customerName: " << tempBooking->customerName << endl;
+		file << "customerMobileNumber: " << tempBooking->customerMobileNumber << endl;
+		file << "startAddress: " << tempBooking->startAddress << endl;
+		file << "endAddress: " << tempBooking->endAddress << endl;
+		file << "bookingDate: " << tempBooking->bookingDate << endl;
+		file << "bookingTime: " << tempBooking->bookingTime << endl;
+		file << "numberOfPersons: " << tempBooking->numberOfPersons << endl;
+		file << "notes: " << tempBooking->notes << endl;
+		file << "luggageType: " << tempBooking->luggageType << endl;
+		file << "cardNumber: " << tempBooking->cardNumber << endl;
+		file << "cardExpiry: " << tempBooking->cardExpiry << endl;
+		file << "isPaid: " << tempBooking->isPaid << endl;
+		file << "isAvailable: " << tempBooking->isAvailable << endl;
+		file << endl;
+	}
+
+	file.close();
+}
 void setActiveUser(const s_Passenger* target_)
 {
 	cout << "signed in as passenger" << endl;
@@ -1217,6 +1242,141 @@ void registerNewDriver()
 			}
 
 		} while (to_string(selection).size() != 1);
+
+	}
+}
+
+// trip booking form
+void createNewBooking()
+{
+	s_Booking tempBooking;
+
+	cout << "-------------------------" << endl;
+	cout << "       NEW BOOKING       " << endl;
+	cout << "-------------------------" << endl;
+
+	// get inputs
+	cin.ignore();
+	cout << "Pickup address: ";
+	do
+	{
+		getLine(&tempBooking.startAddress);
+		if (tempBooking.startAddress.size() < 5)
+		{
+			cout << "Address too short. Please enter a valid address." << endl;
+		}
+
+	} while (tempBooking.startAddress.size() < 5);
+
+	cout << "Destination: ";
+	do
+	{
+		getLine(&tempBooking.endAddress);
+		if (tempBooking.endAddress.size() < 5)
+		{
+			cout << "Address too short. Please enter a valid address." << endl;
+		}
+
+		if (tempBooking.endAddress == tempBooking.startAddress)
+		{
+			cout << "Destination cannot be the same as pickup address. Please enter a different destination." << endl;
+		}
+
+	} while (tempBooking.endAddress.size() < 5 || tempBooking.endAddress == tempBooking.startAddress);
+
+	cout << "Number of passengers: ";
+	do
+	{
+		cin >> tempBooking.numberOfPersons;
+
+		while (!cin)
+		{
+			cout << "Invalid input. Please enter a number." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+			cin >> tempBooking.numberOfPersons;
+		}
+
+		if (tempBooking.numberOfPersons > 4)
+		{
+			cout << "Cannot have more than 4 passengers." << endl;
+		}
+
+		if (tempBooking.numberOfPersons < 1)
+		{
+			cout << "Must have at least 1 passenger." << endl;
+		}
+
+	} while (tempBooking.numberOfPersons > 4 || tempBooking.numberOfPersons < 1);
+
+	cin.ignore();
+	cout << "Accessibility notes (max 50 characters): ";
+	do
+	{
+		getLine(&tempBooking.notes);
+		while (tempBooking.notes.size() > 50)
+		{
+			cout << "Message too long. Max input is 50 characters." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+			getLine(&tempBooking.notes);
+
+		}
+
+	} while (tempBooking.notes.size() > 50);
+
+	cout << "Luggage weight (1: Normal, 2: Heavy): ";
+	do
+	{
+		cin >> tempBooking.luggageType;
+
+		while (!cin)
+		{
+			cout << "Please enter an integer. 1 for normal luggage or 2 for heavy luggage." << endl;
+			cin.clear();
+			cin.ignore(100, '\n');
+		}
+
+		if (tempBooking.luggageType != 1 && tempBooking.luggageType != 2)
+		{
+			cout << "Please enter 1 for normal luggage or 2 for heavy luggage." << endl;
+		}
+	} while (tempBooking.luggageType != 1 && tempBooking.luggageType != 2);
+
+	tempBooking.showSummary();
+
+	// confirmation or cancel
+
+	// confirmation or cancel
+	{
+
+		int x;
+		cout << "Confirm booking? (1: confirm, 2: cancel) " << endl;
+		do
+		{
+			cin >> x;
+
+			while (!cin || to_string(x).size() != 1)
+			{
+				cout << "Select 1 for confirm or 2 for cancel." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+				cin >> x;
+			}
+
+		} while (to_string(x).size() != 1 || !cin);
+
+		if (x == 1)
+		{
+			writeToFile(&tempBooking);
+			cout << "New booking successful." << endl;
+			loadFiles();
+			signInRegMenu();
+		}
+		else if (x == 2)
+		{
+			signInRegMenu();	// return to main menu
+		}
 
 	}
 }
