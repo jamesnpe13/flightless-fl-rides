@@ -1928,7 +1928,6 @@ void acceptBooking(s_Booking* target_)
 	{
 		for (int i = 0; i < tempLine.size(); i++)
 		{
-			cout << tempLine[i] << endl;
 			file << tempLine[i] << endl;
 		}
 	}
@@ -1980,7 +1979,73 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 
 	file.close();
 
-	//-------------------------------------// find user in vector and go to end of entry. Append/insert new target tripNumber
+	bool isUserData = 0;
+	bool isUserFound = 0;
+	int startingIndex = 1;
+
+	if (tempLine.size() == 0)
+	{
+		tempLine.push_back("");
+		tempLine.push_back(activeUserDriver.firstName + " " + activeUserDriver.lastName);
+		tempLine.push_back(to_string(target_->tripNumber));
+	}
+	else
+	{
+
+		for (int i = 0; i < tempLine.size(); i++)
+		{
+			cout << "i + 1: " << i + 1 << endl;
+			cout << "size: " << tempLine.size() << endl;
+			cout << activeUserDriver.firstName << endl;
+			// find name
+			if (tempLine[i] == activeUserDriver.firstName + " " + activeUserDriver.lastName)
+			{
+				cout << "Match name" << endl;
+				for (int x = i; x < tempLine.size(); x++)
+				{
+					startingIndex = i + 1;
+					if (!tempLine[x].empty())
+					{
+
+						startingIndex++;
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				cout << "Starting index: " << startingIndex << endl;
+				tempLine.insert(tempLine.begin() + startingIndex, to_string(target_->tripNumber));
+
+				break;
+			}
+			// if reached end of iteration and no match
+			if ((i + 1) == tempLine.size() && tempLine[i] != activeUserDriver.firstName + " " + activeUserDriver.lastName)
+			{
+				cout << "End of vector. no match" << endl;
+				tempLine.push_back("");
+				tempLine.push_back(activeUserDriver.firstName + " " + activeUserDriver.lastName);
+				tempLine.push_back(to_string(target_->tripNumber));
+
+				break;
+			}
+
+		}
+
+	}
+
+	file.open(fileName, ios::out);
+	if (file.is_open())
+	{
+		for (int i = 0; i < tempLine.size(); i++)
+		{
+			cout << tempLine[i] << endl;
+			file << tempLine[i] << endl;
+		}
+	}
+
+	file.close();
 
 }
 
