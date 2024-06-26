@@ -465,4 +465,6 @@ void signInRegMenu();
 void userTypeMenu(bool isRegister_ = 0);
 void dashboard(const UserType* activeUserType_);
 
+void clearConsole();
+
 #endif

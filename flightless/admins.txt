@@ -3,3 +3,8 @@ lastName: Elazegui
 username: admin
 password: password
 
+firstName: James
+lastName: Elazegui
+username: admin
+password: password
+

@@ -1938,21 +1938,6 @@ void acceptBooking(s_Booking* target_)
 }
 void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 {
-	/*string fileName = "tripRecords.txt";
-	fstream file;
-
-	file.open(fileName, ios::out);
-
-	if (file.is_open())
-	{
-		for (int i = 0; i < (*tempLines).size(); i++)
-		{
-			file << (*tempLines)[i] << endl;
-			file << endl;
-		}
-	}
-
-	file.close();*/
 
 	string fileName = "tripRecords.txt";
 	vector<string> tempLine;
@@ -1979,7 +1964,6 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 
 	file.close();
 
-	bool isUserData = 0;
 	bool isUserFound = 0;
 	int startingIndex = 1;
 
@@ -2015,7 +1999,6 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 					}
 				}
 
-				cout << "Starting index: " << startingIndex << endl;
 				tempLine.insert(tempLine.begin() + startingIndex, to_string(target_->tripNumber));
 
 				break;
@@ -2023,7 +2006,6 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 			// if reached end of iteration and no match
 			if ((i + 1) == tempLine.size() && tempLine[i] != activeUserDriver.firstName + " " + activeUserDriver.lastName)
 			{
-				cout << "End of vector. no match" << endl;
 				tempLine.push_back("");
 				tempLine.push_back(activeUserDriver.firstName + " " + activeUserDriver.lastName);
 				tempLine.push_back(to_string(target_->tripNumber));
@@ -2040,7 +2022,6 @@ void setTripRecord(vector<string>* tempLines, s_Booking* target_)
 	{
 		for (int i = 0; i < tempLine.size(); i++)
 		{
-			cout << tempLine[i] << endl;
 			file << tempLine[i] << endl;
 		}
 	}
@@ -2096,4 +2077,9 @@ void getTripRecords(bool writeToFile, s_Booking* target_)
 
 	if (writeToFile) setTripRecord(&tempLine, target_);
 
+}
+
+void clearConsole()
+{
+	system("cls");
 }
