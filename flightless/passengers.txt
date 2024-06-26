@@ -11,3 +11,16 @@ cardNumber: 1234-1234-1234-1234
 cardExpiryM: 26
 cardExpiryY: 25
 
+firstName: Job
+lastName: Eliab
+gender: 0
+mobileNumber: 123456789
+address: asdasdasd
+email: asdasd@yahoo.com
+username: jobe
+password: jobe
+paymentMethod: 0
+cardNumber: 
+cardExpiryM: 0
+cardExpiryY: 0
+

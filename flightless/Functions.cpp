@@ -14,6 +14,7 @@ using namespace std;
 passengerV_t passengerVector;
 adminV_t adminVector;
 driverV_t driverVector;
+bookingV_t bookingVector;
 
 s_Passenger activeUserPassenger;
 s_Driver activeUserDriver;
@@ -194,6 +195,25 @@ static void showDriverMembers(const s_Driver& target_)
 	cout << "WOF expiry: " << target_.wofExpiry << endl;
 	cout << "=================================" << endl;
 }
+static void showBookingMembers(const s_Booking& target_)
+{
+	cout << "=================================" << endl;
+	cout << target_.tripNumber << endl;
+	cout << target_.customerName << endl;
+	cout << target_.customerMobileNumber << endl;
+	cout << target_.startAddress << endl;
+	cout << target_.endAddress << endl;
+	cout << target_.bookingDate << endl;
+	cout << target_.bookingTime << endl;
+	cout << target_.numberOfPersons << endl;
+	cout << target_.notes << endl;
+	cout << target_.luggageType << endl;
+	cout << target_.cardNumber << endl;
+	cout << target_.cardExpiry << endl;
+	cout << target_.isPaid << endl;
+	cout << target_.isAvailable << endl;
+	cout << "=================================" << endl;
+}
 void showAll(const adminV_t* targetVector_)
 {
 	for (s_Admin item : *targetVector_)
@@ -215,13 +235,170 @@ void showAll(const driverV_t* targetVector_)
 		showDriverMembers(item);
 	}
 }
-//void showAll(const bookingV_t* targetVector_)
-//{
-//	for (s_Booking item : *targetVector_)
-//	{
-//		showBookingMembers(item);
-//	}
-//}
+void showAll(const bookingV_t* targetVector_)
+{
+	for (s_Booking item : *targetVector_)
+	{
+		showBookingMembers(item);
+	}
+}
+
+// print reports / search
+void listItems(passengerV_t* targetVector_, bool isSearch, string keyword_)
+{
+	loadFiles();
+	//if ((*targetVector_).size() == 0)
+	//{
+	//	cout << "No registered users." << endl;
+	//	return;
+	//}
+
+	//if (isSearch)
+	//{
+	//	// search list
+	//	for (int i = 0; i < (*targetVector_).size(); i++)
+	//	{
+	//		if ((*targetVector_)[i].firstName == activeUserPassenger.firstName && (*targetVector_)[i].lastName == activeUserPassenger.lastName)
+	//		{
+	//			(*targetVector_)[i].showSummary();
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	// show all
+	//	for (int i = 0; i < (*targetVector_).size(); i++)
+	//	{
+	//		(*targetVector_)[i].showSummary();
+	//	}
+
+	//}
+}
+void listItems(adminV_t* targetVector_, bool isSearch, string keyword_)
+{
+	loadFiles();
+	if (isSearch)
+	{
+		// search list
+	}
+	else
+	{
+		// show all
+		if ((*targetVector_).size() > 0)
+		{
+			for (int i = 0; i < (*targetVector_).size(); i++)
+			{
+				(*targetVector_)[i].showSummary();
+			}
+		}
+		else
+		{
+			cout << "No registered users." << endl;
+		}
+	}
+}
+void listItems(driverV_t* targetVector_, bool isSearch, string keyword_)
+{
+	loadFiles();
+	if (isSearch)
+	{
+		if (isSearch)
+		{
+			// search list
+		}
+		else
+		{
+			// show all
+			if ((*targetVector_).size() > 0)
+			{
+				for (int i = 0; i < (*targetVector_).size(); i++)
+				{
+					(*targetVector_)[i].showSummary();
+				}
+			}
+			else
+			{
+				cout << "No registered users." << endl;
+			}
+		}
+
+	}
+	else
+	{
+		// show all
+		if (isSearch)
+		{
+			// search list
+		}
+		else
+		{
+			// show all
+			if ((*targetVector_).size() > 0)
+			{
+				for (int i = 0; i < (*targetVector_).size(); i++)
+				{
+					(*targetVector_)[i].showSummary();
+				}
+			}
+			else
+			{
+				cout << "No registered users." << endl;
+			}
+		}
+	}
+}
+void listItems(bookingV_t* targetVector_, bool isAvailable, int searchParam)
+{
+	loadFiles();
+	if ((*targetVector_).size() == 0)
+	{
+		cout << "You have no active bookings." << endl;
+		return;
+	}
+
+	for (int i = 0; i < (*targetVector_).size(); i++)
+	{
+
+		if (searchParam == 1) // name
+		{
+			if (activeUserPassenger.firstName + " " + activeUserPassenger.lastName == (*targetVector_)[i].customerName)
+			{
+				if (isAvailable)
+				{
+					if ((*targetVector_)[i].isAvailable)
+					{
+						(*targetVector_)[i].showSummary();
+					}
+				}
+				else
+				{
+					(*targetVector_)[i].showSummary();
+				}
+			}
+		}
+
+		if (searchParam == 2) // date
+		{
+
+		}
+		if (searchParam == 0)
+		{
+			if (isAvailable)
+			{
+				if ((*targetVector_)[i].isAvailable)
+				{
+					(*targetVector_)[i].showSummary();
+				}
+			}
+			else
+			{
+				(*targetVector_)[i].showSummary();
+			}
+		}
+
+	}
+
+}
 
 // Input validation functions
 void inputValidation(int* target_)
@@ -259,16 +436,6 @@ void getLine(string* target_)
 }
 
 // file handling functions
-void loadFiles()
-{
-	loadAdminFile(&adminVector);
-	loadPassengerFile(&passengerVector);
-	loadDriverFile(&driverVector);
-
-	//showAll(&passengerVector);
-	//showAll(&driverVector);
-	//showAll(&adminVector);
-}
 void writeToFile(const s_Passenger* tempUser)
 {
 	fstream file;
@@ -395,8 +562,16 @@ void setActiveUser(const s_Admin* target_)
 	// go to admin dashboard
 }
 
+void loadFiles()
+{
+	loadAdminFile(&adminVector);
+	loadPassengerFile(&passengerVector);
+	loadDriverFile(&driverVector);
+	loadBookingFile(&bookingVector);
+}
 void loadPassengerFile(passengerV_t* passengerVector_)
 {
+	(*passengerVector_).clear();
 	string fileName = "passengers.txt"; // file to open
 	fstream file; // create an fstream object
 	Passenger tempUser; // create temp struct to store passenger data
@@ -444,6 +619,7 @@ void loadPassengerFile(passengerV_t* passengerVector_)
 }
 void loadAdminFile(adminV_t* adminVector_)
 {
+	(*adminVector_).clear();
 	string fileName = "admins.txt"; // file to open
 	fstream file; // create an fstream object
 	Admin tempUser; // create temp struct to store passenger data
@@ -485,6 +661,7 @@ void loadAdminFile(adminV_t* adminVector_)
 }
 void loadDriverFile(driverV_t* driverVector_)
 {
+	(*driverVector_).clear();
 	string fileName = "drivers.txt"; // file to open
 	fstream file; // create an fstream object
 	Driver tempUser; // create temp struct to store passenger data
@@ -533,6 +710,58 @@ void loadDriverFile(driverV_t* driverVector_)
 				if (key == "registrationNumber")	tempUser.registrationNumber = val;
 				if (key == "registrationExpiry")	tempUser.registrationExpiry = val;
 				if (key == "wofExpiry")	tempUser.wofExpiry = val;
+			}
+
+		}
+	}
+	else // if file fail to open
+	{
+		cout << "ERROR! Unable to open file " << fileName << endl;
+	}
+
+	file.close();
+}
+void loadBookingFile(bookingV_t* bookingVector_)
+{
+	(*bookingVector_).clear();
+	string fileName = "bookings.txt"; // file to open
+	fstream file; // create an fstream object
+	Booking tempBooking; // create temp struct to store passenger data
+
+	// attempt to open file with ios method of input
+	file.open(fileName, ios::in);
+
+	if (file.is_open()) // check if file successfully opened
+	{
+		string line; // create a storage for each line's value read from the file
+
+		if (file.peek() != ifstream::traits_type::eof())
+		{
+			while (getline(file, line))
+			{
+				if (line.empty() || file.peek() == EOF)
+				{
+					(*bookingVector_).push_back(tempBooking);
+					continue;
+				}
+
+				string key = line.substr(0, line.find(":"));
+				string val = line.substr(line.find(":") + 2);
+
+				if (key == "tripNumber") tempBooking.tripNumber = stoll(val);
+				if (key == "customerName")	tempBooking.customerName = val;
+				if (key == "customerMobileNumber")	tempBooking.customerMobileNumber = val;
+				if (key == "startAddress")	tempBooking.startAddress = val;
+				if (key == "endAddress")	tempBooking.endAddress = val;
+				if (key == "bookingDate")	tempBooking.bookingDate = val;
+				if (key == "bookingTime")	tempBooking.bookingTime = val;
+				if (key == "numberOfPersons")	tempBooking.numberOfPersons = stoi(val);
+				if (key == "notes")	tempBooking.notes = val;
+				if (key == "luggageType")	tempBooking.luggageType = stoi(val);
+				if (key == "cardNumber")	tempBooking.cardNumber = val;
+				if (key == "cardExpiry")	tempBooking.cardExpiry = val;
+				if (key == "isPaid")	tempBooking.isPaid = stoi(val);
+				if (key == "isAvailable")	tempBooking.isAvailable = stoi(val);
 			}
 
 		}
@@ -1346,8 +1575,6 @@ void createNewBooking()
 	tempBooking.showSummary();
 
 	// confirmation or cancel
-
-	// confirmation or cancel
 	{
 
 		int x;
@@ -1371,13 +1598,9 @@ void createNewBooking()
 			writeToFile(&tempBooking);
 			cout << "New booking successful." << endl;
 			loadFiles();
-			signInRegMenu();
-		}
-		else if (x == 2)
-		{
-			signInRegMenu();	// return to main menu
 		}
 
+		dashboard(&activeUserType);
 	}
 }
 
@@ -1409,7 +1632,6 @@ void signInForm(int userType)
 				{
 					isGood = 1;
 					cout << "User found." << endl;
-					showPassengerMembers(p);
 					setActiveUser(&p);
 					dashboard(&activeUserType);
 					break;
@@ -1466,7 +1688,6 @@ void signInForm(int userType)
 				{
 					isGood = 1;
 					cout << "User found." << endl;
-					showDriverMembers(p);
 					setActiveUser(&p);
 					dashboard(&activeUserType);
 					break;
@@ -1523,7 +1744,6 @@ void signInForm(int userType)
 				{
 					isGood = 1;
 					cout << "User found." << endl;
-					showAdminMembers(p);
 					setActiveUser(&p);
 					dashboard(&activeUserType);
 					break;

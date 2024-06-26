@@ -16,6 +16,14 @@ typedef string date_t;
 
 extern bool isSignedIn;
 
+// enum types
+enum UserType
+{
+	admin,
+	driver,
+	passenger
+};
+
 // structs
 typedef struct Passenger
 {
@@ -37,6 +45,24 @@ typedef struct Passenger
 	int cardExpiryM;
 	int cardExpiryY;
 
+	void showSummary()
+	{
+		cout << "=================================" << endl;
+		cout << "First name: " << firstName << endl;
+		cout << "Last name: " << lastName << endl;
+		cout << "Gender: " << (gender == 0 ? "male" : "female") << endl;
+		cout << "Mobile number: " << mobileNumber << endl;
+		cout << "Email: " << email << endl;
+		cout << "Address: " << address << endl;
+		cout << "Username: " << username << endl;
+		cout << "Password: " << password << endl;
+		cout << "Payment method: " << (paymentMethod == 0 ? "cash" : "card") << endl;
+		cout << "Card number: " << cardNumber << endl;
+		cout << "Card expiry month: " << cardExpiryM << endl;
+		cout << "Card expiry Year: " << cardExpiryY << endl;
+		cout << "=================================" << endl;
+	}
+
 	// default constructor
 	Passenger()
 	{
@@ -51,6 +77,16 @@ typedef struct Admin
 	string lastName;
 	string username;
 	string password;
+
+	void showSummary()
+	{
+		cout << "=================================" << endl;
+		cout << "First name: " << firstName << endl;
+		cout << "Last name: " << lastName << endl;
+		cout << "Username: " << username << endl;
+		cout << "Password: " << password << endl;
+		cout << "=================================" << endl;
+	}
 
 	// default constructor
 	Admin()
@@ -153,6 +189,50 @@ typedef struct Driver
 		age = calcTimeDifference(month, day, year, 1).tm_year - 70;
 	}
 
+	string setLicenceType()
+	{
+		if (licenceType == 0)
+		{
+			return "learner";
+		}
+		if (licenceType == 1)
+		{
+			return "restricted";
+		}
+		if (licenceType == 2)
+		{
+			return "full";
+		}
+
+		return "undefined";
+	}
+
+	void showSummary()
+	{
+		cout << "=================================" << endl;
+		cout << "First name: " << firstName << endl;
+		cout << "Last name: " << lastName << endl;
+		cout << "Username: " << username << endl;
+		cout << "Password: " << password << endl;
+		cout << "Email: " << email << endl;
+		cout << "Address: " << address << endl;
+		cout << "Date of birth: " << DOB << endl;
+		cout << "Age: " << age << " years old" << endl;
+		cout << "Gender: " << (gender == 0 ? "male" : "female") << endl;
+		cout << "Ethnicity: " << ethnicity << endl;
+		cout << "Bank account number: " << bankAccountNumber << endl;
+		cout << "Bank name: " << bankName << endl;
+		cout << "Driver licence number: " << licenceNumber << endl;
+		cout << "Driver licence type: " << setLicenceType() << endl;
+		cout << "Vehicle registration number: " << registrationNumber << endl;
+		cout << "Vehicle make and model: " << vehicleMakeModel << endl;
+		cout << "Vehicle year: " << vehicleModelYear << endl;
+		cout << "Years of driving experience: " << drivingYears << " years" << endl;
+		cout << "Edorsement number: " << endorsementNumber << endl;
+		cout << "Edorsement expiry: " << endorsementExpiry << endl;
+		cout << "WOF expiry: " << wofExpiry << endl;
+		cout << "=================================" << endl;
+	}
 	// default constructor
 	Driver()
 	{
@@ -250,6 +330,7 @@ typedef struct Booking
 
 	void showSummary()
 	{
+		cout << "=================================" << endl;
 		cout << "Trip number: " << tripNumber << endl;
 		cout << "Customer name: " << customerName << endl;
 		cout << "Mobile number: " << customerMobileNumber << endl;
@@ -259,11 +340,13 @@ typedef struct Booking
 		cout << "Time: " << bookingTime << endl;
 		cout << "Number of passengers: " << numberOfPersons << endl;
 		cout << "Notes: " << notes << endl;
-		cout << "Luggage weight: " << luggageType << endl;
+		cout << "Luggage weight: " << (luggageType == 1 ? "normal" : "heavy") << endl;
 		cout << "Card number: " << cardNumber << endl;
 		cout << "Card expiry: " << cardExpiry << endl;
-		cout << "Payment status: " << (isPaid ? "Paid" : "Pending payment") << endl;
+		cout << "Payment status: " << (isPaid ? "paid" : "pending payment") << endl;
 		cout << "Booking availability: " << (isAvailable ? "Available" : "Unavailable") << endl;
+		cout << "=================================" << endl;
+		cout << isAvailable << endl;
 	}
 
 	Booking()
@@ -293,21 +376,13 @@ typedef struct Booking
 typedef vector<Passenger> passengerV_t;
 typedef vector<Admin> adminV_t;
 typedef vector<Driver> driverV_t;
-//typedef vector<Driver> driverV_t;
-//typedef vector<Booking> bookingV_t;
-
-// enum types
-enum UserType
-{
-	admin,
-	driver,
-	passenger
-};
+typedef vector<Booking> bookingV_t;
 
 // create data container vectors
 extern passengerV_t passengerVector;
 extern adminV_t adminVector;
 extern driverV_t driverVector;
+extern bookingV_t bookingVector;
 
 extern s_Driver activeUserDriver;
 extern s_Admin activeUserAdmin;
@@ -330,10 +405,18 @@ time_t now();
 void showPassengerMembers(const s_Passenger& target_);
 void showAdminMembers(const s_Admin& target_);
 void showDriverMembers(const s_Driver& target_);
+static void showBookingMembers(const s_Booking& target_);
 void showAll(const adminV_t* targetVector_);
 void showAll(const passengerV_t* targetVector_);
 void showAll(const driverV_t* targetVector_);
+void showAll(const bookingV_t* targetVector_);
 //void showAll(const bookingV_t* targetVector_);
+
+// print reports / search
+void listItems(passengerV_t* targetVector_, bool isSearch = 0, string keyword_ = "");
+void listItems(adminV_t* targetVector_, bool isSearch = 0, string keyword_ = "");
+void listItems(driverV_t* targetVector_, bool isSearch = 0, string keyword_ = "");
+void listItems(bookingV_t* targetVector_, bool isAvailable = 0, int searchParam = 0);
 
 // input validatidation functions
 void inputValidation(int* target_);
@@ -352,6 +435,7 @@ void setActiveUser(const s_Admin* target_);
 void loadPassengerFile(passengerV_t* passengerVector_);
 void loadAdminFile(adminV_t* adminVector);
 void loadDriverFile(driverV_t* driverVector_);
+void loadBookingFile(bookingV_t* bookingVector_);
 
 // user registration functions
 void registerNewPassenger();
