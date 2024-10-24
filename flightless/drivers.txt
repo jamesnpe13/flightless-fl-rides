@@ -21,3 +21,26 @@ registrationNumber: KWD125
 registrationExpiry: 26-09-2025
 wofExpiry: 09-05-2026
 
+firstName: Mike
+lastName: Tyson
+username: mike
+password: tyson
+gender: 1
+address: 12 A Kakariki, Auckland
+mobileNumber: 021666666
+email: miket@gmail.com
+DOB: 26-09-1995
+age: 28
+ethnicity: American
+bankAccountNumber: Westpac
+bankName: 12-1234-1234567-123
+licenceType: 2
+drivingYears: 8
+licenceNumber: as123456
+licenceExpiry: 26-09-2026
+vehicleMakeModel: Toyota Camry
+vehicleModelYear: 2020
+registrationNumber: KWD125
+registrationExpiry: 15-06-2026
+wofExpiry: 15-06-2026
+

@@ -26,5 +26,65 @@ luggageType: 1
 cardNumber: 1234-1234-1234-1234
 cardExpiry: 26/26
 isPaid: 1
+isAvailable: 0
+
+tripNumber: 477370933003
+customerName: Test Passenger
+customerMobileNumber: 0219611112
+startAddress: Mangere Town Center
+endAddress: Auckland CBD
+bookingDate: 27/6/2024
+bookingTime: 8:15
+numberOfPersons: 3
+notes: none
+luggageType: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiry: 26/26
+isPaid: 1
+isAvailable: 0
+
+tripNumber: 279521785981
+customerName: Test Passenger
+customerMobileNumber: 0219611112
+startAddress: Vause street, Ellerslie
+endAddress: Manukau City Center
+bookingDate: 27/6/2024
+bookingTime: 8:17
+numberOfPersons: 1
+notes: Wheelchair ramp
+luggageType: 2
+cardNumber: 1234-1234-1234-1234
+cardExpiry: 26/26
+isPaid: 1
 isAvailable: 1
+
+tripNumber: 31219653944
+customerName: Test2 Passenger2
+customerMobileNumber: 1235678
+startAddress: Hurst street, Auckland
+endAddress: Remuera, Auckland
+bookingDate: 27/6/2024
+bookingTime: 8:21
+numberOfPersons: 4
+notes: Car seat for baby
+luggageType: 2
+cardNumber: N/A
+cardExpiry: N/A
+isPaid: 0
+isAvailable: 1
+
+tripNumber: 822373764750
+customerName: John Doe
+customerMobileNumber: 021555555
+startAddress: 2 City Road, Auckland
+endAddress: Auckland CBD
+bookingDate: 27/6/2024
+bookingTime: 9:55
+numberOfPersons: 3
+notes: Need baby seat
+luggageType: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiry: 4/26
+isPaid: 1
+isAvailable: 0
 

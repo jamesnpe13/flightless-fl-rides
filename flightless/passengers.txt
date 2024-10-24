@@ -24,3 +24,42 @@ cardNumber: 1234-1234-1234-1234
 cardExpiryM: 26
 cardExpiryY: 26
 
+firstName: Test
+lastName: Passenger
+gender: 0
+mobileNumber: 0219611112
+address: 12A Kakariki Avenue, Mount Eden
+email: test@gmail.com
+username: test
+password: passenger
+paymentMethod: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiryM: 26
+cardExpiryY: 26
+
+firstName: Test2
+lastName: Passenger2
+gender: 1
+mobileNumber: 1235678
+address: Hurst Street, Auckland
+email: test2@gmail.com
+username: test2
+password: passenger2
+paymentMethod: 0
+cardNumber: 
+cardExpiryM: 0
+cardExpiryY: 0
+
+firstName: John
+lastName: Doe
+gender: 0
+mobileNumber: 021555555
+address: 12 Peek Street, Auckland
+email: john@gmail.com
+username: john
+password: doe
+paymentMethod: 1
+cardNumber: 1234-1234-1234-1234
+cardExpiryM: 4
+cardExpiryY: 26
+
